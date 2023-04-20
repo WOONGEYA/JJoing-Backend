@@ -4,6 +4,9 @@ spring:
     url : ${URL}
     username: ${USER}
     password: ${PASSWORD}
+  redis:
+    host: localhost
+    port: 6379
 
   logging:
     level:
@@ -19,6 +22,9 @@ spring:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_SECRET_KEY}
             redirect-uri: ${GOOGLE_REDIRECT_URL}
+            scope:
+              - profile
+              - email
 
   jpa:
     database: mysql
