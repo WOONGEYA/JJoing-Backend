@@ -1,1 +1,40 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url : ${URL}
+    username: ${USER}
+    password: ${PASSWORD}
 
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: debug
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_SECRET_KEY}
+            redirect-uri: ${GOOGLE_REDIRECT_URL}
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+auth:
+  jwt:
+    header: {HEADER}
+    secret: {SECRET}
+    accessExp: {ACCESS-EXP}
+    refreshExp: {REFRESH-EXP}
+    prefix: {PREFIX}
