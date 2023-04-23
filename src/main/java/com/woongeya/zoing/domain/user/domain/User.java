@@ -18,11 +18,11 @@ public class User {
     @Column(length = 16)
     private String name;
 
+    @Column(length = 16)
+    private String nickName;
+
     @Column(unique = true, length = 32)
     private String email;
-
-    @Column(length = 16)
-    private String password;
 
     @Column(length = 32)
     private String school;
@@ -38,11 +38,11 @@ public class User {
     private Authority authority;
 
     @Builder
-    public User(Long id, String name, String email, String password, String school, int age, String major, Authority authority) {
+    public User(Long id, String name, String nickName, String email, String school, int age, String major, Authority authority) {
         this.id = id;
         this.name = name;
+        this.nickName = nickName;
         this.email = email;
-        this.password = password;
         this.school = school;
         this.age = age;
         this.major = major;
