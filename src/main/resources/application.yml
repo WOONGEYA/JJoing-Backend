@@ -39,8 +39,8 @@ spring:
 
 auth:
   jwt:
-    header: {HEADER}
-    secret: {SECRET}
-    accessExp: {ACCESS-EXP}
-    refreshExp: {REFRESH-EXP}
-    prefix: {PREFIX}
+    header: ${HEADER}
+    secret: ${SECRET}
+    accessExp: ${ACCESS-EXP}
+    refreshExp: ${REFRESH-EXP}
+    prefix: ${PREFIX}

@@ -1,6 +1,7 @@
 package com.woongeya.zoing.domain.user.domain;
 
 import com.woongeya.zoing.domain.user.domain.autority.Authority;
+import com.woongeya.zoing.global.oauth.OAuthAttributes;
 import lombok.*;
 
 import javax.persistence.*;
@@ -47,5 +48,12 @@ public class User {
         this.age = age;
         this.major = major;
         this.authority = authority;
+    }
+
+    public User update(OAuthAttributes oAuthAttributes) {
+        this.email = oAuthAttributes.getEmail();
+        this.name = oAuthAttributes.getName();
+        this.nickName = oAuthAttributes.getName();
+        return this;
     }
 }

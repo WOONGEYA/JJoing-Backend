@@ -39,11 +39,6 @@ public class SecurityConfig {
                 .antMatchers("/user/**").permitAll()
                 .anyRequest().permitAll();
 
-        http
-                .oauth2Login()
-                .userInfoEndpoint()
-                .userService(customOauth2UserService);
-
         return http.build();
     }
 }
