@@ -11,7 +11,10 @@ public enum ErrorCode {
 
     EXPIRED_JWT(403, "TOKEN-403-1", "Expired Jwt"),
     INVALID_JWT(403, "TOKEN-403-2", "Invalid Jwt"),
-    FAILED_AUTHENTICATION(401, "AUTHENTICATION-401-1", "Failed_Authentication"),
+    FAILED_AUTHENTICATION(401, "AUTHENTICATION-401-1", "Failed Authentication"),
+    USER_NOT_FOUND(404, "USER-404-1", "User Not Found"),
+
+    INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
     ;
 
     private final int status;
