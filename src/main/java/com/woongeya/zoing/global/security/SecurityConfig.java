@@ -1,6 +1,8 @@
 package com.woongeya.zoing.global.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.woongeya.zoing.global.jwt.auth.JwtAuth;
+import com.woongeya.zoing.global.jwt.util.JwtUtil;
 import com.woongeya.zoing.global.oauth.CustomOauth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -10,14 +12,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsUtils;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final ObjectMapper objectMapper;
-    private final CustomOauth2UserService customOauth2UserService;
+    private final JwtUtil jwtUtil;
+    private final JwtAuth jwtAuth;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -37,7 +40,10 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/user/**").permitAll()
-                .anyRequest().permitAll();
+                .anyRequest().permitAll()
+                .and()
+                .apply(new FilterConfig(jwtUtil, jwtAuth));
+        ;
 
         return http.build();
     }
