@@ -7,6 +7,7 @@ import com.woongeya.zoing.global.jwt.dto.TokenResponseDto;
 import com.woongeya.zoing.global.jwt.util.JwtProvider;
 import com.woongeya.zoing.global.oauth.OAuthAttributes;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -27,6 +28,7 @@ public class OAuth2GithubService {
 
     private final String GITHUB_TOKEN_REQUEST_URL = "https://github.com/login/oauth/access_token";
     private final String GITHUB_USERINFO_REQUEST_URL = "https://api.github.com/user";
+    private final String GITHUB_EMAIL_REQUEST_URL = "https://api.github.com/user/emails";
     @Value("${spring.security.oauth2.client.registration.github.client-id}")
     private String githubClientId;
     @Value("${spring.security.oauth2.client.registration.github.client-secret}")
@@ -39,10 +41,12 @@ public class OAuth2GithubService {
 
     public TokenResponseDto getJwtToken(String code) {
         String googleToken = getGithubToken(code);
-        OAuthAttributes oAuthAttributes = getOAuthAttributesByGithubToken(googleToken);
+        String email = getEmailByGithubToken(googleToken);
+        OAuthAttributes oAuthAttributes = getOAuthAttributesByGithubToken(googleToken, email);
         User user = oAuth2LoginService.saveOrUpdate(oAuthAttributes);
         return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString());
     }
+
 
     public String getGithubToken(String code) {
 
@@ -66,8 +70,18 @@ public class OAuth2GithubService {
 
         return accessToken.get("access_token").asText();
     }
+    private String getEmailByGithubToken(String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("Authorization", "Bearer " + token);
 
-    public OAuthAttributes getOAuthAttributesByGithubToken(String token) {
+        HttpEntity entity = new HttpEntity(headers);
+        Map<String, Object> json = getJson(entity, GITHUB_EMAIL_REQUEST_URL);
+        System.out.println(json.get("email").toString());
+        return json.get("email").toString();
+    }
+
+    public OAuthAttributes getOAuthAttributesByGithubToken(String token, String email) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -75,21 +89,33 @@ public class OAuth2GithubService {
 
         // github토큰을 header에 담아서 유저 정보 요청
         HttpEntity entity = new HttpEntity(headers);
-        Map<String, Object> attributes = getJson(entity);
+        Map<String, Object> attributes = getJson(entity, GITHUB_USERINFO_REQUEST_URL);
+        attributes.put("email", email);
 
         return OAuthAttributes.create("github", attributes);
     }
 
-    private Map<String, Object> getJson(HttpEntity entity) {
+    private Map<String, Object> getJson(HttpEntity entity, String url) {
         try {
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> response = restTemplate.exchange(GITHUB_USERINFO_REQUEST_URL, HttpMethod.GET, entity, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
             String body = response.getBody();
+            System.out.println(body);
             JSONParser jsonParser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(body);
-            return (Map<String, Object>) jsonObject;
+            Object parsedObject = jsonParser.parse(body);
+
+            if (parsedObject instanceof JSONArray) {
+                JSONArray jsonArray = (JSONArray) parsedObject;
+                JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+                return (Map<String, Object>) jsonObject;
+            } else if (parsedObject instanceof JSONObject) {
+                return (Map<String, Object>) parsedObject;
+            } else {
+                throw new ParseException(ParseException.ERROR_UNEXPECTED_TOKEN);
+            }
         } catch (ParseException e) {
             throw AuthenticationException.EXCEPTION;
         }
     }
+
 }

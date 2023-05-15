@@ -55,7 +55,7 @@ public class OAuthAttributes implements OAuth2User {
         return OAuthAttributes.builder()
                 .registrationId(registrationId)
                 .name((String) attributes.get("name"))
-                .email((String) attributes.get("user:email"))
+                .email((String) attributes.get("email"))
                 .picture((String) attributes.get("picture"))
                 .attributes(attributes)
                 .build();
