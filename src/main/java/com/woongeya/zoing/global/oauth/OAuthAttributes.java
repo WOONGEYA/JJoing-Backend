@@ -35,8 +35,20 @@ public class OAuthAttributes implements OAuth2User {
         if (registrationId.equalsIgnoreCase("google")) {
             return ofGoogle(registrationId, attributes);
         }
+        if (registrationId.equalsIgnoreCase("github")) {
+            return ofGithub(registrationId, attributes);
+        }
 
-        throw new IllegalStateException("인증에 실패 했습니다.");
+        throw new IllegalStateException("Failed Authentication");
+    }
+
+    private static OAuthAttributes ofGithub(String registrationId, Map<String, Object> attributes) {
+        return OAuthAttributes.builder()
+                .registrationId(registrationId)
+                .name((String)attributes.get("name"))
+                .email((String) attributes.get("email"))
+                .attributes(attributes)
+                .build();
     }
 
     private static OAuthAttributes ofGoogle(String registrationId, Map<String, Object> attributes) {

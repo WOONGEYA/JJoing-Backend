@@ -21,6 +21,7 @@ public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
     private final JwtAuth jwtAuth;
+    private final CustomOauth2UserService customOauth2UserService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -43,7 +44,7 @@ public class SecurityConfig {
                 .antMatchers("/user/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
-                .apply(new FilterConfig(jwtUtil, jwtAuth));
+                .apply(new FilterConfig(jwtUtil, jwtAuth))
         ;
 
         return http.build();
