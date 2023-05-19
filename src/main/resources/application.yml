@@ -13,7 +13,6 @@ spring:
       org:
         hibernate:
           SQL: debug
-
   security:
     oauth2:
       client:
@@ -50,3 +49,8 @@ auth:
     accessExp: ${ACCESS-EXP}
     refreshExp: ${REFRESH-EXP}
     prefix: ${PREFIX}
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
