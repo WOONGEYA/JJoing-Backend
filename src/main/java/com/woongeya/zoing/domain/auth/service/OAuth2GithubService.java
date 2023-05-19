@@ -77,7 +77,6 @@ public class OAuth2GithubService {
 
         HttpEntity entity = new HttpEntity(headers);
         Map<String, Object> json = getJson(entity, GITHUB_EMAIL_REQUEST_URL);
-        System.out.println(json.get("email").toString());
         return json.get("email").toString();
     }
 
@@ -100,7 +99,6 @@ public class OAuth2GithubService {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
             String body = response.getBody();
-            System.out.println(body);
             JSONParser jsonParser = new JSONParser();
             Object parsedObject = jsonParser.parse(body);
 

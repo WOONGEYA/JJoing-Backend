@@ -20,7 +20,6 @@ public class UserLogoutService {
     @Transactional
     public String execute(String refreshToken) {
         String email = jwtUtil.getJws(jwtUtil.parseToken(refreshToken)).getBody().get(JwtConstants.AUTH_ID.message).toString();
-        System.out.println(email);
         refreshTokenRepository.findById(email).ifPresent(refreshTokenRepository::delete);
 
         return email;

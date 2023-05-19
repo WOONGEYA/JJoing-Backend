@@ -1,6 +1,7 @@
 package com.woongeya.zoing.domain.user.domain;
 
 import com.woongeya.zoing.domain.user.domain.autority.Authority;
+import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequestDto;
 import com.woongeya.zoing.global.oauth.OAuthAttributes;
 import lombok.*;
 
@@ -39,8 +40,7 @@ public class User {
     private Authority authority;
 
     @Builder
-    public User(Long id, String name, String nickName, String email, String school, int age, String major, Authority authority) {
-        this.id = id;
+    public User(String name, String nickName, String email, String school, int age, String major, Authority authority) {
         this.name = name;
         this.nickName = nickName;
         this.email = email;
@@ -55,5 +55,14 @@ public class User {
         this.name = oAuthAttributes.getName();
         this.nickName = oAuthAttributes.getName();
         return this;
+    }
+
+    public void updateInfo(UpdateUserRequestDto request) {
+        this.name = request.getName();
+        this.nickName = request.getNickname();
+        this.school = request.getSchool();
+        this.age = request.getAge();
+        this.major = request.getMajor();
+        System.out.println(this.major);
     }
 }
