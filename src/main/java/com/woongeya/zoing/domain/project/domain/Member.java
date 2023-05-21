@@ -1,6 +1,6 @@
 package com.woongeya.zoing.domain.project.domain;
 
-import com.woongeya.zoing.domain.project.type.MemberType;
+import com.woongeya.zoing.domain.project.domain.type.MemberType;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,7 +18,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "menber_id")
+    @Column(name = "member_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -33,7 +33,8 @@ public class Member {
     private Project project;
 
     @Builder
-    public Member(User user, Project project) {
+    public Member(MemberType role, User user, Project project) {
+        this.role = role;
         this.user = user;
         this.project = project;
     }
