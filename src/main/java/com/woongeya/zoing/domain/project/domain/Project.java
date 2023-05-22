@@ -51,4 +51,8 @@ public class Project {
         this.writer = writer;
         this.members = members;
     }
+
+    public void changeState() {
+        this.state = State.END;
+    }
 }
