@@ -18,7 +18,6 @@ public class FilterConfig extends SecurityConfigurerAdapter<DefaultSecurityFilte
     @Override
     public void configure(HttpSecurity builder) throws Exception {
         JwtFilter jwtFilter = new JwtFilter(jwtUtil, jwtAuth);
-
         builder.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
