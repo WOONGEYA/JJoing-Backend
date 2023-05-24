@@ -53,6 +53,6 @@ public class Project {
     }
 
     public void changeState() {
-        this.state = State.END;
+        this.state = State.FOUND;
     }
 }

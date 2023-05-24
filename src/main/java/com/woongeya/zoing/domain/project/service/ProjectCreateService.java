@@ -28,14 +28,14 @@ public class ProjectCreateService {
         Project project = projectRepository.save(Project.builder()
                 .name(request.getName())
                 .content(request.getContent())
-                .state(State.RECRUIT)
+                .state(State.FINDING)
                 .writer(user.getName())
                 .build());
 
         memberRepository.save(Member.builder()
                 .user(user)
                 .project(project)
-                .role(MemberType.ADMIN)
+                .role(MemberType.PROJECT_ADMIN)
                 .build());
     }
 }
