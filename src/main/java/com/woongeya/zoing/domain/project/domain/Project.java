@@ -2,6 +2,7 @@ package com.woongeya.zoing.domain.project.domain;
 
 
 import com.woongeya.zoing.domain.project.domain.type.State;
+import com.woongeya.zoing.domain.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -33,26 +35,27 @@ public class Project {
     @Enumerated(EnumType.STRING)
     private State state;
 
-    @Column(length = 32)
-    private String writer;
-
     @CreatedDate
     private LocalDate createDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Member> members = new ArrayList<>();
+    @ManyToOne(fetch =  FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User writer;
 
     @Builder
-
-    public Project(String name, String content, State state, String writer, List<Member> members) {
+    public Project(String name, String content, State state, LocalDate createDate, User writer) {
         this.name = name;
         this.content = content;
         this.state = state;
+        this.createDate = createDate;
         this.writer = writer;
-        this.members = members;
     }
 
     public void changeState() {
         this.state = State.FOUND;
+    }
+
+    public boolean isWriter(Long userId) {
+        return Objects.equals(this.writer.getId(), userId);
     }
 }
