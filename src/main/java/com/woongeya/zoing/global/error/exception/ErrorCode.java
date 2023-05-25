@@ -14,6 +14,7 @@ public enum ErrorCode {
     FAILED_AUTHENTICATION(401, "AUTHENTICATION-401-1", "Failed Authentication"),
     USER_NOT_FOUND(404, "USER-404-1", "User Not Found"),
     PROJECT_NOT_FOUND(404, "PROJECT-404-1", "Project Not Found"),
+    IS_NOT_WRITER(403, "PROJECT-403-1", "Is Not Writer"),
 
     INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
     ;

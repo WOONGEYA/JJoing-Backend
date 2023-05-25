@@ -23,13 +23,11 @@ public class ProjectController {
     }
 
     @PutMapping("/close/{id}")
-    @PreAuthorize("hasRole('PROJECT_ADMIN')")
     public void closeProject(@PathVariable Long id) {
         projectCloseService.execute(id);
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('PROJECT_ADMIN')")
     public void deleteProject(@PathVariable Long id) {
         projectDeleteService.execute(id);
     }

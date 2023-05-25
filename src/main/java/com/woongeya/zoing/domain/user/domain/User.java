@@ -1,6 +1,6 @@
 package com.woongeya.zoing.domain.user.domain;
 
-import com.woongeya.zoing.domain.project.domain.Member;
+import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.user.domain.autority.Authority;
 import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequestDto;
 import com.woongeya.zoing.global.oauth.OAuthAttributes;
@@ -42,8 +42,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Member> members = new ArrayList<>();
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
+    private List<Project> projects = new ArrayList<>();
 
     @Builder
     public User(String name, String nickName, String email, String school, int age, String major, Authority authority) {
