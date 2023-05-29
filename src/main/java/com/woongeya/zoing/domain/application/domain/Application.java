@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.application.domain;
 
+import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.AccessLevel;
@@ -8,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+import java.util.Objects;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -23,6 +26,10 @@ public class Application {
     @Column(length = 128)
     private String introduce;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ApplicationState state;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -32,9 +39,18 @@ public class Application {
     private Project project;
 
     @Builder
-    public Application(String introduce, User user, Project project) {
+    public Application(String introduce, ApplicationState state, User user, Project project) {
         this.introduce = introduce;
+        this.state = state;
         this.user = user;
         this.project = project;
+    }
+
+    public boolean isWriter(Long id) {
+        return Objects.equals(user.getId(), id);
+    }
+
+    public void cancel() {
+        this.state = ApplicationState.CANCEL;
     }
 }

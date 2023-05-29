@@ -1,6 +1,7 @@
 package com.woongeya.zoing.domain.application.service;
 
 import com.woongeya.zoing.domain.application.domain.Application;
+import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
 import com.woongeya.zoing.domain.project.ProjectFacade;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.application.presetation.dto.request.ApplicationCreateRequest;
@@ -27,6 +28,7 @@ public class ApplicationCreateService {
                 .user(user)
                 .project(project)
                 .introduce(request.getIntroduce())
+                .state(ApplicationState.PENDING)
                 .build();
     }
 }
