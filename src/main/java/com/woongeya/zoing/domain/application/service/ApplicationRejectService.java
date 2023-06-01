@@ -2,8 +2,6 @@ package com.woongeya.zoing.domain.application.service;
 
 import com.woongeya.zoing.domain.application.ApplicationFacade;
 import com.woongeya.zoing.domain.application.domain.Application;
-import com.woongeya.zoing.domain.project.ProjectFacade;
-import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
@@ -25,9 +23,8 @@ public class ApplicationRejectService {
         Application application = applicationFacade.getApplication(id);
 
         if(!application.isProjectWriter(user.getId())) {
-            application.reject();
-        } else {
             throw new IsNotWriterException();
         }
+        application.reject();
     }
 }
