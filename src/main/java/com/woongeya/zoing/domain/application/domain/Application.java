@@ -53,4 +53,8 @@ public class Application {
     public void cancel() {
         this.state = ApplicationState.CANCEL;
     }
+
+    public void reject() { this.state = ApplicationState.REJECT; }
+
+    public boolean isProjectWriter(Long id) { return Objects.equals(this.project.getWriter(), id); }
 }
