@@ -22,7 +22,7 @@ public class ApplicationRejectService {
         User user = userFacade.getCurrentUser();
         Application application = applicationFacade.getApplication(id);
 
-        if(!application.isProjectWriter(user.getId())) {
+        if(!application.isProjectWriter(user)) {
             throw new IsNotWriterException();
         }
         application.reject();

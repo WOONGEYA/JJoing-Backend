@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ApplicationCreateService {
 
-    private final ProjectFacade projectFacade;
     private final UserFacade userFacade;
+    private final ProjectFacade projectFacade;
     private final ApplicationRepository applicationRepository;
 
     @Transactional

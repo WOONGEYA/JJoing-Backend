@@ -56,6 +56,6 @@ public class Application {
 
     public void reject() { this.state = ApplicationState.REJECT; }
 
-    public boolean isProjectWriter(Long id) {
-        return Objects.equals(this.project.getWriter().getId(), id); }
+    public boolean isProjectWriter(User user) {
+        return Objects.equals(this.user, user); }
 }
