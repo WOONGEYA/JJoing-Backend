@@ -1,6 +1,7 @@
 package com.woongeya.zoing.domain.application.service;
 
 import com.woongeya.zoing.domain.application.domain.Application;
+import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
 import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
 import com.woongeya.zoing.domain.project.ProjectFacade;
 import com.woongeya.zoing.domain.project.domain.Project;
@@ -15,8 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ApplicationCreateService {
 
-    private final ProjectFacade projectFacade;
     private final UserFacade userFacade;
+    private final ProjectFacade projectFacade;
+    private final ApplicationRepository applicationRepository;
 
     @Transactional
     public void execute(ApplicationCreateRequest request, Long id) {
@@ -24,11 +26,11 @@ public class ApplicationCreateService {
         User user = userFacade.getCurrentUser();
         Project project = projectFacade.getProject(id);
 
-        Application.builder()
+        applicationRepository.save(Application.builder()
                 .user(user)
                 .project(project)
                 .introduce(request.getIntroduce())
                 .state(ApplicationState.PENDING)
-                .build();
+                .build());
     }
 }
