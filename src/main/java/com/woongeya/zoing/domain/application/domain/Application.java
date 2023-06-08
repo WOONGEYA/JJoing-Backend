@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 import java.util.Objects;
 
 import static javax.persistence.FetchType.LAZY;
@@ -57,5 +56,6 @@ public class Application {
     public void reject() { this.state = ApplicationState.REJECT; }
 
     public boolean isProjectWriter(User user) {
-        return Objects.equals(this.user, user); }
+        return Objects.equals(this.project.getWriter().getId(), user.getId());
+    }
 }
