@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.application.domain;
 
+import com.woongeya.zoing.domain.application.domain.type.ApplicationJobPosition;
 import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.user.domain.User;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 
 import java.util.Objects;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -30,6 +32,10 @@ public class Application {
     @Column(nullable = false)
     private ApplicationState state;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ApplicationJobPosition position;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -39,9 +45,10 @@ public class Application {
     private Project project;
 
     @Builder
-    public Application(String introduce, ApplicationState state, User user, Project project) {
+    public Application(String introduce, ApplicationState state, ApplicationJobPosition position, User user, Project project) {
         this.introduce = introduce;
         this.state = state;
+        this.position = position;
         this.user = user;
         this.project = project;
     }

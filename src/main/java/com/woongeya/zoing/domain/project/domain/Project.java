@@ -56,4 +56,9 @@ public class Project {
     public boolean isWriter(Long userId) {
         return Objects.equals(this.writer.getId(), userId);
     }
+
+    @PrePersist
+    public void createAt() {
+        this.createDate = LocalDate.now();
+    }
 }

@@ -31,6 +31,7 @@ public class ApplicationCreateService {
                 .project(project)
                 .introduce(request.getIntroduce())
                 .state(ApplicationState.PENDING)
+                .position(request.getPosition())
                 .build());
     }
 }
