@@ -9,22 +9,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@RequiredArgsConstructor
 @Service
-public class ApplicationCancelService {
+@RequiredArgsConstructor
+public class RejectApplicationService {
 
     private final UserFacade userFacade;
     private final ApplicationFacade applicationFacade;
 
     @Transactional
     public void execute(Long id) {
-        Application application = applicationFacade.getApplication(id);
-        User user = userFacade.getCurrentUser();
 
-        if(!application.isWriter(user.getId())) {
+        User user = userFacade.getCurrentUser();
+        Application application = applicationFacade.getApplication(id);
+
+        if(!application.isProjectWriter(user)) {
             throw new IsNotWriterException();
         }
-
-        application.cancel();
+        application.reject();
     }
 }

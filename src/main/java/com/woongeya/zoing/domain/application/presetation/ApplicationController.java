@@ -1,9 +1,9 @@
 package com.woongeya.zoing.domain.application.presetation;
 
 import com.woongeya.zoing.domain.application.presetation.dto.request.ApplicationCreateRequest;
-import com.woongeya.zoing.domain.application.service.ApplicationCancelService;
-import com.woongeya.zoing.domain.application.service.ApplicationCreateService;
-import com.woongeya.zoing.domain.application.service.ApplicationRejectService;
+import com.woongeya.zoing.domain.application.service.CancelApplicationService;
+import com.woongeya.zoing.domain.application.service.CreateApplicationService;
+import com.woongeya.zoing.domain.application.service.RejectApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,20 +14,20 @@ import javax.validation.Valid;
 @RequestMapping("/application")
 public class ApplicationController {
 
-    private final ApplicationCreateService applicationCreateService;
-    private final ApplicationCancelService applicationCancelService;
-    private final ApplicationRejectService applicationRejectService;
+    private final CreateApplicationService createApplicationService;
+    private final CancelApplicationService cancelApplicationService;
+    private final RejectApplicationService rejectApplicationService;
 
     @PostMapping("/{id}")
     public void createApplication(@RequestBody @Valid ApplicationCreateRequest request, @PathVariable Long id) {
-        applicationCreateService.execute(request, id);
+        createApplicationService.execute(request, id);
     }
 
     @PutMapping("/{id}/cancel")
     public void cancelApplication(@PathVariable Long id) {
-        applicationCancelService.execute(id);
+        cancelApplicationService.execute(id);
     }
 
     @PutMapping("/{id}/reject")
-    public void rejectApplication(@PathVariable Long id) { applicationRejectService.execute(id); }
+    public void rejectApplication(@PathVariable Long id) { rejectApplicationService.execute(id); }
 }
