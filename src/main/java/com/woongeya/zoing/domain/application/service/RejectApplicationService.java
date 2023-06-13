@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class ApplicationRejectService {
+public class RejectApplicationService {
 
     private final UserFacade userFacade;
     private final ApplicationFacade applicationFacade;

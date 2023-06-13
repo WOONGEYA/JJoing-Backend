@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class ProjectCloseService {
+public class CloseProjectService {
 
     private final ProjectFacade projectFacade;
     private final UserFacade userFacade;

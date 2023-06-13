@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.project.presetation.dto.request;
 
+import com.woongeya.zoing.domain.project.domain.Position;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,6 @@ public class CreateProjectRequestDto {
 
     @NotNull
     private String content;
+
+    private Position position;
 }

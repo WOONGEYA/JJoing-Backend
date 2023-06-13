@@ -1,8 +1,7 @@
-package com.woongeya.zoing.domain.project.service;
+package com.woongeya.zoing.domain.application.service;
 
-import com.woongeya.zoing.domain.project.ProjectFacade;
-import com.woongeya.zoing.domain.project.domain.Project;
-import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
+import com.woongeya.zoing.domain.application.ApplicationFacade;
+import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
@@ -10,23 +9,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
-public class ProjectDeleteService {
+@Service
+public class CancelApplicationService {
 
-    private final ProjectFacade projectFacade;
-    private final ProjectRepository projectRepository;
     private final UserFacade userFacade;
+    private final ApplicationFacade applicationFacade;
 
     @Transactional
     public void execute(Long id) {
+        Application application = applicationFacade.getApplication(id);
         User user = userFacade.getCurrentUser();
-        Project project = projectFacade.getProject(id);
 
-        if (!project.isWriter(user.getId())) {
+        if(!application.isWriter(user.getId())) {
             throw new IsNotWriterException();
         }
 
-        projectRepository.delete(project);
+        application.cancel();
     }
 }

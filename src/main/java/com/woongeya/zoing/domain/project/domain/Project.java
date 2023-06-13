@@ -36,16 +36,20 @@ public class Project {
     @CreatedDate
     private LocalDate createDate;
 
+    @Embedded
+    private Position position;
+
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User writer;
 
     @Builder
-    public Project(String name, String content, ProjectState state, LocalDate createDate, User writer) {
+    public Project(String name, String content, ProjectState state, LocalDate createDate, Position position, User writer) {
         this.name = name;
         this.content = content;
         this.state = state;
         this.createDate = createDate;
+        this.position = position;
         this.writer = writer;
     }
 
