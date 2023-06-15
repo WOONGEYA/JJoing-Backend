@@ -24,12 +24,6 @@ spring:
             scope:
               - profile
               - email
-          github:
-            client-id: ${GITHUB_CLIENT_ID}
-            client-secret: ${GITHUB_SECRET_KEY}
-            redirect-uri: ${GITHUB_REDIRECT_URL}
-            scope:
-              - user:email
 
   jpa:
     database: mysql
