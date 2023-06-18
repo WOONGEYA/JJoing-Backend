@@ -61,7 +61,7 @@ public class OAuth2GoogleService {
     }
 
 
-    public String getGoogleToken(String code) {
+    private String getGoogleToken(String code) {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
@@ -83,7 +83,7 @@ public class OAuth2GoogleService {
         return accessToken.get("access_token").asText();
     }
 
-    public OAuthAttributes getOAuthAttributesByGoogleToken(String token) {
+    private OAuthAttributes getOAuthAttributesByGoogleToken(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.add("Authorization", "Bearer " + token);
