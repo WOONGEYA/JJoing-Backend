@@ -56,10 +56,11 @@ public class User {
         this.authority = authority;
     }
 
-    public User update(OAuthAttributes oAuthAttributes) {
+    public User update(OAuthAttributes oAuthAttributes, String school) {
         this.email = oAuthAttributes.getEmail();
         this.name = oAuthAttributes.getName();
         this.nickName = oAuthAttributes.getName();
+        this.school = school;
         return this;
     }
 
