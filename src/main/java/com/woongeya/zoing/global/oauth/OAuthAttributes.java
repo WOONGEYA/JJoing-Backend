@@ -1,7 +1,5 @@
 package com.woongeya.zoing.global.oauth;
 
-import com.woongeya.zoing.domain.user.domain.User;
-import com.woongeya.zoing.domain.user.domain.autority.Authority;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

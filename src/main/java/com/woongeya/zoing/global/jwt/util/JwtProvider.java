@@ -2,7 +2,6 @@ package com.woongeya.zoing.global.jwt.util;
 
 import com.woongeya.zoing.domain.auth.domain.RefreshToken;
 import com.woongeya.zoing.domain.auth.domain.repository.RefreshTokenRepository;
-import com.woongeya.zoing.domain.user.domain.User;
 import com.woongeya.zoing.global.jwt.config.JwtProperties;
 import com.woongeya.zoing.global.jwt.dto.TokenResponseDto;
 import io.jsonwebtoken.Jwts;

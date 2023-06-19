@@ -5,7 +5,6 @@ import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequestD
 import com.woongeya.zoing.domain.user.service.UserLogoutService;
 import com.woongeya.zoing.domain.user.service.UserUpdateService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
