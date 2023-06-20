@@ -2,7 +2,6 @@ package com.woongeya.zoing.domain.application.domain;
 
 import com.woongeya.zoing.domain.application.domain.type.ApplicationJobPosition;
 import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
-import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,8 +10,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
@@ -34,25 +31,24 @@ public class Application {
     @Column(nullable = false)
     private ApplicationJobPosition position;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Long userId;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "project_id")
-    private Project project;
+    private Long projectId;
+
+    private Long projectWriterId;
 
     @Builder
-    public Application(String introduce, ApplicationState state, ApplicationJobPosition position, User user, Project project) {
+    public Application(String introduce, ApplicationState state, ApplicationJobPosition position, Long userId, Long projectId, Long projectWriterId) {
         this.introduce = introduce;
         this.state = state;
         this.position = position;
-        this.user = user;
-        this.project = project;
+        this.userId = userId;
+        this.projectId = projectId;
+        this.projectWriterId = projectWriterId;
     }
 
-    public boolean isWriter(Long id) {
-        return Objects.equals(user.getId(), id);
+    public boolean isWriter(User user) {
+        return Objects.equals(user, user.getId());
     }
 
     public void cancel() {
@@ -62,6 +58,6 @@ public class Application {
     public void reject() { this.state = ApplicationState.REJECT; }
 
     public boolean isProjectWriter(User user) {
-        return Objects.equals(this.project.getWriter().getId(), user.getId());
+        return Objects.equals(projectWriterId, user.getId());
     }
 }

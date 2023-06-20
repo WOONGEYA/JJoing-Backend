@@ -21,7 +21,7 @@ public class CancelApplicationService {
         Application application = applicationFacade.getApplication(id);
         User user = userFacade.getCurrentUser();
 
-        if(!application.isWriter(user.getId())) {
+        if(!application.isWriter(user)) {
             throw new IsNotWriterException();
         }
 

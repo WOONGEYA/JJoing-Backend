@@ -42,9 +42,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
-    private List<Project> projects = new ArrayList<>();
-
     @Builder
     public User(String name, String nickName, String email, String school, int age, String major, Authority authority) {
         this.name = name;
