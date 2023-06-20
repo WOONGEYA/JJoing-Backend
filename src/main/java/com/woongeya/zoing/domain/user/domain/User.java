@@ -42,9 +42,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
-    private List<Project> projects = new ArrayList<>();
-
     @Builder
     public User(String name, String nickName, String email, String school, int age, String major, Authority authority) {
         this.name = name;
@@ -56,10 +53,11 @@ public class User {
         this.authority = authority;
     }
 
-    public User update(OAuthAttributes oAuthAttributes) {
+    public User update(OAuthAttributes oAuthAttributes, String school) {
         this.email = oAuthAttributes.getEmail();
         this.name = oAuthAttributes.getName();
         this.nickName = oAuthAttributes.getName();
+        this.school = school;
         return this;
     }
 

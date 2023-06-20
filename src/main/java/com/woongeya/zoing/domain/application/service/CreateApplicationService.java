@@ -27,8 +27,9 @@ public class CreateApplicationService {
         Project project = projectFacade.getProject(id);
 
         applicationRepository.save(Application.builder()
-                .user(user)
-                .project(project)
+                .userId(user.getId())
+                .projectId(project.getId())
+                .projectWriterId(project.getWriterId())
                 .introduce(request.getIntroduce())
                 .state(ApplicationState.PENDING)
                 .position(request.getPosition())

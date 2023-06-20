@@ -1,6 +1,5 @@
 package com.woongeya.zoing.global.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.woongeya.zoing.global.jwt.auth.JwtAuth;
 import com.woongeya.zoing.global.jwt.util.JwtUtil;
 import com.woongeya.zoing.global.oauth.CustomOauth2UserService;

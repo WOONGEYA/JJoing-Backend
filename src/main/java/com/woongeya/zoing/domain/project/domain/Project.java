@@ -2,7 +2,6 @@ package com.woongeya.zoing.domain.project.domain;
 
 
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
-import com.woongeya.zoing.domain.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,18 +38,16 @@ public class Project {
     @Embedded
     private Position position;
 
-    @ManyToOne(fetch =  FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User writer;
+    private Long writerId;
 
     @Builder
-    public Project(String name, String content, ProjectState state, LocalDate createDate, Position position, User writer) {
+    public Project(String name, String content, ProjectState state, LocalDate createDate, Position position, Long writerId) {
         this.name = name;
         this.content = content;
         this.state = state;
         this.createDate = createDate;
         this.position = position;
-        this.writer = writer;
+        this.writerId = writerId;
     }
 
     public void changeState() {
@@ -58,7 +55,7 @@ public class Project {
     }
 
     public boolean isWriter(Long userId) {
-        return Objects.equals(this.writer.getId(), userId);
+        return Objects.equals(this.writerId, userId);
     }
 
     @PrePersist

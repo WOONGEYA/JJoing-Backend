@@ -1,7 +1,5 @@
 package com.woongeya.zoing.global.oauth;
 
-import com.woongeya.zoing.domain.user.domain.User;
-import com.woongeya.zoing.domain.user.domain.autority.Authority;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,22 +33,9 @@ public class OAuthAttributes implements OAuth2User {
         if (registrationId.equalsIgnoreCase("google")) {
             return ofGoogle(registrationId, attributes);
         }
-        if (registrationId.equalsIgnoreCase("github")) {
-            return ofGithub(registrationId, attributes);
-        }
 
         throw new IllegalStateException("Failed Authentication");
     }
-
-    private static OAuthAttributes ofGithub(String registrationId, Map<String, Object> attributes) {
-        return OAuthAttributes.builder()
-                .registrationId(registrationId)
-                .name((String)attributes.get("name"))
-                .email((String) attributes.get("email"))
-                .attributes(attributes)
-                .build();
-    }
-
     private static OAuthAttributes ofGoogle(String registrationId, Map<String, Object> attributes) {
         return OAuthAttributes.builder()
                 .registrationId(registrationId)
@@ -58,15 +43,6 @@ public class OAuthAttributes implements OAuth2User {
                 .email((String) attributes.get("email"))
                 .picture((String) attributes.get("picture"))
                 .attributes(attributes)
-                .build();
-    }
-
-    public User toEntity() {
-        return User.builder()
-                .name(name)
-                .nickName(name)
-                .email(email)
-                .authority(Authority.USER)
                 .build();
     }
 

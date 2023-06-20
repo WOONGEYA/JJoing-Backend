@@ -25,7 +25,7 @@ public class CreateProjectService {
                 .name(request.getName())
                 .content(request.getContent())
                 .state(ProjectState.FINDING)
-                .writer(user)
+                .writerId(user.getId())
                 .position(request.getPosition())
                 .build());
         }

@@ -3,6 +3,7 @@ package com.woongeya.zoing.domain.auth.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.woongeya.zoing.domain.user.domain.User;
 import com.woongeya.zoing.domain.user.exception.AuthenticationException;
+import com.woongeya.zoing.domain.user.exception.NotMeisterMemberException;
 import com.woongeya.zoing.global.jwt.dto.TokenResponseDto;
 import com.woongeya.zoing.global.jwt.util.JwtProvider;
 import com.woongeya.zoing.global.oauth.OAuthAttributes;
@@ -40,12 +41,27 @@ public class OAuth2GoogleService {
     public TokenResponseDto getJwtToken(String code) {
         String googleToken = getGoogleToken(code);
         OAuthAttributes oAuthAttributes = getOAuthAttributesByGoogleToken(googleToken);
-        User user = oAuth2LoginService.saveOrUpdate(oAuthAttributes);
+        String school = checkMeisterMember(oAuthAttributes.getEmail()) + "소프트웨어마이스터고등학교";
+        User user = oAuth2LoginService.saveOrUpdate(oAuthAttributes, school);
         return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString());
     }
 
+    private String checkMeisterMember(String email) {
+        String splitMail = email.split("@")[1];
+        if(splitMail.equals("bssm.hs.kr"))
+            return "부산";
+        else if(splitMail.equals("dsm.hs.kr"))
+            return "대덕";
+        else if(splitMail.equals("gsm.hs.kr"))
+            return "광주";
+        else if(splitMail.equals("dgsw.hs.kr"))
+            return "대구";
 
-    public String getGoogleToken(String code) {
+        throw NotMeisterMemberException.EXCEPTION;
+    }
+
+
+    private String getGoogleToken(String code) {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
@@ -67,7 +83,7 @@ public class OAuth2GoogleService {
         return accessToken.get("access_token").asText();
     }
 
-    public OAuthAttributes getOAuthAttributesByGoogleToken(String token) {
+    private OAuthAttributes getOAuthAttributesByGoogleToken(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.add("Authorization", "Bearer " + token);
