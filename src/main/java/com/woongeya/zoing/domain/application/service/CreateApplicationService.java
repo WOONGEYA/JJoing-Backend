@@ -29,7 +29,7 @@ public class CreateApplicationService {
         applicationRepository.save(Application.builder()
                 .userId(user.getId())
                 .projectId(project.getId())
-                .projectWriterId(project.getWriter_id())
+                .projectWriterId(project.getWriterId())
                 .introduce(request.getIntroduce())
                 .state(ApplicationState.PENDING)
                 .position(request.getPosition())
