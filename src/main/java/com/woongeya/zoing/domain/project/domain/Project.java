@@ -10,7 +10,6 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -38,24 +37,17 @@ public class Project {
     @Embedded
     private Position position;
 
-    private Long writerId;
-
     @Builder
-    public Project(String name, String content, ProjectState state, LocalDate createDate, Position position, Long writerId) {
+    public Project(String name, String content, ProjectState state, LocalDate createDate, Position position) {
         this.name = name;
         this.content = content;
         this.state = state;
         this.createDate = createDate;
         this.position = position;
-        this.writerId = writerId;
     }
 
-    public void changeState() {
+    public void close() {
         this.state = ProjectState.FOUND;
-    }
-
-    public boolean isWriter(Long userId) {
-        return Objects.equals(this.writerId, userId);
     }
 
     @PrePersist

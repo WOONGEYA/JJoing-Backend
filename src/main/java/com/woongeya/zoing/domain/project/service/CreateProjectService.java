@@ -29,13 +29,12 @@ public class CreateProjectService {
                 .name(request.getName())
                 .content(request.getContent())
                 .state(ProjectState.FINDING)
-                .writerId(user.getId())
                 .position(request.getPosition())
                 .build());
 
         memberRepository.save(Member.builder()
                 .project(project)
-                .role(Role.CREATOR)
+                .role(Role.WRITER)
                 .userId(user.getId())
                 .build());
         }

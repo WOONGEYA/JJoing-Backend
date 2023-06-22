@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -32,5 +33,9 @@ public class Member {
         this.userId = userId;
         this.project = project;
         this.role = role;
+    }
+
+    public boolean isWriter() {
+        return Objects.equals(this.role, Role.WRITER);
     }
 }

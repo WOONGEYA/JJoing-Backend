@@ -15,6 +15,7 @@ public enum ErrorCode {
     NOT_MEISTER_MEMBER(401, "AUTHENTICATION-401-2", "Not Meister Member"),
     USER_NOT_FOUND(404, "USER-404-1", "User Not Found"),
     PROJECT_NOT_FOUND(404, "PROJECT-404-1", "Project Not Found"),
+    MEMBER_NOT_FOUND(404, "MEMBER-404-1", "Member Not Found"),
     APPLICATION_NOT_FOUND(404, "APPLICATION-404-1", "Application Not Found"),
     IS_NOT_WRITER(403, "WRITER-403-1", "Is Not Writer"),
 

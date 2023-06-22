@@ -35,16 +35,14 @@ public class Application {
 
     private Long projectId;
 
-    private Long projectWriterId;
 
     @Builder
-    public Application(String introduce, ApplicationState state, ApplicationJobPosition position, Long userId, Long projectId, Long projectWriterId) {
+    public Application(String introduce, ApplicationState state, ApplicationJobPosition position, Long userId, Long projectId) {
         this.introduce = introduce;
         this.state = state;
         this.position = position;
         this.userId = userId;
         this.projectId = projectId;
-        this.projectWriterId = projectWriterId;
     }
 
     public boolean isWriter(User user) {
@@ -55,9 +53,7 @@ public class Application {
         this.state = ApplicationState.CANCEL;
     }
 
-    public void reject() { this.state = ApplicationState.REJECT; }
-
-    public boolean isProjectWriter(User user) {
-        return Objects.equals(projectWriterId, user.getId());
+    public void reject() {
+        this.state = ApplicationState.REJECT;
     }
 }
