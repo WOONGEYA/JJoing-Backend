@@ -1,4 +1,4 @@
-package com.woongeya.zoing.domain.project;
+package com.woongeya.zoing.domain.project.facade;
 
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
