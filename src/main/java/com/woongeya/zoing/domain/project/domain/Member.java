@@ -1,6 +1,8 @@
 package com.woongeya.zoing.domain.project.domain;
 
+import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.project.domain.type.Role;
+import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,5 +39,13 @@ public class Member {
 
     public boolean isWriter() {
         return Objects.equals(this.role, Role.WRITER);
+    }
+
+    public void rejectApplication(Application application) {
+        if (role != Role.WRITER) {
+            throw new IsNotWriterException();
+        }
+
+        application.reject();
     }
 }

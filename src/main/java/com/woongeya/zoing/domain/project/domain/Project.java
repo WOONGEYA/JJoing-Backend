@@ -1,7 +1,10 @@
 package com.woongeya.zoing.domain.project.domain;
 
 
+import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
+import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
+import com.woongeya.zoing.domain.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

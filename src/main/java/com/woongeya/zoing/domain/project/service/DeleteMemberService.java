@@ -1,12 +1,11 @@
-package com.woongeya.zoing.domain.application.service;
+package com.woongeya.zoing.domain.project.service;
 
-import com.woongeya.zoing.domain.application.ApplicationFacade;
-import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
+import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
-import com.woongeya.zoing.domain.project.facade.ProjectFacade;
+import com.woongeya.zoing.domain.project.presetation.dto.request.MemberRequestDto;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -15,21 +14,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class RejectApplicationService {
+public class DeleteMemberService {
 
     private final UserFacade userFacade;
-    private final ApplicationFacade applicationFacade;
-    private final ProjectFacade projectFacade;
+    private final MemberRepository memberRepository;
     private final CustomMemberRepository customMemberRepository;
 
     @Transactional
-    public void execute(Long id) {
-
+    public void execute(Long id, MemberRequestDto request) {
         User user = userFacade.getCurrentUser();
-        Application application = applicationFacade.getApplication(id);
-        Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), application.getProjectId())
+        Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), id)
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
 
-        member.rejectApplication(application);
+        if (!member.isWriter()) {
+            throw new IsNotWriterException();
+        }
+
+        memberRepository.delete(
+                memberRepository.findById(request.getMemberId())
+                        .orElseThrow(() -> MemberNotFoundException.EXCEPTION)
+        );
     }
 }
