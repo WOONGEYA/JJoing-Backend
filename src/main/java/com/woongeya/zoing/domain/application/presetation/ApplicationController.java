@@ -1,6 +1,7 @@
 package com.woongeya.zoing.domain.application.presetation;
 
 import com.woongeya.zoing.domain.application.presetation.dto.request.ApplicationCreateRequest;
+import com.woongeya.zoing.domain.application.service.AcceptApplicationService;
 import com.woongeya.zoing.domain.application.service.CancelApplicationService;
 import com.woongeya.zoing.domain.application.service.CreateApplicationService;
 import com.woongeya.zoing.domain.application.service.RejectApplicationService;
@@ -17,10 +18,16 @@ public class ApplicationController {
     private final CreateApplicationService createApplicationService;
     private final CancelApplicationService cancelApplicationService;
     private final RejectApplicationService rejectApplicationService;
+    private final AcceptApplicationService acceptApplicationService;
 
     @PostMapping("/{id}")
     public void createApplication(@RequestBody @Valid ApplicationCreateRequest request, @PathVariable Long id) {
         createApplicationService.execute(request, id);
+    }
+
+    @PutMapping("{id}/accept")
+    public void acceptApplication(@PathVariable Long id) {
+        acceptApplicationService.execute(id);
     }
 
     @PutMapping("/{id}/cancel")
