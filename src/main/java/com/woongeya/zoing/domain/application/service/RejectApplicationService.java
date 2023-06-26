@@ -4,9 +4,7 @@ import com.woongeya.zoing.domain.application.ApplicationFacade;
 import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
-import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
-import com.woongeya.zoing.domain.project.facade.ProjectFacade;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +17,10 @@ public class RejectApplicationService {
 
     private final UserFacade userFacade;
     private final ApplicationFacade applicationFacade;
-    private final ProjectFacade projectFacade;
     private final CustomMemberRepository customMemberRepository;
 
     @Transactional
     public void execute(Long id) {
-
         User user = userFacade.getCurrentUser();
         Application application = applicationFacade.getApplication(id);
         Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), application.getProjectId())

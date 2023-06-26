@@ -36,5 +36,7 @@ public class ApplicationController {
     }
 
     @PutMapping("/{id}/reject")
-    public void rejectApplication(@PathVariable Long id) { rejectApplicationService.execute(id); }
+    public void rejectApplication(@PathVariable Long id) {
+        rejectApplicationService.execute(id);
+    }
 }
