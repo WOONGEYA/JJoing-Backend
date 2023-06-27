@@ -37,7 +37,6 @@ public class Application {
 
     private Long projectId;
 
-
     @Builder
     public Application(String introduce, ApplicationState state, ApplicationJobPosition position, Long userId, Long projectId) {
         this.introduce = introduce;
