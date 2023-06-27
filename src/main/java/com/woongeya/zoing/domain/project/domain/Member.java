@@ -42,10 +42,18 @@ public class Member {
     }
 
     public void rejectApplication(Application application) {
-        if (role != Role.WRITER) {
+        if (!isWriter()) {
             throw new IsNotWriterException();
         }
 
         application.reject();
+    }
+
+    public void acceptApplication(Application application) {
+        if (!isWriter()) {
+            throw new IsNotWriterException();
+        }
+
+        application.accept();
     }
 }

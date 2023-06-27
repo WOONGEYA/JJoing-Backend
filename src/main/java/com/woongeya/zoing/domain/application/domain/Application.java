@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Objects;
 
+import static com.woongeya.zoing.domain.application.domain.type.ApplicationState.*;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,7 +37,6 @@ public class Application {
 
     private Long projectId;
 
-
     @Builder
     public Application(String introduce, ApplicationState state, ApplicationJobPosition position, Long userId, Long projectId) {
         this.introduce = introduce;
@@ -50,10 +51,14 @@ public class Application {
     }
 
     public void cancel() {
-        this.state = ApplicationState.CANCEL;
+        this.state = CANCEL;
     }
 
     public void reject() {
-        this.state = ApplicationState.REJECT;
+        this.state = REJECT;
+    }
+
+    public void accept() {
+        this.state = ACCEPT;
     }
 }

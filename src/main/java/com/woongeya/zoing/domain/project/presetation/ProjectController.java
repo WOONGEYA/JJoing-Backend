@@ -2,10 +2,7 @@ package com.woongeya.zoing.domain.project.presetation;
 
 import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
-import com.woongeya.zoing.domain.project.service.CloseProjectService;
-import com.woongeya.zoing.domain.project.service.CreateProjectService;
-import com.woongeya.zoing.domain.project.service.DeleteProjectService;
-import com.woongeya.zoing.domain.project.service.FindProjectService;
+import com.woongeya.zoing.domain.project.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +17,7 @@ public class ProjectController {
     private final CloseProjectService closeProjectService;
     private final DeleteProjectService deleteProjectService;
     private final FindProjectService findProjectService;
+    private final FindMyApplicationProjectService findMyApplicationProjectService;
 
     @PostMapping("")
     public void createProject(@RequestBody CreateProjectRequestDto request) {
@@ -39,5 +37,10 @@ public class ProjectController {
     @GetMapping("")
     public List<ProjectResponseDto> findProject() {
         return findProjectService.execute();
+    }
+
+    @GetMapping("/application")
+    public List<ProjectResponseDto> findMyApplicationProject() {
+        return findMyApplicationProjectService.execute();
     }
 }
