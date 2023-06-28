@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.project.service;
 
+import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DeleteProjectService {
 
     private final ProjectRepository projectRepository;
+    private final ApplicationRepository applicationRepository;
     private final MemberRepository memberRepository;
     private final CustomMemberRepository customMemberRepository;
     private final ProjectFacade projectFacade;
@@ -35,6 +37,7 @@ public class DeleteProjectService {
             throw new IsNotWriterException();
         }
 
+        applicationRepository.deleteAll(applicationRepository.findByProjectId(id));
         memberRepository.deleteAll(memberRepository.findByProjectId(id));
         projectRepository.delete(project);
     }
