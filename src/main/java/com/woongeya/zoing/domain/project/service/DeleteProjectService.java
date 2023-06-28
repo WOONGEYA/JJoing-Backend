@@ -1,13 +1,13 @@
 package com.woongeya.zoing.domain.project.service;
 
-import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
-import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
-import com.woongeya.zoing.domain.project.facade.ProjectFacade;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
+import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
+import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
+import com.woongeya.zoing.domain.project.facade.ProjectFacade;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class DeleteProjectService {
             throw new IsNotWriterException();
         }
 
-        memberRepository.delete(member);
+        memberRepository.deleteAll(memberRepository.findByProjectId(id));
         projectRepository.delete(project);
     }
 }
