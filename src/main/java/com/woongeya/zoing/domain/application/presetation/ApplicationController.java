@@ -1,14 +1,13 @@
 package com.woongeya.zoing.domain.application.presetation;
 
 import com.woongeya.zoing.domain.application.presetation.dto.request.ApplicationCreateRequest;
-import com.woongeya.zoing.domain.application.service.AcceptApplicationService;
-import com.woongeya.zoing.domain.application.service.CancelApplicationService;
-import com.woongeya.zoing.domain.application.service.CreateApplicationService;
-import com.woongeya.zoing.domain.application.service.RejectApplicationService;
+import com.woongeya.zoing.domain.application.presetation.dto.response.ApplicationResponseDto;
+import com.woongeya.zoing.domain.application.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +18,7 @@ public class ApplicationController {
     private final CancelApplicationService cancelApplicationService;
     private final RejectApplicationService rejectApplicationService;
     private final AcceptApplicationService acceptApplicationService;
+    private final FindProjectApplicationService findProjectApplicationService;
 
     @PostMapping("/{id}")
     public void createApplication(@RequestBody @Valid ApplicationCreateRequest request, @PathVariable Long id) {
@@ -38,5 +38,10 @@ public class ApplicationController {
     @PutMapping("/{id}/reject")
     public void rejectApplication(@PathVariable Long id) {
         rejectApplicationService.execute(id);
+    }
+
+    @GetMapping("/project/{id}")
+    public List<ApplicationResponseDto> findProjectApplication(@PathVariable Long id) {
+        return findProjectApplicationService.execute(id);
     }
 }
