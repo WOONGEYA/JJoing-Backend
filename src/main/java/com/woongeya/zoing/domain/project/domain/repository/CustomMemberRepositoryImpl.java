@@ -28,7 +28,5 @@ public class CustomMemberRepositoryImpl implements CustomMemberRepository {
                         .distinct()
                         .fetchOne()
         );
-
-
     }
 }
