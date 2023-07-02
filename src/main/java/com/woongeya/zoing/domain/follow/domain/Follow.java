@@ -1,13 +1,13 @@
 package com.woongeya.zoing.domain.follow.domain;
 
-import com.woongeya.zoing.domain.user.domain.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Table
+@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Follow {
@@ -21,6 +21,7 @@ public class Follow {
 
     private Long toUserId;
 
+    @Builder
     public Follow(Long fromUserId, Long toUserId) {
         this.fromUserId = fromUserId;
         this.toUserId = toUserId;
