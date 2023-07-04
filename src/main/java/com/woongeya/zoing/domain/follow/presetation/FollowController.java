@@ -17,6 +17,7 @@ public class FollowController {
     private final FindFollowerService findFollowerService;
     private final CountFollowingService countFollowingService;
     private final CountFollowerService countFollowerService;
+    private final DeleteFollowService deleteFollowService;
 
     @PostMapping("/{id}")
     public void createFollow(@PathVariable Long id) {
@@ -41,5 +42,10 @@ public class FollowController {
     @GetMapping("/{id}/follower/count")
     public Long countFollower(@PathVariable Long id) {
         return countFollowerService.execute(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void unFollow(@PathVariable Long id) {
+        deleteFollowService.execute(id);
     }
 }

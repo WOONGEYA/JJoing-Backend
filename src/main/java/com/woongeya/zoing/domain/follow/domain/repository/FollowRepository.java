@@ -4,9 +4,11 @@ import com.woongeya.zoing.domain.follow.domain.Follow;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FollowRepository extends JpaRepository<Follow, Long> {
 
+    Optional<Follow> findByFromUserIdAndToUserId(Long fromUserId, Long toUserId);
     List<Follow> findByFromUserId(Long id);
     List<Follow> findByToUserId(Long id);
     Long countByToUserId(Long id);
