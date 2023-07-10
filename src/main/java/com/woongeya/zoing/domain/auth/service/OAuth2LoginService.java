@@ -25,7 +25,7 @@ public class OAuth2LoginService {
                     .name(oAuthAttributes.getName())
                     .nickName(oAuthAttributes.getName())
                     .authority(Authority.USER)
-                    .school(school)
+                    .school (school)
                     .imgUrl(oAuthAttributes.getPicture())
                     .build());
         }

@@ -8,6 +8,7 @@ import com.woongeya.zoing.domain.user.service.UserLogoutService;
 import com.woongeya.zoing.domain.user.service.UserUpdateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/user")
@@ -24,8 +25,9 @@ public class UserController {
     }
 
     @PutMapping
-    public void updateUser(@RequestBody UpdateUserRequestDto request) {
-        userUpdateService.execute(request);
+    public void updateUser(@RequestPart("image") MultipartFile image,
+                           @RequestPart("data") UpdateUserRequestDto request) {
+        userUpdateService.execute(image ,request);
     }
 
     @GetMapping

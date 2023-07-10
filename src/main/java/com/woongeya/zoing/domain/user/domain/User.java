@@ -62,11 +62,11 @@ public class User {
         return this;
     }
 
-    public void updateInfo(UpdateUserRequestDto request) {
+    public void updateInfo(UpdateUserRequestDto request, String imgUrl) {
         this.name = request.getName();
         this.nickName = request.getNickname();
-        this.school = request.getSchool();
         this.age = request.getAge();
         this.major = request.getMajor();
+        this.imgUrl = imgUrl;
     }
 }
