@@ -1,10 +1,7 @@
 package com.woongeya.zoing.domain.follow.presetation;
 
 import com.woongeya.zoing.domain.follow.presetation.dto.reponse.FollowResponseDto;
-import com.woongeya.zoing.domain.follow.service.CountFollowingService;
-import com.woongeya.zoing.domain.follow.service.CreateFollowService;
-import com.woongeya.zoing.domain.follow.service.FindFollowerService;
-import com.woongeya.zoing.domain.follow.service.FindFollowingService;
+import com.woongeya.zoing.domain.follow.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +16,8 @@ public class FollowController {
     private final FindFollowingService findFollowingService;
     private final FindFollowerService findFollowerService;
     private final CountFollowingService countFollowingService;
+    private final CountFollowerService countFollowerService;
+    private final DeleteFollowService deleteFollowService;
 
     @PostMapping("/{id}")
     public void createFollow(@PathVariable Long id) {
@@ -30,7 +29,7 @@ public class FollowController {
         return findFollowingService.execute(id);
     }
 
-    @GetMapping("/following/{id}/count")
+    @GetMapping("/{id}/following/count")
     public Long countFollowing(@PathVariable Long id) {
         return countFollowingService.execute(id);
     }
@@ -40,4 +39,13 @@ public class FollowController {
         return findFollowerService.execute(id);
     }
 
+    @GetMapping("/{id}/follower/count")
+    public Long countFollower(@PathVariable Long id) {
+        return countFollowerService.execute(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void unFollow(@PathVariable Long id) {
+        deleteFollowService.execute(id);
+    }
 }

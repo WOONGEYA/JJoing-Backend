@@ -2,6 +2,8 @@ package com.woongeya.zoing.domain.user.presetation;
 
 import com.woongeya.zoing.domain.user.presetation.dto.request.TokenRequestDto;
 import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequestDto;
+import com.woongeya.zoing.domain.user.presetation.dto.response.UserResponseDto;
+import com.woongeya.zoing.domain.user.service.FindCurrentUserService;
 import com.woongeya.zoing.domain.user.service.UserLogoutService;
 import com.woongeya.zoing.domain.user.service.UserUpdateService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ public class UserController {
 
     private final UserLogoutService userLogoutService;
     private final UserUpdateService userUpdateService;
+    private final FindCurrentUserService findCurrentUserService;
 
     @DeleteMapping("/logout")
     public String userLogout(@RequestBody TokenRequestDto request) {
@@ -23,5 +26,10 @@ public class UserController {
     @PutMapping
     public void updateUser(@RequestBody UpdateUserRequestDto request) {
         userUpdateService.execute(request);
+    }
+
+    @GetMapping
+    public UserResponseDto getUserInfo() {
+        return findCurrentUserService.execute();
     }
 }

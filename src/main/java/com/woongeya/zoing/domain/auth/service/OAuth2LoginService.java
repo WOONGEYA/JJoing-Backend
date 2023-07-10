@@ -4,6 +4,7 @@ import com.woongeya.zoing.domain.user.domain.User;
 import com.woongeya.zoing.domain.user.domain.autority.Authority;
 import com.woongeya.zoing.domain.user.domain.repository.UserRepository;
 import com.woongeya.zoing.global.oauth.OAuthAttributes;
+import com.woongeya.zoing.infrastructure.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class OAuth2LoginService {
                     .nickName(oAuthAttributes.getName())
                     .authority(Authority.USER)
                     .school(school)
+                    .imgUrl(oAuthAttributes.getPicture())
                     .build());
         }
 

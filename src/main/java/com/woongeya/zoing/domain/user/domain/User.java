@@ -1,14 +1,11 @@
 package com.woongeya.zoing.domain.user.domain;
 
-import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.user.domain.autority.Authority;
 import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequestDto;
 import com.woongeya.zoing.global.oauth.OAuthAttributes;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -29,6 +26,9 @@ public class User {
     @Column(unique = true, length = 32)
     private String email;
 
+    @Column(nullable = false)
+    private String imgUrl;
+
     @Column(length = 32)
     private String school;
 
@@ -43,10 +43,11 @@ public class User {
     private Authority authority;
 
     @Builder
-    public User(String name, String nickName, String email, String school, int age, String major, Authority authority) {
+    public User(String name, String nickName, String email, String imgUrl, String school, int age, String major, Authority authority) {
         this.name = name;
         this.nickName = nickName;
         this.email = email;
+        this.imgUrl = imgUrl;
         this.school = school;
         this.age = age;
         this.major = major;

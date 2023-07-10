@@ -17,7 +17,11 @@ public enum ErrorCode {
     PROJECT_NOT_FOUND(404, "PROJECT-404-1", "Project Not Found"),
     MEMBER_NOT_FOUND(404, "MEMBER-404-1", "Member Not Found"),
     APPLICATION_NOT_FOUND(404, "APPLICATION-404-1", "Application Not Found"),
+    FOLLOW_NOT_FOUND(404, "FOLLOW-404-1", "Follow Not Found"),
     IS_NOT_WRITER(403, "WRITER-403-1", "Is Not Writer"),
+
+    // S3
+    IMAGE_FAILED_SAVE(424, "IMAGE-424-1", "Image Failed Save"),
 
     INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
     ;
