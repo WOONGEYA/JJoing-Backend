@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class OAuthAttributes implements OAuth2User {
         this.name = name;
         this.email = email;
         this.picture = picture;
+        System.out.println(picture);
     }
 
     public static OAuthAttributes create(String registrationId, Map<String, Object> attributes) {
