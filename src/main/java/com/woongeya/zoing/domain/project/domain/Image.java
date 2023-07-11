@@ -27,4 +27,8 @@ public class Image {
         this.imgUrl = imgUrl;
         this.project = project;
     }
+
+    public void addProject(Project project) {
+        this.project = project;
+    }
 }

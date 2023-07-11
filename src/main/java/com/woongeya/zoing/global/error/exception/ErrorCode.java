@@ -22,6 +22,7 @@ public enum ErrorCode {
 
     // S3
     IMAGE_FAILED_SAVE(424, "IMAGE-424-1", "Image Failed Save"),
+    IMAGE_NOT_FOUND(404, "IMAGE-404-1", "Image Not Found"),
 
     INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
     ;
