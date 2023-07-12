@@ -20,8 +20,8 @@ public class AuthController {
         return oAuth2GoogleLinkService.execute();
     }
 
-    @PostMapping()
+    @PostMapping("/google")
     public TokenResponseDto loginOfGoogle(@Validated @RequestParam(name = "code") String code) {
-        return googleService.getJwtToken(code);
+        return googleService.execute(code);
     }
 }

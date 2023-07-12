@@ -1,4 +1,4 @@
-package com.woongeya.zoing.global.oauth;
+package com.woongeya.zoing.global.config.propertise;
 
 import lombok.Getter;
 import lombok.Setter;

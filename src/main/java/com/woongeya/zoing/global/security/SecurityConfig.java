@@ -2,7 +2,6 @@ package com.woongeya.zoing.global.security;
 
 import com.woongeya.zoing.global.jwt.auth.JwtAuth;
 import com.woongeya.zoing.global.jwt.util.JwtUtil;
-import com.woongeya.zoing.global.oauth.CustomOauth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,6 @@ public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
     private final JwtAuth jwtAuth;
-    private final CustomOauth2UserService customOauth2UserService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

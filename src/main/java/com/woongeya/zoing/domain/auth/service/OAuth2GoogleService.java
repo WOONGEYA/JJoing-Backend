@@ -1,48 +1,41 @@
 package com.woongeya.zoing.domain.auth.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.woongeya.zoing.domain.user.domain.User;
-import com.woongeya.zoing.domain.user.exception.AuthenticationException;
+import com.woongeya.zoing.domain.user.domain.autority.Authority;
+import com.woongeya.zoing.domain.user.domain.repository.UserRepository;
 import com.woongeya.zoing.domain.user.exception.NotMeisterMemberException;
+import com.woongeya.zoing.global.feign.GoogleAuthClient;
+import com.woongeya.zoing.global.feign.GoogleInfoClient;
+import com.woongeya.zoing.global.feign.dto.request.GoogleTokenRequestDto;
+import com.woongeya.zoing.global.feign.dto.response.GoogleInfoResponseDto;
 import com.woongeya.zoing.global.jwt.dto.TokenResponseDto;
 import com.woongeya.zoing.global.jwt.util.JwtProvider;
-import com.woongeya.zoing.global.oauth.OAuthAttributes;
+import com.woongeya.zoing.global.config.propertise.AuthProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class OAuth2GoogleService {
 
-    private final String GOOGLE_TOKEN_REQUEST_URL = "https://oauth2.googleapis.com/token";
-    private final String GOOGLE_USERINFO_REQUEST_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
-    @Value("${spring.security.oauth2.client.registration.google.client-id}")
-    private String googleClientId;
-    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
-    private String googleClientSecret;
-    @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
-    private String googleRedirectUri;
-
-    private final OAuth2LoginService oAuth2LoginService;
+    private final AuthProperties authProperties;
+    private final GoogleAuthClient googleAuthClient;
+    private final GoogleInfoClient googleInfoClient;
     private final JwtProvider jwtProvider;
+    private final UserRepository userRepository;
 
-    public TokenResponseDto getJwtToken(String code) {
-        String googleToken = getGoogleToken(code);
-        OAuthAttributes oAuthAttributes = getOAuthAttributesByGoogleToken(googleToken);
-        String school = checkMeisterMember(oAuthAttributes.getEmail()) + "소프트웨어마이스터고등학교";
-        User user = oAuth2LoginService.saveOrUpdate(oAuthAttributes, school);
+    public TokenResponseDto execute(String code) {
+        String googleToken = googleAuthClient.getGoogleToken(
+                createRequest(code)
+        ).getAccessToken();
+        GoogleInfoResponseDto userInfo = googleInfoClient.getUserInfo(googleToken);
+        String school = checkMeisterMember(userInfo.getEmail()) + "소프트웨어마이스터고등학교";
+        User user = saveOrUpdate(userInfo, school);
+
         return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString());
     }
 
@@ -60,50 +53,29 @@ public class OAuth2GoogleService {
         throw NotMeisterMemberException.EXCEPTION;
     }
 
-
-    private String getGoogleToken(String code) {
-
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-
-        params.add("code", code);
-        params.add("client_id", googleClientId);
-        params.add("client_secret", googleClientSecret);
-        params.add("redirect_uri", googleRedirectUri);
-        params.add("grant_type", "authorization_code");
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        HttpEntity entity = new HttpEntity(params, headers);
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(GOOGLE_TOKEN_REQUEST_URL, HttpMethod.POST, entity, JsonNode.class);
-        JsonNode accessToken = responseEntity.getBody();
-
-        return accessToken.get("access_token").asText();
+    public GoogleTokenRequestDto createRequest(String code) {
+        return GoogleTokenRequestDto.builder()
+                .code(code)
+                .clientId(authProperties.getClientId())
+                .clientSecret(authProperties.getClientSecret())
+                .redirectUri(authProperties.getRedirectUri())
+                .build();
     }
 
-    private OAuthAttributes getOAuthAttributesByGoogleToken(String token) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.add("Authorization", "Bearer " + token);
+    private User saveOrUpdate(GoogleInfoResponseDto response, String school) {
+        Optional<User> user = userRepository.findByEmail(response.getEmail());
 
-        HttpEntity entity = new HttpEntity(headers);
-        Map<String, Object> attributes = getJson(entity);
-
-        return OAuthAttributes.create("google", attributes);
-    }
-
-    private Map<String, Object> getJson(HttpEntity entity) {
-        try {
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> response = restTemplate.exchange(GOOGLE_USERINFO_REQUEST_URL, HttpMethod.GET, entity, String.class);
-            String body = response.getBody();
-            JSONParser jsonParser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(body);
-            return (Map<String, Object>) jsonObject;
-        } catch (ParseException e) {
-            throw AuthenticationException.EXCEPTION;
+        if (user.isEmpty()) {
+            return userRepository.save(User.builder()
+                    .email(response.getEmail())
+                    .name(response.getName())
+                    .nickName(response.getName())
+                    .authority(Authority.USER)
+                    .school (school)
+                    .imgUrl(response.getPicture())
+                    .build());
         }
+
+        return user.get().update(response, school);
     }
 }

@@ -1,6 +1,6 @@
 package com.woongeya.zoing.domain.auth.service;
 
-import com.woongeya.zoing.global.oauth.AuthProperties;
+import com.woongeya.zoing.global.config.propertise.AuthProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
