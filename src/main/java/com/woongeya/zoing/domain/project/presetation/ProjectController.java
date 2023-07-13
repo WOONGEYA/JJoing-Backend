@@ -1,10 +1,12 @@
 package com.woongeya.zoing.domain.project.presetation;
 
 import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
+import com.woongeya.zoing.domain.project.presetation.dto.response.ImageResponseDto;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
 import com.woongeya.zoing.domain.project.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,10 +20,16 @@ public class ProjectController {
     private final DeleteProjectService deleteProjectService;
     private final FindProjectService findProjectService;
     private final FindMyApplicationProjectService findMyApplicationProjectService;
+    private final UploadImageService uploadImageService;
 
     @PostMapping("")
     public void createProject(@RequestBody CreateProjectRequestDto request) {
         createProjectService.execute(request);
+    }
+
+    @PostMapping("/image")
+    public List<ImageResponseDto> uploadImage(@RequestPart("image")List<MultipartFile> images) {
+        return uploadImageService.execute(images);
     }
 
     @PutMapping("/close/{id}")

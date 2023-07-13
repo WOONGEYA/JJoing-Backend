@@ -8,12 +8,10 @@ services:
       - 8081:8080
     depends_on:
       - mysql
-      - redis
     env_file:
       - .env
     links:
       - mysql
-      - redis
 
   mysql:
     image: mysql:latest
@@ -23,11 +21,6 @@ services:
       - MYSQL_ROOT_PASSWORD:${PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
-
-  redis:
-    image: redis:latest
-    ports:
-      - ${REDIS_PORT}:6379
 
 volumes:
   mysql_data:

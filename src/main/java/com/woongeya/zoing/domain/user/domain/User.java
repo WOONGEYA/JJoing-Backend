@@ -2,8 +2,11 @@ package com.woongeya.zoing.domain.user.domain;
 
 import com.woongeya.zoing.domain.user.domain.autority.Authority;
 import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequestDto;
-import com.woongeya.zoing.global.oauth.OAuthAttributes;
-import lombok.*;
+import com.woongeya.zoing.global.feign.dto.response.GoogleInfoResponseDto;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -54,19 +57,19 @@ public class User {
         this.authority = authority;
     }
 
-    public User update(OAuthAttributes oAuthAttributes, String school) {
-        this.email = oAuthAttributes.getEmail();
-        this.name = oAuthAttributes.getName();
-        this.nickName = oAuthAttributes.getName();
+    public User update(GoogleInfoResponseDto response, String school) {
+        this.email = response.getEmail();
+        this.name = response.getName();
+        this.nickName = response.getName();
         this.school = school;
         return this;
     }
 
-    public void updateInfo(UpdateUserRequestDto request) {
+    public void updateInfo(UpdateUserRequestDto request, String imgUrl) {
         this.name = request.getName();
         this.nickName = request.getNickname();
-        this.school = request.getSchool();
         this.age = request.getAge();
         this.major = request.getMajor();
+        this.imgUrl = imgUrl;
     }
 }

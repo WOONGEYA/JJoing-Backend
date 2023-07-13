@@ -4,9 +4,6 @@ spring:
     url : ${URL}
     username: ${USER}
     password: ${PASSWORD}
-  redis:
-    host: localhost
-    port: 6379
 
   logging:
     level:

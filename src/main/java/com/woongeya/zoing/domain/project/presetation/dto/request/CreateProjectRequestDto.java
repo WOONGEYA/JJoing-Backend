@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -19,4 +20,6 @@ public class CreateProjectRequestDto {
     private String content;
 
     private Position position;
+
+    private List<String> imgUrls;
 }
