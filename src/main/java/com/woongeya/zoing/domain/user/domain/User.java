@@ -65,11 +65,14 @@ public class User {
         return this;
     }
 
-    public void updateInfo(UpdateUserRequestDto request, String imgUrl) {
+    public void updateInfo(UpdateUserRequestDto request) {
         this.name = request.getName();
         this.nickName = request.getNickname();
         this.age = request.getAge();
         this.major = request.getMajor();
+    }
+
+    public void updateImage(String imgUrl) {
         this.imgUrl = imgUrl;
     }
 }
