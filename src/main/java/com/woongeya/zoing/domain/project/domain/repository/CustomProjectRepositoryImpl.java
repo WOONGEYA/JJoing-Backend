@@ -2,13 +2,12 @@ package com.woongeya.zoing.domain.project.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.woongeya.zoing.domain.project.domain.Project;
-import com.woongeya.zoing.domain.project.domain.QProject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.woongeya.zoing.domain.project.domain.QProject.*;
+import static com.woongeya.zoing.domain.project.domain.QProject.project;
 
 @Repository
 @RequiredArgsConstructor
