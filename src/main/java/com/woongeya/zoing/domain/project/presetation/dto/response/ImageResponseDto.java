@@ -11,4 +11,8 @@ public class ImageResponseDto {
     public ImageResponseDto(Image image) {
         this.imgUrl = image.getImgUrl();
     }
+
+    public ImageResponseDto(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 }

@@ -1,6 +1,5 @@
 package com.woongeya.zoing.domain.follow.service;
 
-import com.woongeya.zoing.domain.follow.domain.Follow;
 import com.woongeya.zoing.domain.follow.domain.repository.FollowRepository;
 import com.woongeya.zoing.domain.follow.exception.FollowNotFoundException;
 import com.woongeya.zoing.domain.user.UserFacade;

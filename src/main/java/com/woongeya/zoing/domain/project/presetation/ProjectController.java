@@ -21,6 +21,7 @@ public class ProjectController {
     private final FindProjectService findProjectService;
     private final FindMyApplicationProjectService findMyApplicationProjectService;
     private final UploadImageService uploadImageService;
+    private final SearchProjectService searchProjectService;
 
     @PostMapping("")
     public void createProject(@RequestBody CreateProjectRequestDto request) {
@@ -43,8 +44,13 @@ public class ProjectController {
     }
 
     @GetMapping("")
-    public List<ProjectResponseDto> findProject() {
-        return findProjectService.execute();
+    public List<ProjectResponseDto> findProject(@RequestParam(name = "state") String state) {
+        return findProjectService.execute(state);
+    }
+
+    @GetMapping("/search")
+    public List<ProjectResponseDto> searchProject(@RequestParam(name = "q") String q) {
+        return searchProjectService.execute(q);
     }
 
     @GetMapping("/application")
