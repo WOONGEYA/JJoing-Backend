@@ -44,8 +44,8 @@ public class ProjectController {
     }
 
     @GetMapping("")
-    public List<ProjectResponseDto> findProject() {
-        return findProjectService.execute();
+    public List<ProjectResponseDto> findProject(@RequestParam(name = "state") String state) {
+        return findProjectService.execute(state);
     }
 
     @GetMapping("/search")
