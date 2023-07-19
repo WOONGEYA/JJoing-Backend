@@ -8,6 +8,7 @@ services:
       - 8081:8080
     depends_on:
       - mysql
+      - s3
     env_file:
       - .env
     links:
@@ -22,5 +23,17 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  s3:
+    image: minio/minio:latest
+    environment:
+      - MINIO_ACCESS_KEY=${S3_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${S3_SECRET_KEY}
+    ports:
+      - "9001:9000"
+    command: server /data
+    volumes:
+      - s3data:/data
+
 volumes:
   mysql_data:
+  s3data:
