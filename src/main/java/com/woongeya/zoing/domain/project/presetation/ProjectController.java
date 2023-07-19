@@ -20,6 +20,7 @@ public class ProjectController {
     private final DeleteProjectService deleteProjectService;
     private final FindProjectService findProjectService;
     private final FindMyApplicationProjectService findMyApplicationProjectService;
+    private final FindProjectInfoService findProjectInfoService;
     private final UploadImageService uploadImageService;
     private final SearchProjectService searchProjectService;
 
@@ -41,6 +42,11 @@ public class ProjectController {
     @DeleteMapping("/{id}")
     public void deleteProject(@PathVariable Long id) {
         deleteProjectService.execute(id);
+    }
+
+    @GetMapping("{id}")
+    public ProjectResponseDto findProjectInfo(@PathVariable Long id) {
+        return findProjectInfoService.execute(id);
     }
 
     @GetMapping("")
