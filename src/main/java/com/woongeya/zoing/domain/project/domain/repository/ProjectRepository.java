@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface ProjectRepository extends JpaRepository<Project, Long>, CustomProjectRepository {
 
-    List<Project> findAllByState(ProjectState state);
+    List<Project> findAllByStateOrderByIdDesc(ProjectState state);
+    List<Project> findAllByStateOrderByViewCountDesc(ProjectState state);
+
 }
