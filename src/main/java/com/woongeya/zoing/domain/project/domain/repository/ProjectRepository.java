@@ -10,5 +10,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long>, CustomP
 
     List<Project> findAllByStateOrderByIdDesc(ProjectState state);
     List<Project> findAllByStateOrderByViewCountDesc(ProjectState state);
+    List<Project> findAllByOrderByIdDesc();
+    List<Project> findAllByOrderByViewCountDesc();
 
 }

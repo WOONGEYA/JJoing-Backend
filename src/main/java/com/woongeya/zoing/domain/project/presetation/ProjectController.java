@@ -19,7 +19,9 @@ public class ProjectController {
     private final CloseProjectService closeProjectService;
     private final DeleteProjectService deleteProjectService;
     private final FindNewProjectService findNewProjectService;
+    private final FindAlwaysNewProjectService findAlwaysNewProjectService;
     private final FindViewCountProjectService findViewCountProjectService;
+    private final FindAlwaysViewCountProjectService findAlwaysViewCountProjectService;
     private final FindMyApplicationProjectService findMyApplicationProjectService;
     private final FindProjectInfoService findProjectInfoService;
     private final UploadImageService uploadImageService;
@@ -53,6 +55,13 @@ public class ProjectController {
     @GetMapping("")
     public List<ProjectResponseDto> findProject(@RequestParam(name = "criteria", required = false, defaultValue = ("id")) String criteria,
                                                 @RequestParam(name = "state", required = false, defaultValue = ("always")) String state) {
+        if (state.equals("always")) {
+            if (criteria.equals("view")) {
+                return findAlwaysViewCountProjectService.execute();
+            }
+            return findAlwaysNewProjectService.execute();
+        }
+
         if (criteria.equals("view")) {
             return findViewCountProjectService.execute(state);
         }
