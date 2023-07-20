@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.project.service;
 
+import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,9 @@ public class FindProjectInfoService {
     private final ProjectFacade projectFacade;
 
     public ProjectResponseDto execute(Long id) {
-        return ProjectResponseDto.of(projectFacade.getProject(id));
+        Project project = projectFacade.getProject(id);
+        project.increaseViewCnt();
+
+        return ProjectResponseDto.of(project);
     }
 }

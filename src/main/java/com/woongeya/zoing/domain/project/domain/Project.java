@@ -27,6 +27,9 @@ public class Project {
     @Column(length = 1024)
     private String content;
 
+    @Column(nullable = false)
+    private Long viewCount;
+
     @Column(nullable = false, length = 16)
     @Enumerated(EnumType.STRING)
     private ProjectState state;
@@ -38,9 +41,10 @@ public class Project {
     private Position position;
 
     @Builder
-    public Project(String name, String content, ProjectState state, LocalDate createDate, Position position) {
+    public Project(String name, String content, Long viewCount, ProjectState state, LocalDate createDate, Position position) {
         this.name = name;
         this.content = content;
+        this.viewCount = viewCount;
         this.state = state;
         this.createDate = createDate;
         this.position = position;
@@ -48,6 +52,10 @@ public class Project {
 
     public void close() {
         this.state = ProjectState.FOUND;
+    }
+
+    public void increaseViewCnt() {
+        this.viewCount++;
     }
 
     @PrePersist
