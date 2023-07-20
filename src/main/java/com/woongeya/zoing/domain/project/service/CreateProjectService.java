@@ -36,17 +36,17 @@ public class CreateProjectService {
                 Project.builder()
                         .name(request.getName())
                         .content(request.getContent())
+                        .viewCount(0L)
                         .state(ProjectState.FINDING)
                         .position(request.getPosition())
                         .build()
         );
 
         if (!request.getImgUrls().isEmpty()) {
-            List<Image> images = request.getImgUrls().stream()
+            request.getImgUrls().stream()
                     .map(url -> imageRepository.findByImgUrl(url)
                             .orElseThrow(() -> ImageNotFoundException.EXCEPTION))
-                    .peek(image -> image.addProject(project))
-                    .collect(Collectors.toList());
+                    .peek(image -> image.addProject(project));
         }
 
         memberRepository.save(

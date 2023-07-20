@@ -11,6 +11,7 @@ public class ProjectResponseDto {
 
     private String name;
     private String content;
+    private Long viewCount;
     private ProjectState state;
 
     public static ProjectResponseDto of(Project project) {
@@ -18,6 +19,7 @@ public class ProjectResponseDto {
                 .name(project.getName())
                 .content(project.getContent())
                 .state(project.getState())
+                .viewCount(project.getViewCount())
                 .build();
     }
 }
