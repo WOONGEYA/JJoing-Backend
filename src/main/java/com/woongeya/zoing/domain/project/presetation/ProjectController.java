@@ -5,6 +5,7 @@ import com.woongeya.zoing.domain.project.presetation.dto.response.ImageResponseD
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
 import com.woongeya.zoing.domain.project.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,8 +49,8 @@ public class ProjectController {
     }
 
     @GetMapping("{id}")
-    public ProjectResponseDto findProjectInfo(@PathVariable Long id) {
-        return findProjectInfoService.execute(id);
+    public ResponseEntity<ProjectResponseDto> findProjectInfo(@PathVariable Long id) {
+        return ResponseEntity.ok(findProjectInfoService.execute(id));
     }
 
     @GetMapping("")
@@ -70,12 +71,12 @@ public class ProjectController {
     }
 
     @GetMapping("/search")
-    public List<ProjectResponseDto> searchProject(@RequestParam(name = "q") String q) {
-        return searchProjectService.execute(q);
+    public ResponseEntity<List<ProjectResponseDto>> searchProject(@RequestParam(name = "q") String q) {
+        return ResponseEntity.ok(searchProjectService.execute(q));
     }
 
     @GetMapping("/application")
-    public List<ProjectResponseDto> findMyApplicationProject() {
-        return findMyApplicationProjectService.execute();
+    public ResponseEntity<List<ProjectResponseDto>> findMyApplicationProject() {
+        return ResponseEntity.ok(findMyApplicationProjectService.execute());
     }
 }

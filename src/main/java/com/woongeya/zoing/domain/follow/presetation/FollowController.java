@@ -3,6 +3,7 @@ package com.woongeya.zoing.domain.follow.presetation;
 import com.woongeya.zoing.domain.follow.presetation.dto.reponse.FollowResponseDto;
 import com.woongeya.zoing.domain.follow.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +26,8 @@ public class FollowController {
     }
 
     @GetMapping("/{id}/following")
-    public List<FollowResponseDto> findFollwing(@PathVariable Long id) {
-        return findFollowingService.execute(id);
+    public ResponseEntity<List<FollowResponseDto>> findFollwing(@PathVariable Long id) {
+        return ResponseEntity.ok(findFollowingService.execute(id));
     }
 
     @GetMapping("/{id}/following/count")
@@ -35,8 +36,8 @@ public class FollowController {
     }
 
     @GetMapping("/{id}/follower")
-    public List<FollowResponseDto> findFollower(@PathVariable Long id) {
-        return findFollowerService.execute(id);
+    public ResponseEntity<List<FollowResponseDto>> findFollower(@PathVariable Long id) {
+        return ResponseEntity.ok(findFollowerService.execute(id));
     }
 
     @GetMapping("/{id}/follower/count")
