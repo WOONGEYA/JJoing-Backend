@@ -28,7 +28,7 @@ public class ProjectController {
     private final UploadImageService uploadImageService;
     private final SearchProjectService searchProjectService;
 
-    @PostMapping("")
+    @PostMapping()
     public void createProject(@RequestBody CreateProjectRequestDto request) {
         createProjectService.execute(request);
     }
@@ -48,12 +48,12 @@ public class ProjectController {
         deleteProjectService.execute(id);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ProjectResponseDto> findProjectInfo(@PathVariable Long id) {
         return ResponseEntity.ok(findProjectInfoService.execute(id));
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<ProjectResponseDto> findProject(@RequestParam(name = "criteria", required = false, defaultValue = ("id")) String criteria,
                                                 @RequestParam(name = "state", required = false, defaultValue = ("always")) String state) {
         if (state.equals("always")) {

@@ -26,7 +26,7 @@ public class ApplicationController {
         createApplicationService.execute(request, id);
     }
 
-    @PutMapping("{id}/accept")
+    @PutMapping("/{id}/accept")
     public void acceptApplication(@PathVariable Long id) {
         acceptApplicationService.execute(id);
     }
