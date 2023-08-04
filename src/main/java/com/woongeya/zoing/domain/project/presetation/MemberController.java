@@ -12,7 +12,7 @@ public class MemberController {
 
     private final DeleteMemberService deleteMemberService;
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id, @RequestBody MemberRequestDto request) {
         deleteMemberService.execute(id, request);
     }

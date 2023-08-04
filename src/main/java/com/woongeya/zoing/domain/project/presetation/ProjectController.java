@@ -5,6 +5,7 @@ import com.woongeya.zoing.domain.project.presetation.dto.response.ImageResponseD
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
 import com.woongeya.zoing.domain.project.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +28,7 @@ public class ProjectController {
     private final UploadImageService uploadImageService;
     private final SearchProjectService searchProjectService;
 
-    @PostMapping("")
+    @PostMapping()
     public void createProject(@RequestBody CreateProjectRequestDto request) {
         createProjectService.execute(request);
     }
@@ -47,12 +48,12 @@ public class ProjectController {
         deleteProjectService.execute(id);
     }
 
-    @GetMapping("{id}")
-    public ProjectResponseDto findProjectInfo(@PathVariable Long id) {
-        return findProjectInfoService.execute(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<ProjectResponseDto> findProjectInfo(@PathVariable Long id) {
+        return ResponseEntity.ok(findProjectInfoService.execute(id));
     }
 
-    @GetMapping("")
+    @GetMapping()
     public List<ProjectResponseDto> findProject(@RequestParam(name = "criteria", required = false, defaultValue = ("id")) String criteria,
                                                 @RequestParam(name = "state", required = false, defaultValue = ("always")) String state) {
         if (state.equals("always")) {
@@ -70,12 +71,12 @@ public class ProjectController {
     }
 
     @GetMapping("/search")
-    public List<ProjectResponseDto> searchProject(@RequestParam(name = "q") String q) {
-        return searchProjectService.execute(q);
+    public ResponseEntity<List<ProjectResponseDto>> searchProject(@RequestParam(name = "q") String q) {
+        return ResponseEntity.ok(searchProjectService.execute(q));
     }
 
     @GetMapping("/application")
-    public List<ProjectResponseDto> findMyApplicationProject() {
-        return findMyApplicationProjectService.execute();
+    public ResponseEntity<List<ProjectResponseDto>> findMyApplicationProject() {
+        return ResponseEntity.ok(findMyApplicationProjectService.execute());
     }
 }

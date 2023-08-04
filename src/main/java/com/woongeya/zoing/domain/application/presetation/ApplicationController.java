@@ -4,6 +4,7 @@ import com.woongeya.zoing.domain.application.presetation.dto.request.Application
 import com.woongeya.zoing.domain.application.presetation.dto.response.ApplicationResponseDto;
 import com.woongeya.zoing.domain.application.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,7 +26,7 @@ public class ApplicationController {
         createApplicationService.execute(request, id);
     }
 
-    @PutMapping("{id}/accept")
+    @PutMapping("/{id}/accept")
     public void acceptApplication(@PathVariable Long id) {
         acceptApplicationService.execute(id);
     }
@@ -41,7 +42,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/project/{id}")
-    public List<ApplicationResponseDto> findProjectApplication(@PathVariable Long id) {
-        return findProjectApplicationService.execute(id);
+    public ResponseEntity<List<ApplicationResponseDto>> findProjectApplication(@PathVariable Long id) {
+        return ResponseEntity.ok(findProjectApplicationService.execute(id));
     }
 }
