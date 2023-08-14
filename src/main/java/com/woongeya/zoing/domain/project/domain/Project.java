@@ -2,6 +2,7 @@ package com.woongeya.zoing.domain.project.domain;
 
 
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
+import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -61,5 +62,11 @@ public class Project {
     @PrePersist
     public void createAt() {
         this.createDate = LocalDate.now();
+    }
+
+    public void update(CreateProjectRequestDto request) {
+        this.name = request.getName();
+        this.position = request.getPosition();
+        this.content = request.getContent();
     }
 }
