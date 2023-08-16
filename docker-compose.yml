@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8081:8080
+      - 8080:8080
     depends_on:
       - mysql
       - s3
@@ -17,9 +17,8 @@ services:
   mysql:
     image: mysql:latest
     environment:
-      - MYSQL_ROOT_PASSWORD=${USER}
       - MYSQL_DATABASE=${DATABASE}
-      - MYSQL_ROOT_PASSWORD:${PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
 
