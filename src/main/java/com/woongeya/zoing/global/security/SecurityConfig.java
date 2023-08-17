@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsUtils;
 
+import static org.springframework.http.HttpMethod.*;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -38,7 +40,10 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/user/**").permitAll()
+                .antMatchers(POST, "/project/**").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(PUT, "/project/close/**").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(DELETE, "/project/**").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(GET, "/project/application").hasAnyAuthority("USER", "ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .apply(new FilterConfig(jwtUtil, jwtAuth))

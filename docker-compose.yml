@@ -5,23 +5,11 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8081:8080
+      - 80:8080
     depends_on:
-      - mysql
       - s3
     env_file:
       - .env
-    links:
-      - mysql
-
-  mysql:
-    image: mysql:latest
-    environment:
-      - MYSQL_ROOT_PASSWORD=${USER}
-      - MYSQL_DATABASE=${DATABASE}
-      - MYSQL_ROOT_PASSWORD:${PASSWORD}
-    volumes:
-      - mysql_data:/var/lib/mysql
 
   s3:
     image: minio/minio:latest
@@ -35,5 +23,4 @@ services:
       - s3data:/data
 
 volumes:
-  mysql_data:
   s3data:

@@ -27,6 +27,7 @@ public class ProjectController {
     private final FindProjectInfoService findProjectInfoService;
     private final UploadImageService uploadImageService;
     private final SearchProjectService searchProjectService;
+    private final UpdateProjectService updateProjectService;
 
     @PostMapping()
     public void createProject(@RequestBody CreateProjectRequestDto request) {
@@ -36,6 +37,11 @@ public class ProjectController {
     @PostMapping("/image")
     public List<ImageResponseDto> uploadImage(@RequestPart("image")List<MultipartFile> images) {
         return uploadImageService.execute(images);
+    }
+
+    @PutMapping("/{id}")
+    public void updateProject(@PathVariable Long id, @RequestBody CreateProjectRequestDto request) {
+        updateProjectService.execute(id, request);
     }
 
     @PutMapping("/close/{id}")
