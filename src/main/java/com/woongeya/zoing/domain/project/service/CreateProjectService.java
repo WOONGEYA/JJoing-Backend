@@ -55,6 +55,5 @@ public class CreateProjectService {
                         .role(Role.WRITER)
                         .userId(user.getId())
                         .build());
-        }
-
+    }
 }
