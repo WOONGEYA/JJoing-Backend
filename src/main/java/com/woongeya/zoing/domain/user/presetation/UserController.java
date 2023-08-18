@@ -6,6 +6,7 @@ import com.woongeya.zoing.domain.user.presetation.dto.response.UserResponseDto;
 import com.woongeya.zoing.domain.user.service.FindCurrentUserService;
 import com.woongeya.zoing.domain.user.service.UploadProfileImageService;
 import com.woongeya.zoing.domain.user.service.UserUpdateService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,16 +21,19 @@ public class UserController {
     private final UploadProfileImageService uploadProfileImageService;
 
     @PutMapping
+    @Operation(summary = "유저 정보 업데이트")
     public void updateUser(@RequestBody UpdateUserRequestDto request) {
         userUpdateService.execute(request);
     }
 
     @PostMapping("/image")
+    @Operation(summary = "유저 프로필 사진 등록")
     public ImageResponseDto uploadImage(@RequestPart(value = "image") MultipartFile file) {
         return uploadProfileImageService.execute(file);
     }
 
     @GetMapping
+    @Operation(summary = "현재 로그인된 유저 정보 조회")
     public UserResponseDto getUserInfo() {
         return findCurrentUserService.execute();
     }

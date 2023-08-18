@@ -7,6 +7,7 @@ import lombok.Getter;
 public class UserResponseDto {
 
     private String name;
+    private String nickName;
     private String email;
     private String imgUrl;
     private String school;
@@ -14,8 +15,9 @@ public class UserResponseDto {
     private String statusMessage;
 
     @Builder
-    public UserResponseDto(String name, String email, String imgUrl, String school, String githubUrl, String statusMessage) {
+    public UserResponseDto(String name, String nickName, String email, String imgUrl, String school, String githubUrl, String statusMessage) {
         this.name = name;
+        this.nickName = nickName;
         this.email = email;
         this.imgUrl = imgUrl;
         this.school = school;
