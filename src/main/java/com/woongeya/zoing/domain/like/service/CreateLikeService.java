@@ -12,6 +12,8 @@ import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CreateLikeService {
@@ -31,7 +33,7 @@ public class CreateLikeService {
 
         likeRepository
                 .findByUserIdAndProjectId(user.getId(), project.getId())
-                .orElseThrow(AlreadyLikeException::new);
+                .ifPresent(like -> { throw new AlreadyLikeException(); });
 
         likeRepository.save(
                 Like.builder()
