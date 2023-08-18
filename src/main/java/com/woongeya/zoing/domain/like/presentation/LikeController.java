@@ -20,7 +20,6 @@ public class LikeController {
     private final FindLikerService findLikerService;
     private final FindLikedService findLikedService;
     private final CountLikerService countLikerService;
-    private final CountLikedService countLikedService;
 
     @PostMapping("/{id}")
     @Operation(summary = "좋아요 생성")
@@ -40,10 +39,10 @@ public class LikeController {
         return ResponseEntity.ok(findLikerService.execute(id));
     }
 
-    @GetMapping("/{id}/liked")
+    @GetMapping("/my")
     @Operation(summary = "내가 좋아요 누른 프로젝트 조회")
-    public ResponseEntity<List<ProjectResponseDto>> findLikedProject(@PathVariable Long id) {
-        return ResponseEntity.ok(findLikedService.execute(id));
+    public ResponseEntity<List<ProjectResponseDto>> findLikedProject() {
+        return ResponseEntity.ok(findLikedService.execute());
     }
 
     @GetMapping("/{id}/liker/count")
