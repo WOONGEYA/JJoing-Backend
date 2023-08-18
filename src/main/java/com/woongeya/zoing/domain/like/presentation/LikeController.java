@@ -1,6 +1,5 @@
 package com.woongeya.zoing.domain.like.presentation;
 
-import com.woongeya.zoing.domain.like.presentation.dto.response.LikeResponseDto;
 import com.woongeya.zoing.domain.like.presentation.dto.response.LikerResponseDto;
 import com.woongeya.zoing.domain.like.service.*;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
