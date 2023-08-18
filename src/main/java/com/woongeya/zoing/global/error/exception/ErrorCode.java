@@ -18,6 +18,7 @@ public enum ErrorCode {
     MEMBER_NOT_FOUND(404, "MEMBER-404-1", "Member Not Found"),
     APPLICATION_NOT_FOUND(404, "APPLICATION-404-1", "Application Not Found"),
     FOLLOW_NOT_FOUND(404, "FOLLOW-404-1", "Follow Not Found"),
+    ALREADY_FOLLOW(400, "FOLLOW-400-1", "Already Follow"),
     IS_NOT_WRITER(403, "WRITER-403-1", "Is Not Writer"),
     YOU_DONT_LIKE_BEFORE(400, "LIKE-400-1", "You Dont Like Before"),
     ALREADY_LIKE(400, "LIKE-400-2", "Already Like This Project"),

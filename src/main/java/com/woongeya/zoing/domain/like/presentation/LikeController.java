@@ -1,6 +1,5 @@
 package com.woongeya.zoing.domain.like.presentation;
 
-import com.woongeya.zoing.domain.like.presentation.dto.response.LikeResponseDto;
 import com.woongeya.zoing.domain.like.presentation.dto.response.LikerResponseDto;
 import com.woongeya.zoing.domain.like.service.*;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
@@ -32,12 +31,12 @@ public class LikeController {
         deleteLikeService.execute(id);
     }
 
-    @GetMapping("/{id}/liker") // 프로젝트 아이디 넘김
+    @GetMapping("/{id}/liker")
     public ResponseEntity<List<LikerResponseDto>> findLiker (@PathVariable Long id) {
         return ResponseEntity.ok(findLikerService.execute(id));
     }
 
-    @GetMapping("/{id}/liked") // 유저 아이디 넘김
+    @GetMapping("/{id}/liked")
     public ResponseEntity<List<ProjectResponseDto>> findLikedProject(@PathVariable Long id) {
         return ResponseEntity.ok(findLikedService.execute(id));
     }
