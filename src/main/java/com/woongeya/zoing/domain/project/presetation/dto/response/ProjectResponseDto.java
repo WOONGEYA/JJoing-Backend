@@ -13,6 +13,9 @@ public class ProjectResponseDto {
     private String content;
     private Long viewCount;
     private ProjectState state;
+    private String moodType;
+    private String communicationTool;
+    private String skill;
 
     public static ProjectResponseDto of(Project project) {
         return ProjectResponseDto.builder()
@@ -20,6 +23,9 @@ public class ProjectResponseDto {
                 .content(project.getContent())
                 .state(project.getState())
                 .viewCount(project.getViewCount())
+                .moodType(project.getMoodType())
+                .communicationTool(project.getCommunicationTool())
+                .skill(project.getSkill())
                 .build();
     }
 }

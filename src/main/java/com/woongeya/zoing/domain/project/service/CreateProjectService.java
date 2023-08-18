@@ -1,6 +1,5 @@
 package com.woongeya.zoing.domain.project.service;
 
-import com.woongeya.zoing.domain.project.domain.Image;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.ImageRepository;
@@ -15,9 +14,6 @@ import com.woongeya.zoing.infrastructure.s3.exception.ImageNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +35,9 @@ public class CreateProjectService {
                         .viewCount(0L)
                         .state(ProjectState.FINDING)
                         .position(request.getPosition())
+                        .communicationTool(request.getCommunicationTool())
+                        .moodType(request.getMoodType())
+                        .skill(request.getSkill())
                         .build()
         );
 
@@ -54,6 +53,7 @@ public class CreateProjectService {
                         .project(project)
                         .role(Role.WRITER)
                         .userId(user.getId())
-                        .build());
+                        .build()
+        );
     }
 }

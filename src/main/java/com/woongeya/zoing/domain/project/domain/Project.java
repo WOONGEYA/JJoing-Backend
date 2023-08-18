@@ -38,16 +38,28 @@ public class Project {
     @CreatedDate
     private LocalDate createDate;
 
+    @Column(length = 50)
+    private String moodType;
+
+    @Column(length = 200)
+    private String skill;
+
+    @Column(length = 200)
+    private String communicationTool;
+
     @Embedded
     private Position position;
 
     @Builder
-    public Project(String name, String content, Long viewCount, ProjectState state, LocalDate createDate, Position position) {
+    public Project(String name, String content, Long viewCount, ProjectState state, LocalDate createDate, String moodType, String skill, String communicationTool, Position position) {
         this.name = name;
         this.content = content;
         this.viewCount = viewCount;
         this.state = state;
         this.createDate = createDate;
+        this.moodType = moodType;
+        this.skill = skill;
+        this.communicationTool = communicationTool;
         this.position = position;
     }
 
@@ -68,5 +80,8 @@ public class Project {
         this.name = request.getName();
         this.position = request.getPosition();
         this.content = request.getContent();
+        this.moodType = request.getMoodType();
+        this.communicationTool = request.getCommunicationTool();
+        this.skill = request.getSkill();
     }
 }
