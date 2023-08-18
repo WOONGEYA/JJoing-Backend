@@ -32,6 +32,9 @@ public class User {
     @Column(length = 50)
     private String githubUrl;
 
+    @Column(length = 100)
+    private String statusMessage;
+
     @Column(nullable = false)
     private String imgUrl;
 
@@ -49,11 +52,12 @@ public class User {
     private Authority authority;
 
     @Builder
-    public User(String name, String nickName, String email, String githubUrl, String imgUrl, String school, int age, String major, Authority authority) {
+    public User(String name, String nickName, String email, String githubUrl, String statusMessage, String imgUrl, String school, int age, String major, Authority authority) {
         this.name = name;
         this.nickName = nickName;
         this.email = email;
         this.githubUrl = githubUrl;
+        this.statusMessage = statusMessage;
         this.imgUrl = imgUrl;
         this.school = school;
         this.age = age;
@@ -75,6 +79,7 @@ public class User {
         this.age = request.getAge();
         this.major = request.getMajor();
         this.githubUrl = request.getGithubUrl();
+        this.statusMessage = request.getStatusMessage();
     }
 
     public void updateImage(String imgUrl) {
