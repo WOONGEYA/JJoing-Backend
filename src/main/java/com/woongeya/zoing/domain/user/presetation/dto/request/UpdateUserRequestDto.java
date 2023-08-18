@@ -24,4 +24,6 @@ public class UpdateUserRequestDto {
 
     @NotBlank
     private String githubUrl;
+
+    private String statusMessage;
 }

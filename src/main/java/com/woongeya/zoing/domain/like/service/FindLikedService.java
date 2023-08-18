@@ -21,8 +21,8 @@ public class FindLikedService {
     private final UserFacade userFacade;
     private final LikeRepository likeRepository;
 
-    public List<ProjectResponseDto> execute(Long id) {
-        User user = userFacade.getUserById(id);
+    public List<ProjectResponseDto> execute() {
+        User user = userFacade.getCurrentUser();
         List<Like> likes = likeRepository.findByUserId(user.getId());
 
         return likes.stream()

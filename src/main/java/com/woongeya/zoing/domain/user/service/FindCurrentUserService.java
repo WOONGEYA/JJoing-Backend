@@ -20,6 +20,8 @@ public class FindCurrentUserService {
                 .imgUrl(user.getImgUrl())
                 .email(user.getEmail())
                 .school(user.getSchool())
+                .githubUrl(user.getGithubUrl())
+                .statusMessage(user.getStatusMessage())
                 .build();
     }
 }

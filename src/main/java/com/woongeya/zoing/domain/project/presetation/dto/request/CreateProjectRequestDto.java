@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -18,6 +19,12 @@ public class CreateProjectRequestDto {
 
     @NotNull
     private String content;
+
+    private String moodType;
+
+    private String skill;
+
+    private String communicationTool;
 
     private Position position;
 
