@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Table(name = "like_tbl")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Like {
 
