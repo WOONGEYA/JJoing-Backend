@@ -74,7 +74,7 @@ public class User {
     }
 
     public void updateInfo(UpdateUserRequestDto request) {
-        this.nickName = request.getNickname();
+        this.nickName = request.getNickName();
         this.age = request.getAge();
         this.major = request.getMajor();
         this.githubUrl = request.getGithubUrl();

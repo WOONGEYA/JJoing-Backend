@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class UpdateUserRequestDto {
 
     @NotBlank
-    private String nickname;
+    private String nickName;
 
     @NotNull
     private int age;
