@@ -11,9 +11,6 @@ import javax.validation.constraints.NotNull;
 public class UpdateUserRequestDto {
 
     @NotBlank
-    private String name;
-
-    @NotBlank
     private String nickname;
 
     @NotNull
@@ -24,6 +21,8 @@ public class UpdateUserRequestDto {
 
     @NotBlank
     private String githubUrl;
+
+    private String imageUrl;
 
     private String statusMessage;
 }

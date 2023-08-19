@@ -8,10 +8,6 @@ public class ImageResponseDto {
 
     private String imgUrl;
 
-    public ImageResponseDto(Image image) {
-        this.imgUrl = image.getImgUrl();
-    }
-
     public ImageResponseDto(String imgUrl) {
         this.imgUrl = imgUrl;
     }
