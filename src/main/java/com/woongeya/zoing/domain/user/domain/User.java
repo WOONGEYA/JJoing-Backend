@@ -81,8 +81,4 @@ public class User {
         this.statusMessage = request.getStatusMessage();
         this.imgUrl = request.getImageUrl();
     }
-
-    public void updateImage(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
 }
