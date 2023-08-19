@@ -9,16 +9,18 @@ public class UserResponseDto {
     private String name;
     private String nickName;
     private String email;
+    private String major;
     private String imgUrl;
     private String school;
     private String githubUrl;
     private String statusMessage;
 
     @Builder
-    public UserResponseDto(String name, String nickName, String email, String imgUrl, String school, String githubUrl, String statusMessage) {
+    public UserResponseDto(String name, String nickName, String email, String major, String imgUrl, String school, String githubUrl, String statusMessage) {
         this.name = name;
         this.nickName = nickName;
         this.email = email;
+        this.major = major;
         this.imgUrl = imgUrl;
         this.school = school;
         this.githubUrl = githubUrl;

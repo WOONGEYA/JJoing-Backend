@@ -74,12 +74,12 @@ public class User {
     }
 
     public void updateInfo(UpdateUserRequestDto request) {
-        this.name = request.getName();
         this.nickName = request.getNickname();
         this.age = request.getAge();
         this.major = request.getMajor();
         this.githubUrl = request.getGithubUrl();
         this.statusMessage = request.getStatusMessage();
+        this.imgUrl = request.getImageUrl();
     }
 
     public void updateImage(String imgUrl) {
