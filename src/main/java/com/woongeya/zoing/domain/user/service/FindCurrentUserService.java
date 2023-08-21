@@ -16,6 +16,7 @@ public class FindCurrentUserService {
         User user = userFacade.getCurrentUser();
 
         return UserResponseDto.builder()
+                .id(user.getId())
                 .name(user.getName())
                 .imgUrl(user.getImgUrl())
                 .email(user.getEmail())

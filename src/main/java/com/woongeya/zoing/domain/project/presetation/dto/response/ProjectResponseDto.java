@@ -9,6 +9,7 @@ import lombok.Getter;
 @Builder
 public class ProjectResponseDto {
 
+    private Long id;
     private String name;
     private String content;
     private Long viewCount;
@@ -19,6 +20,7 @@ public class ProjectResponseDto {
 
     public static ProjectResponseDto of(Project project) {
         return ProjectResponseDto.builder()
+                .id(project.getId())
                 .name(project.getName())
                 .content(project.getContent())
                 .state(project.getState())
