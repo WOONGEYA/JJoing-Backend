@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 public class UserResponseDto {
 
+    private Long id;
     private String name;
     private String nickName;
     private String email;
@@ -16,7 +17,8 @@ public class UserResponseDto {
     private String statusMessage;
 
     @Builder
-    public UserResponseDto(String name, String nickName, String email, String major, String imgUrl, String school, String githubUrl, String statusMessage) {
+    public UserResponseDto(Long id, String name, String nickName, String email, String major, String imgUrl, String school, String githubUrl, String statusMessage) {
+        this.id = id;
         this.name = name;
         this.nickName = nickName;
         this.email = email;

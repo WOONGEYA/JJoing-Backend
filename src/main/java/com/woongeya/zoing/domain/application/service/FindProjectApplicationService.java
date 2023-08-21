@@ -42,7 +42,7 @@ public class FindProjectApplicationService {
         );
 
         return applicationMap.entrySet().stream()
-                .map(entry -> new ApplicationResponseDto(entry.getValue().getIntroduce(), entry.getKey().getName(), entry.getValue().getPosition()))
+                .map(entry -> new ApplicationResponseDto(entry.getValue().getId() ,entry.getValue().getIntroduce(), entry.getKey().getName(), entry.getValue().getPosition()))
                 .collect(Collectors.toList());
     }
 }
