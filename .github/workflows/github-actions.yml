@@ -22,11 +22,11 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Make application.properties
+      - name: Make application.yml
         run: |
           cd ./src/main/resources
-          touch ./application.properties
-          echo "${{ secrets.PROPERTIES }}" > ./application.properties
+          touch ./application.yml
+          echo "${{ secrets.YML }}" > ./application.yml
         shell: bash
 
       - name: Build with Gradle
@@ -37,8 +37,8 @@ jobs:
       - name: Docker build & push to docker repo
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f Dockerfile -t ${{ secrets.DOCKER_REPOSITORY }}/directors-dev .
-          docker push ${{ secrets.DOCKER_REPOSITORY }}/directors-dev
+          docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/directors-dev .
+          docker push ${{ secrets.DOCKER_REPO }}/directors-dev
 
       - name: Deploy to server
         uses: appleboy/ssh-action@master
@@ -50,6 +50,6 @@ jobs:
           envs: GITHUB_SHA
           script: |
             sudo docker rm -f $(docker ps -qa)
-            sudo docker pull ${{ secrets.DOCKER_REPOSITORY }}/directors-dev
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/directors-dev
             docker-compose up -d
             docker image prune -f
