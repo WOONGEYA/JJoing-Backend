@@ -2,7 +2,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "master", "feat"]
+    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
@@ -37,8 +37,8 @@ jobs:
       - name: Docker build & push to docker repo
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/directors-dev .
-          docker push ${{ secrets.DOCKER_REPO }}/directors-dev
+          docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/jjoing .
+          docker push ${{ secrets.DOCKER_REPO }}/jjoing
 
       - name: Deploy to server
         uses: appleboy/ssh-action@master
@@ -50,6 +50,6 @@ jobs:
           envs: GITHUB_SHA
           script: |
             sudo docker rm -f $(docker ps -qa)
-            sudo docker pull ${{ secrets.DOCKER_REPO }}/directors-dev
+            sudo docker pull ${{ secrets.DOCKER_REPO }}/jjoing
             docker-compose up -d
             docker image prune -f
