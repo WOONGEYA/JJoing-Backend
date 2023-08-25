@@ -1,9 +1,7 @@
 version: '3.8'
 services:
   spring:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ${DOCKER_REPOSITORY}/jjoing
     ports:
       - 80:8080
     depends_on:
