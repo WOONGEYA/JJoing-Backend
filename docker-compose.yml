@@ -2,8 +2,10 @@ version: '3.8'
 services:
   spring:
     image: ${DOCKER_REPOSITORY}/jjoing
+    expose:
+      - 8080
     ports:
-      - 80:8080
+      - 8080:8080
     depends_on:
       - s3
     env_file:
