@@ -22,6 +22,9 @@ jobs:
 
       - name: Make application.yml
         run: |
+          set -a
+          source ${{ secrets.ENV }}
+          set +a
           cd ./src/main/resources
           touch ./application.yml
           echo "${{ secrets.YML }}" > ./application.yml
