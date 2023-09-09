@@ -1,18 +1,28 @@
 package com.woongeya.zoing.domain.project.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 @Getter
-@NoArgsConstructor
-@Embeddable
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Table
 public class Position {
 
-    private int frontCount;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private int backCount;
+    private String name;
 
-    private int designCount;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+    @Builder
+    public Position(String name, Project project) {
+        this.name = name;
+        this.project = project;
+    }
 }
