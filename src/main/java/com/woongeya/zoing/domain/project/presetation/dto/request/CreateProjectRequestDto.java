@@ -26,7 +26,7 @@ public class CreateProjectRequestDto {
 
     private String communicationTool;
 
-    private Position position;
+    private List<String> positionName;
 
     private List<String> imgUrls;
 }
