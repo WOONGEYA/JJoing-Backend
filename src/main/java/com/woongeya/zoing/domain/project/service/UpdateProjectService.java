@@ -30,7 +30,7 @@ public class UpdateProjectService {
     public void execute(Long id, CreateProjectRequestDto request) {
         Project project = projectFacade.getProject(id);
         User user = userFacade.getCurrentUser();
-        List<Position> positions = positionRepository.findByProjectId(project.getId());
+        positionRepository.deleteByProjectId(project.getId());
 
         Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
@@ -39,7 +39,13 @@ public class UpdateProjectService {
             throw new IsNotWriterException();
         }
 
-        positions.forEach(position -> position.update(request));
+        request.getPositionName().stream()
+                .map(name -> positionRepository.save(
+                        Position.builder()
+                                .name(name)
+                                .project(project)
+                                .build()));
+
         project.update(request);
     }
 

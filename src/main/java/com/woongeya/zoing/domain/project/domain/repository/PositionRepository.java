@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PositionRepository extends JpaRepository<Position, Long> {
 
-    List<Position> findByProjectId(Long id);
+    void deleteByProjectId(Long id);
 }
