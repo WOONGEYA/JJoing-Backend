@@ -18,6 +18,7 @@ public class FindCurrentUserService {
         return UserResponseDto.builder()
                 .id(user.getId())
                 .name(user.getName())
+                .nickName(user.getNickName())
                 .imgUrl(user.getImgUrl())
                 .email(user.getEmail())
                 .major(user.getMajor())

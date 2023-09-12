@@ -68,7 +68,6 @@ public class User {
     public User update(GoogleInfoResponseDto response, String school) {
         this.email = response.getEmail();
         this.name = response.getName();
-        this.nickName = response.getName();
         this.school = school;
         return this;
     }

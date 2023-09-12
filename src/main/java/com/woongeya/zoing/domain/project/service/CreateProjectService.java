@@ -1,9 +1,11 @@
 package com.woongeya.zoing.domain.project.service;
 
 import com.woongeya.zoing.domain.project.domain.Member;
+import com.woongeya.zoing.domain.project.domain.Position;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.ImageRepository;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
+import com.woongeya.zoing.domain.project.domain.repository.PositionRepository;
 import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import com.woongeya.zoing.domain.project.domain.type.Role;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateProjectService {
 
     private final ProjectRepository projectRepository;
+    private final PositionRepository positionRepository;
     private final MemberRepository memberRepository;
     private final ImageRepository imageRepository;
     private final UserFacade userFacade;
@@ -34,12 +37,18 @@ public class CreateProjectService {
                         .content(request.getContent())
                         .viewCount(0L)
                         .state(ProjectState.FINDING)
-                        .position(request.getPosition())
                         .communicationTool(request.getCommunicationTool())
                         .moodType(request.getMoodType())
                         .skill(request.getSkill())
                         .build()
         );
+
+        request.getPositionName().stream()
+                .map(name -> positionRepository.save(
+                        Position.builder()
+                                .name(name)
+                                .project(project)
+                                .build()));
 
         if (!request.getImgUrls().isEmpty()) {
             request.getImgUrls().stream()
