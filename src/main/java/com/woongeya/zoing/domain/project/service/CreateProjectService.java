@@ -45,15 +45,9 @@ public class CreateProjectService {
                         .skill(request.getSkill())
                         .build()
         );
-        
-        saveMoods(project, request.getMoods());
 
-        request.getPositionName().stream()
-                .map(name -> positionRepository.save(
-                        Position.builder()
-                                .name(name)
-                                .project(project)
-                                .build()));
+        saveMoods(project, request.getMoods());
+        savePositions(project, request.getPositions());
 
         if (!request.getImgUrls().isEmpty()) {
             request.getImgUrls().stream()
@@ -79,5 +73,14 @@ public class CreateProjectService {
                                 .project(project)
                                 .build()
                 ));
+    }
+
+    private void savePositions(Project project, List<String> positions) {
+        positions.stream()
+                .map(position -> positionRepository.save(
+                        Position.builder()
+                                .name(position)
+                                .project(project)
+                                .build()));
     }
 }

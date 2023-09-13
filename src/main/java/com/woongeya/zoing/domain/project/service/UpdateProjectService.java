@@ -44,13 +44,7 @@ public class UpdateProjectService {
         }
 
         updateMoods(project, request.getMoods());
-
-        request.getPositionName().stream()
-                .map(name -> positionRepository.save(
-                        Position.builder()
-                                .name(name)
-                                .project(project)
-                                .build()));
+        updatePositions(project, request.getPositions());
 
         project.update(request);
     }
@@ -67,5 +61,14 @@ public class UpdateProjectService {
                                 .project(project)
                                 .build()
                 ));
+    }
+
+    private void updatePositions(Project project, List<String> positions) {
+        positions.stream()
+                .map(position -> positionRepository.save(
+                        Position.builder()
+                                .name(position)
+                                .project(project)
+                                .build()));
     }
 }

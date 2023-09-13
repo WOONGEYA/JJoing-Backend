@@ -30,7 +30,7 @@ public class CreateProjectRequestDto {
 
     private List<String> moods;
 
-    private List<String> positionName;
+    private List<String> positions;
 
     private List<String> imgUrls;
 }
