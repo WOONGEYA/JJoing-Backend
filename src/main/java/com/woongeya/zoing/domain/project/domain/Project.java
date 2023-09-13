@@ -50,11 +50,8 @@ public class Project {
     @Column(length = 200)
     private String skill;
 
-    @Column(length = 200)
-    private String communicationTool;
-
     @Builder
-    public Project(String name, String content, Long viewCount, ProjectState state, Integer requiredPeople, Integer currentPeople, LocalDate startDate, LocalDate endDate, String skill, String communicationTool) {
+    public Project(String name, String content, Long viewCount, ProjectState state, Integer requiredPeople, Integer currentPeople, LocalDate startDate, LocalDate endDate, String skill) {
         this.name = name;
         this.content = content;
         this.viewCount = viewCount;
@@ -64,7 +61,6 @@ public class Project {
         this.startDate = startDate;
         this.endDate = endDate;
         this.skill = skill;
-        this.communicationTool = communicationTool;
     }
 
     public void close() {
@@ -91,7 +87,6 @@ public class Project {
         this.name = request.getName();
         this.content = request.getContent();
         this.endDate = request.getEndDate();
-        this.communicationTool = request.getCommunicationTool();
         this.skill = request.getSkill();
     }
 }

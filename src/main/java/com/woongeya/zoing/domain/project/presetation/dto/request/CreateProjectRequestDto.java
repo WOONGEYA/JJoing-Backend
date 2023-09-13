@@ -24,9 +24,9 @@ public class CreateProjectRequestDto {
 
     private String skill;
 
-    private String communicationTool;
-
     private LocalDate endDate;
+
+    private List<String> coops;
 
     private List<String> moods;
 
