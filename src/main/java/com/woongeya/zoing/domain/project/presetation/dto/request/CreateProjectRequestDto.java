@@ -1,12 +1,11 @@
 package com.woongeya.zoing.domain.project.presetation.dto.request;
 
-import com.woongeya.zoing.domain.project.domain.Position;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -25,6 +24,8 @@ public class CreateProjectRequestDto {
     private String skill;
 
     private String communicationTool;
+
+    private LocalDate endDate;
 
     private List<String> positionName;
 

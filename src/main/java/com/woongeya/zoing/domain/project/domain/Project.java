@@ -36,7 +36,10 @@ public class Project {
     private ProjectState state;
 
     @CreatedDate
-    private LocalDate createDate;
+    private LocalDate startDate;
+
+    @Column(nullable = false)
+    private LocalDate endDate;
 
     @Column(length = 50)
     private String moodType;
@@ -48,12 +51,13 @@ public class Project {
     private String communicationTool;
 
     @Builder
-    public Project(String name, String content, Long viewCount, ProjectState state, LocalDate createDate, String moodType, String skill, String communicationTool) {
+    public Project(String name, String content, Long viewCount, ProjectState state, LocalDate startDate, LocalDate endDate, String moodType, String skill, String communicationTool) {
         this.name = name;
         this.content = content;
         this.viewCount = viewCount;
         this.state = state;
-        this.createDate = createDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.moodType = moodType;
         this.skill = skill;
         this.communicationTool = communicationTool;
@@ -69,12 +73,13 @@ public class Project {
 
     @PrePersist
     public void createAt() {
-        this.createDate = LocalDate.now();
+        this.startDate = LocalDate.now();
     }
 
     public void update(CreateProjectRequestDto request) {
         this.name = request.getName();
         this.content = request.getContent();
+        this.endDate = request.getEndDate();
         this.moodType = request.getMoodType();
         this.communicationTool = request.getCommunicationTool();
         this.skill = request.getSkill();
