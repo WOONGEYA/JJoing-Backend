@@ -8,6 +8,7 @@ import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class DeleteLikeService {
     private final ProjectFacade projectFacade;
     private final LikeRepository likeRepository;
 
+    @Transactional
     public void execute(Long id) {
         User user = userFacade.getCurrentUser();
         Project project = projectFacade.getProject(id);

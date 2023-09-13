@@ -1,6 +1,5 @@
 package com.woongeya.zoing.domain.project.domain;
 
-import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,9 +24,5 @@ public class Position {
     public Position(String name, Project project) {
         this.name = name;
         this.project = project;
-    }
-
-    public void update(CreateProjectRequestDto request) {
-        this.name = request.getName();
     }
 }
