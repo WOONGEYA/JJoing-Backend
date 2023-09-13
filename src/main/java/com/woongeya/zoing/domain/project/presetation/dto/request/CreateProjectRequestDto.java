@@ -22,13 +22,13 @@ public class CreateProjectRequestDto {
     @NotNull
     private Integer requiredPeople;
 
-    private String moodType;
-
     private String skill;
 
     private String communicationTool;
 
     private LocalDate endDate;
+
+    private List<String> moods;
 
     private List<String> positionName;
 

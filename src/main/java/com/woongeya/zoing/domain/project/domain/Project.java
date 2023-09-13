@@ -47,9 +47,6 @@ public class Project {
     @Column(nullable = false)
     private LocalDate endDate;
 
-    @Column(length = 50)
-    private String moodType;
-
     @Column(length = 200)
     private String skill;
 
@@ -57,7 +54,7 @@ public class Project {
     private String communicationTool;
 
     @Builder
-    public Project(String name, String content, Long viewCount, ProjectState state, Integer requiredPeople, Integer currentPeople, LocalDate startDate, LocalDate endDate, String moodType, String skill, String communicationTool) {
+    public Project(String name, String content, Long viewCount, ProjectState state, Integer requiredPeople, Integer currentPeople, LocalDate startDate, LocalDate endDate, String skill, String communicationTool) {
         this.name = name;
         this.content = content;
         this.viewCount = viewCount;
@@ -66,7 +63,6 @@ public class Project {
         this.currentPeople = currentPeople;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.moodType = moodType;
         this.skill = skill;
         this.communicationTool = communicationTool;
     }
@@ -95,7 +91,6 @@ public class Project {
         this.name = request.getName();
         this.content = request.getContent();
         this.endDate = request.getEndDate();
-        this.moodType = request.getMoodType();
         this.communicationTool = request.getCommunicationTool();
         this.skill = request.getSkill();
     }

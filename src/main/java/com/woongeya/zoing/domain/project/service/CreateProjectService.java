@@ -1,12 +1,10 @@
 package com.woongeya.zoing.domain.project.service;
 
 import com.woongeya.zoing.domain.project.domain.Member;
+import com.woongeya.zoing.domain.project.domain.Mood;
 import com.woongeya.zoing.domain.project.domain.Position;
 import com.woongeya.zoing.domain.project.domain.Project;
-import com.woongeya.zoing.domain.project.domain.repository.ImageRepository;
-import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
-import com.woongeya.zoing.domain.project.domain.repository.PositionRepository;
-import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
+import com.woongeya.zoing.domain.project.domain.repository.*;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import com.woongeya.zoing.domain.project.domain.type.Role;
 import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
@@ -17,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CreateProjectService {
@@ -25,6 +25,7 @@ public class CreateProjectService {
     private final PositionRepository positionRepository;
     private final MemberRepository memberRepository;
     private final ImageRepository imageRepository;
+    private final MoodRepository moodRepository;
     private final UserFacade userFacade;
 
     @Transactional
@@ -41,10 +42,11 @@ public class CreateProjectService {
                         .viewCount(0L)
                         .state(ProjectState.FINDING)
                         .communicationTool(request.getCommunicationTool())
-                        .moodType(request.getMoodType())
                         .skill(request.getSkill())
                         .build()
         );
+        
+        saveMoods(project, request.getMoods());
 
         request.getPositionName().stream()
                 .map(name -> positionRepository.save(
@@ -67,5 +69,15 @@ public class CreateProjectService {
                         .userId(user.getId())
                         .build()
         );
+    }
+
+    private void saveMoods(Project project, List<String> moods) {
+        moods.stream()
+                .map(mood -> moodRepository.save(
+                        Mood.builder()
+                                .name(mood)
+                                .project(project)
+                                .build()
+                ));
     }
 }
