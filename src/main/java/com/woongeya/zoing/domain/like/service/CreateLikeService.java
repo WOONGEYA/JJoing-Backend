@@ -11,6 +11,7 @@ import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ public class CreateLikeService {
     private final ProjectRepository projectRepository;
     private final LikeRepository likeRepository;
 
+    @Transactional
     public void execute(Long id) {
         User user = userFacade.getCurrentUser();
         Project project = projectFacade.getProject(id);

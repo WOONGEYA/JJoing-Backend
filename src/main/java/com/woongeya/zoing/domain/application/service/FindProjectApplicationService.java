@@ -11,6 +11,7 @@ import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class FindProjectApplicationService {
     private final CustomMemberRepository customMemberRepository;
     private final UserFacade userFacade;
 
+    @Transactional(readOnly = true)
     public List<ApplicationResponseDto> execute(Long id) {
         User user = userFacade.getCurrentUser();
         Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), id)

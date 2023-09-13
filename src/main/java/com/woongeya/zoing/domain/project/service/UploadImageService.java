@@ -6,6 +6,7 @@ import com.woongeya.zoing.domain.project.presetation.dto.response.ImageResponseD
 import com.woongeya.zoing.infrastructure.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class UploadImageService {
     private final S3Service s3Service;
     private final ImageRepository imageRepository;
 
+    @Transactional
     public List<ImageResponseDto> execute(List<MultipartFile> files) {
         List<Image> images = files.stream()
                 .map(s3Service::uploadImage)

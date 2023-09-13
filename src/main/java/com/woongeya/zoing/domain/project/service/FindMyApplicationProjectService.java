@@ -8,6 +8,7 @@ import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class FindMyApplicationProjectService {
     private final ApplicationRepository applicationRepository;
     private final ProjectFacade projectFacade;
 
+    @Transactional(readOnly = true)
     public List<ProjectResponseDto> execute() {
         User user = userFacade.getCurrentUser();
         List<Application> applications = applicationRepository.findByUserId(user.getId());

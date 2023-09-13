@@ -30,6 +30,7 @@ public class DeleteMemberService {
             throw new IsNotWriterException();
         }
 
+        member.getProject().decreaseCurrentPeople();
         memberRepository.delete(
                 memberRepository.findById(request.getMemberId())
                         .orElseThrow(() -> MemberNotFoundException.EXCEPTION)

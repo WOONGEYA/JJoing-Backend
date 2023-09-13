@@ -35,11 +35,17 @@ public class Project {
     @Enumerated(EnumType.STRING)
     private ProjectState state;
 
-    @CreatedDate
-    private LocalDate createDate;
+    @Column(nullable = false)
+    private Integer requiredPeople;
 
-    @Column(length = 50)
-    private String moodType;
+    @Column(nullable = false)
+    private Integer currentPeople;
+
+    @CreatedDate
+    private LocalDate startDate;
+
+    @Column(nullable = false)
+    private LocalDate endDate;
 
     @Column(length = 200)
     private String skill;
@@ -48,13 +54,15 @@ public class Project {
     private String communicationTool;
 
     @Builder
-    public Project(String name, String content, Long viewCount, ProjectState state, LocalDate createDate, String moodType, String skill, String communicationTool) {
+    public Project(String name, String content, Long viewCount, ProjectState state, Integer requiredPeople, Integer currentPeople, LocalDate startDate, LocalDate endDate, String skill, String communicationTool) {
         this.name = name;
         this.content = content;
         this.viewCount = viewCount;
         this.state = state;
-        this.createDate = createDate;
-        this.moodType = moodType;
+        this.requiredPeople = requiredPeople;
+        this.currentPeople = currentPeople;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.skill = skill;
         this.communicationTool = communicationTool;
     }
@@ -67,15 +75,22 @@ public class Project {
         this.viewCount++;
     }
 
+    public void increaseCurrentPeople() {
+        this.currentPeople++;
+    }
+    public void decreaseCurrentPeople() {
+        this.currentPeople--;
+    }
+
     @PrePersist
     public void createAt() {
-        this.createDate = LocalDate.now();
+        this.startDate = LocalDate.now();
     }
 
     public void update(CreateProjectRequestDto request) {
         this.name = request.getName();
         this.content = request.getContent();
-        this.moodType = request.getMoodType();
+        this.endDate = request.getEndDate();
         this.communicationTool = request.getCommunicationTool();
         this.skill = request.getSkill();
     }

@@ -1,14 +1,16 @@
 package com.woongeya.zoing.domain.project.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Entity
-public class Position {
+public class Mood {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +23,7 @@ public class Position {
     private Project project;
 
     @Builder
-    public Position(String name, Project project) {
+    public Mood(String name, Project project) {
         this.name = name;
         this.project = project;
     }

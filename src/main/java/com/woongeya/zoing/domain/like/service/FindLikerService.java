@@ -8,6 +8,7 @@ import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class FindLikerService {
     private final ProjectFacade projectFacade;
     private final LikeRepository likeRepository;
 
+    @Transactional(readOnly = true)
     public List<LikerResponseDto> execute(Long id) {
         Project project = projectFacade.getProject(id);
         List<Like> likes = likeRepository.findByProjectId(project.getId());

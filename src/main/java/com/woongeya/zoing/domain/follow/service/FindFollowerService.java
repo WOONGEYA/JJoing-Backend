@@ -7,6 +7,7 @@ import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +18,8 @@ public class FindFollowerService {
 
     private final UserFacade userFacade;
     private final FollowRepository followRepository;
+
+    @Transactional
 
     public List<FollowResponseDto> execute(Long id) {
         User user = userFacade.getUserById(id);

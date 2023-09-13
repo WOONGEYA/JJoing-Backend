@@ -5,6 +5,7 @@ import com.woongeya.zoing.domain.user.domain.User;
 import com.woongeya.zoing.domain.user.presetation.dto.response.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -12,6 +13,7 @@ public class FindCurrentUserService {
 
     private final UserFacade userFacade;
 
+    @Transactional(readOnly = true)
     public UserResponseDto execute() {
         User user = userFacade.getCurrentUser();
 
