@@ -36,6 +36,8 @@ public class CreateProjectService {
                         .name(request.getName())
                         .content(request.getContent())
                         .endDate(request.getEndDate())
+                        .requiredPeople(request.getRequiredPeople())
+                        .currentPeople(0)
                         .viewCount(0L)
                         .state(ProjectState.FINDING)
                         .communicationTool(request.getCommunicationTool())

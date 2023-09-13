@@ -19,6 +19,9 @@ public class CreateProjectRequestDto {
     @NotNull
     private String content;
 
+    @NotNull
+    private Integer requiredPeople;
+
     private String moodType;
 
     private String skill;

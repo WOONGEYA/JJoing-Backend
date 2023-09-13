@@ -35,6 +35,12 @@ public class Project {
     @Enumerated(EnumType.STRING)
     private ProjectState state;
 
+    @Column(nullable = false)
+    private Integer requiredPeople;
+
+    @Column(nullable = false)
+    private Integer currentPeople;
+
     @CreatedDate
     private LocalDate startDate;
 
@@ -51,11 +57,13 @@ public class Project {
     private String communicationTool;
 
     @Builder
-    public Project(String name, String content, Long viewCount, ProjectState state, LocalDate startDate, LocalDate endDate, String moodType, String skill, String communicationTool) {
+    public Project(String name, String content, Long viewCount, ProjectState state, Integer requiredPeople, Integer currentPeople, LocalDate startDate, LocalDate endDate, String moodType, String skill, String communicationTool) {
         this.name = name;
         this.content = content;
         this.viewCount = viewCount;
         this.state = state;
+        this.requiredPeople = requiredPeople;
+        this.currentPeople = currentPeople;
         this.startDate = startDate;
         this.endDate = endDate;
         this.moodType = moodType;
@@ -69,6 +77,13 @@ public class Project {
 
     public void increaseViewCnt() {
         this.viewCount++;
+    }
+
+    public void increaseCurrentPeople() {
+        this.currentPeople++;
+    }
+    public void decreaseCurrentPeople() {
+        this.currentPeople--;
     }
 
     @PrePersist

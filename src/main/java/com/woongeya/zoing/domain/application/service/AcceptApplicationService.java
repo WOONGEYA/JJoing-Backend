@@ -41,5 +41,6 @@ public class AcceptApplicationService {
                         .role(Role.MEMBER)
                         .build()
         );
+        project.increaseCurrentPeople();
     }
 }
