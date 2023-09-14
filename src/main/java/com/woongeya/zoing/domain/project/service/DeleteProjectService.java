@@ -22,6 +22,7 @@ public class DeleteProjectService {
     private final MemberRepository memberRepository;
     private final CoopRepository coopRepository;
     private final PositionRepository positionRepository;
+    private final ImageRepository imageRepository;
     private final SkillRepository skillRepository;
     private final MoodRepository moodRepository;
     private final CustomMemberRepository customMemberRepository;
@@ -48,6 +49,8 @@ public class DeleteProjectService {
         moodRepository.deleteByProjectId(project.getId());
         skillRepository.deleteByProjectId(project.getId());
         coopRepository.deleteByProjectId(project.getId());
+        positionRepository.deleteByProjectId(project.getId());
+        imageRepository.deleteByProjectId(project.getId());
         projectRepository.delete(project);
     }
 
