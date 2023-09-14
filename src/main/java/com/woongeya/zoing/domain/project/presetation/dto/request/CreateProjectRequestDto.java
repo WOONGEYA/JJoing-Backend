@@ -19,6 +19,8 @@ public class CreateProjectRequestDto {
     @NotNull
     private String content;
 
+    private String imgUrl;
+
     @NotNull
     private Integer requiredPeople;
 
@@ -31,6 +33,4 @@ public class CreateProjectRequestDto {
     private List<String> moods;
 
     private List<String> positions;
-
-    private List<String> imgUrls;
 }
