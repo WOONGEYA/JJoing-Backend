@@ -38,8 +38,8 @@ public class ProjectController {
 
     @PostMapping("/image")
     @Operation(summary = "프로젝트 이미지 등록")
-    public List<ImageResponseDto> uploadImage(@RequestPart("image")List<MultipartFile> images) {
-        return uploadImageService.execute(images);
+    public ImageResponseDto uploadImage(@RequestPart("image") MultipartFile image) {
+        return uploadImageService.execute(image);
     }
 
     @PutMapping("/{id}")
