@@ -24,6 +24,7 @@ public class CreateProjectService {
     private final ImageRepository imageRepository;
     private final MoodRepository moodRepository;
     private final CoopRepository coopRepository;
+    private final SkillRepository skillRepository;
     private final UserFacade userFacade;
 
     @Transactional
@@ -39,13 +40,13 @@ public class CreateProjectService {
                         .currentPeople(0)
                         .viewCount(0L)
                         .state(ProjectState.FINDING)
-                        .skill(request.getSkill())
                         .build()
         );
 
         saveMoods(project, request.getMoods());
         savePositions(project, request.getPositions());
         saveCoops(project, request.getCoops());
+        saveSkills(project, request.getSkills());
 
         if (!request.getImgUrls().isEmpty()) {
             request.getImgUrls().stream()
@@ -87,6 +88,16 @@ public class CreateProjectService {
                 .map(tool -> coopRepository.save(
                         Coop.builder()
                                 .tool(tool)
+                                .project(project)
+                                .build()
+                ));
+    }
+
+    private void saveSkills(Project project, List<String> skills) {
+        skills.stream()
+                .map(skill -> skillRepository.save(
+                        Skill.builder()
+                                .name(skill)
                                 .project(project)
                                 .build()
                 ));

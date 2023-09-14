@@ -3,9 +3,7 @@ package com.woongeya.zoing.domain.project.service;
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
-import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
-import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
-import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
+import com.woongeya.zoing.domain.project.domain.repository.*;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
@@ -22,6 +20,10 @@ public class DeleteProjectService {
     private final ProjectRepository projectRepository;
     private final ApplicationRepository applicationRepository;
     private final MemberRepository memberRepository;
+    private final CoopRepository coopRepository;
+    private final PositionRepository positionRepository;
+    private final SkillRepository skillRepository;
+    private final MoodRepository moodRepository;
     private final CustomMemberRepository customMemberRepository;
     private final ProjectFacade projectFacade;
     private final UserFacade userFacade;
@@ -37,8 +39,17 @@ public class DeleteProjectService {
             throw new IsNotWriterException();
         }
 
-        applicationRepository.deleteAll(applicationRepository.findByProjectId(id));
-        memberRepository.deleteAll(memberRepository.findByProjectId(id));
+        deleteAll(project);
+    }
+
+    private void deleteAll(Project project) {
+        applicationRepository.deleteByProjectId(project.getId());
+        memberRepository.deleteByProjectId(project.getId());
+        moodRepository.deleteByProjectId(project.getId());
+        skillRepository.deleteByProjectId(project.getId());
+        coopRepository.deleteByProjectId(project.getId());
         projectRepository.delete(project);
     }
+
+
 }
