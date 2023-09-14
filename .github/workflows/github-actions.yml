@@ -22,9 +22,6 @@ jobs:
 
       - name: Make application.yml
         run: |
-          set -a
-          source ${{ secrets.ENV }}
-          set +a
           cd ./src/main/resources
           touch ./application.yml
           echo "${{ secrets.YML }}" > ./application.yml
@@ -50,7 +47,6 @@ jobs:
           key: ${{ secrets.KEY }}
           envs: GITHUB_SHA
           script: |
-            cd JJoing-Backend/
             sudo docker rm -f $(docker ps -qa)
             sudo docker pull ${{ secrets.DOCKER_REPO }}/jjoing
             docker-compose up -d
