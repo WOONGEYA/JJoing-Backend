@@ -48,12 +48,9 @@ public class CreateProjectService {
         saveCoops(project, request.getCoops());
         saveSkills(project, request.getSkills());
 
-        if (!request.getImgUrls().isEmpty()) {
-            request.getImgUrls().stream()
-                    .map(url -> imageRepository.findByImgUrl(url)
-                            .orElseThrow(() -> ImageNotFoundException.EXCEPTION))
-                    .peek(image -> image.addProject(project));
-        }
+        Image image = imageRepository.findByImgUrl(request.getImgUrl())
+                .orElseThrow(() -> ImageNotFoundException.EXCEPTION);
+        image.addProject(project);
 
         memberRepository.save(
                 Member.builder()

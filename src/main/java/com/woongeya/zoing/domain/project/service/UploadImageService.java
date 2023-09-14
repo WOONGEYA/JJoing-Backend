@@ -20,19 +20,14 @@ public class UploadImageService {
     private final ImageRepository imageRepository;
 
     @Transactional
-    public List<ImageResponseDto> execute(List<MultipartFile> files) {
-        List<Image> images = files.stream()
-                .map(s3Service::uploadImage)
-                .map(
-                        imgUrl -> Image.builder()
-                                .imgUrl(imgUrl)
-                                .build()
-                )
-                .collect(Collectors.toList());
-        imageRepository.saveAll(images);
+    public ImageResponseDto execute(MultipartFile file) {
+        String image = s3Service.uploadImage(file);
+        imageRepository.save(
+                Image.builder()
+                        .imgUrl(image)
+                        .build()
+        );
 
-        return images.stream()
-                .map(ImageResponseDto::new)
-                .collect(Collectors.toList());
+        return new ImageResponseDto(image);
     }
 }
