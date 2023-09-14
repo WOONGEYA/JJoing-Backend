@@ -1,9 +1,6 @@
 package com.woongeya.zoing.domain.project.service;
 
-import com.woongeya.zoing.domain.project.domain.Member;
-import com.woongeya.zoing.domain.project.domain.Mood;
-import com.woongeya.zoing.domain.project.domain.Position;
-import com.woongeya.zoing.domain.project.domain.Project;
+import com.woongeya.zoing.domain.project.domain.*;
 import com.woongeya.zoing.domain.project.domain.repository.*;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import com.woongeya.zoing.domain.project.domain.type.Role;
@@ -26,6 +23,8 @@ public class CreateProjectService {
     private final MemberRepository memberRepository;
     private final ImageRepository imageRepository;
     private final MoodRepository moodRepository;
+    private final CoopRepository coopRepository;
+    private final SkillRepository skillRepository;
     private final UserFacade userFacade;
 
     @Transactional
@@ -41,13 +40,13 @@ public class CreateProjectService {
                         .currentPeople(0)
                         .viewCount(0L)
                         .state(ProjectState.FINDING)
-                        .communicationTool(request.getCommunicationTool())
-                        .skill(request.getSkill())
                         .build()
         );
 
         saveMoods(project, request.getMoods());
         savePositions(project, request.getPositions());
+        saveCoops(project, request.getCoops());
+        saveSkills(project, request.getSkills());
 
         if (!request.getImgUrls().isEmpty()) {
             request.getImgUrls().stream()
@@ -69,7 +68,7 @@ public class CreateProjectService {
         moods.stream()
                 .map(mood -> moodRepository.save(
                         Mood.builder()
-                                .name(mood)
+                                .type(mood)
                                 .project(project)
                                 .build()
                 ));
@@ -82,5 +81,25 @@ public class CreateProjectService {
                                 .name(position)
                                 .project(project)
                                 .build()));
+    }
+
+    private void saveCoops(Project project, List<String> tools) {
+        tools.stream()
+                .map(tool -> coopRepository.save(
+                        Coop.builder()
+                                .tool(tool)
+                                .project(project)
+                                .build()
+                ));
+    }
+
+    private void saveSkills(Project project, List<String> skills) {
+        skills.stream()
+                .map(skill -> skillRepository.save(
+                        Skill.builder()
+                                .name(skill)
+                                .project(project)
+                                .build()
+                ));
     }
 }

@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface ImageRepository extends JpaRepository<Image, Long> {
 
     Optional<Image> findByImgUrl(String imgUrl);
+
+    void deleteByProjectId(Long id);
 }

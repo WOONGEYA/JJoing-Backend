@@ -1,12 +1,7 @@
 package com.woongeya.zoing.domain.project.service;
 
-import com.woongeya.zoing.domain.project.domain.Member;
-import com.woongeya.zoing.domain.project.domain.Mood;
-import com.woongeya.zoing.domain.project.domain.Position;
-import com.woongeya.zoing.domain.project.domain.Project;
-import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
-import com.woongeya.zoing.domain.project.domain.repository.MoodRepository;
-import com.woongeya.zoing.domain.project.domain.repository.PositionRepository;
+import com.woongeya.zoing.domain.project.domain.*;
+import com.woongeya.zoing.domain.project.domain.repository.*;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
@@ -28,6 +23,8 @@ public class UpdateProjectService {
     private final UserFacade userFacade;
     private final PositionRepository positionRepository;
     private final MoodRepository moodRepository;
+    private final CoopRepository coopRepository;
+    private final SkillRepository skillRepository;
 
     @Transactional
     public void execute(Long id, CreateProjectRequestDto request) {
@@ -35,6 +32,7 @@ public class UpdateProjectService {
         User user = userFacade.getCurrentUser();
         positionRepository.deleteByProjectId(project.getId());
         moodRepository.deleteByProjectId(project.getId());
+        coopRepository.deleteByProjectId(project.getId());
 
         Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
@@ -45,6 +43,8 @@ public class UpdateProjectService {
 
         updateMoods(project, request.getMoods());
         updatePositions(project, request.getPositions());
+        updateCoops(project, request.getCoops());
+        updateSkills(project, request.getSkills());
 
         project.update(request);
     }
@@ -57,7 +57,7 @@ public class UpdateProjectService {
         moods.stream()
                 .map(mood -> moodRepository.save(
                         Mood.builder()
-                                .name(mood)
+                                .type(mood)
                                 .project(project)
                                 .build()
                 ));
@@ -70,5 +70,25 @@ public class UpdateProjectService {
                                 .name(position)
                                 .project(project)
                                 .build()));
+    }
+
+    private void updateCoops(Project project, List<String> tools) {
+        tools.stream()
+                .map(tool -> coopRepository.save(
+                        Coop.builder()
+                                .tool(tool)
+                                .project(project)
+                                .build()
+                ));
+    }
+
+    private void updateSkills(Project project, List<String> skills) {
+        skills.stream()
+                .map(skill -> skillRepository.save(
+                        Skill.builder()
+                                .name(skill)
+                                .project(project)
+                                .build()
+                ));
     }
 }
