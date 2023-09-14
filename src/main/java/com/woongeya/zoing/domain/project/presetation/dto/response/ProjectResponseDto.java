@@ -25,7 +25,6 @@ public class ProjectResponseDto {
                 .content(project.getContent())
                 .state(project.getState())
                 .viewCount(project.getViewCount())
-                .skill(project.getSkill())
                 .build();
     }
 }
