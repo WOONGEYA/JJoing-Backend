@@ -12,11 +12,10 @@ public class ProjectResponseDto {
     private Long id;
     private String name;
     private String content;
+    private Integer requiredPeople;
+    private Integer currentPeople;
     private Long viewCount;
     private ProjectState state;
-    private String moodType;
-    private String communicationTool;
-    private String skill;
 
     public static ProjectResponseDto of(Project project) {
         return ProjectResponseDto.builder()
@@ -25,6 +24,8 @@ public class ProjectResponseDto {
                 .content(project.getContent())
                 .state(project.getState())
                 .viewCount(project.getViewCount())
+                .requiredPeople(project.getRequiredPeople())
+                .currentPeople(project.getCurrentPeople())
                 .build();
     }
 }
