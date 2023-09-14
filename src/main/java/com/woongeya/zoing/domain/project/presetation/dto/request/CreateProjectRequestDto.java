@@ -22,9 +22,9 @@ public class CreateProjectRequestDto {
     @NotNull
     private Integer requiredPeople;
 
-    private String skill;
-
     private LocalDate endDate;
+
+    private List<String> skills;
 
     private List<String> coops;
 

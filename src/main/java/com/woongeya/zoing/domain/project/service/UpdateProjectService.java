@@ -1,10 +1,7 @@
 package com.woongeya.zoing.domain.project.service;
 
 import com.woongeya.zoing.domain.project.domain.*;
-import com.woongeya.zoing.domain.project.domain.repository.CoopRepository;
-import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
-import com.woongeya.zoing.domain.project.domain.repository.MoodRepository;
-import com.woongeya.zoing.domain.project.domain.repository.PositionRepository;
+import com.woongeya.zoing.domain.project.domain.repository.*;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
@@ -27,6 +24,7 @@ public class UpdateProjectService {
     private final PositionRepository positionRepository;
     private final MoodRepository moodRepository;
     private final CoopRepository coopRepository;
+    private final SkillRepository skillRepository;
 
     @Transactional
     public void execute(Long id, CreateProjectRequestDto request) {
@@ -46,6 +44,7 @@ public class UpdateProjectService {
         updateMoods(project, request.getMoods());
         updatePositions(project, request.getPositions());
         updateCoops(project, request.getCoops());
+        updateSkills(project, request.getSkills());
 
         project.update(request);
     }
@@ -78,6 +77,16 @@ public class UpdateProjectService {
                 .map(tool -> coopRepository.save(
                         Coop.builder()
                                 .tool(tool)
+                                .project(project)
+                                .build()
+                ));
+    }
+
+    private void updateSkills(Project project, List<String> skills) {
+        skills.stream()
+                .map(skill -> skillRepository.save(
+                        Skill.builder()
+                                .name(skill)
                                 .project(project)
                                 .build()
                 ));
