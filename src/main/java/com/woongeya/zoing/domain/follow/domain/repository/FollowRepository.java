@@ -11,6 +11,6 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     Optional<Follow> findByFromUserIdAndToUserId(Long fromUserId, Long toUserId);
     List<Follow> findByFromUserId(Long id);
     List<Follow> findByToUserId(Long id);
-    Long countByToUserId(Long id);
-    Long countByFromUserId(Long id);
+    Integer countByToUserId(Long id);
+    Integer countByFromUserId(Long id);
 }

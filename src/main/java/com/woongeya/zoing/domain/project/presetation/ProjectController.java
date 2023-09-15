@@ -2,6 +2,7 @@ package com.woongeya.zoing.domain.project.presetation;
 
 import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ImageResponseDto;
+import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectInfoResponseDto;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
 import com.woongeya.zoing.domain.project.service.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +26,7 @@ public class ProjectController {
     private final FindViewCountProjectService findViewCountProjectService;
     private final FindAlwaysViewCountProjectService findAlwaysViewCountProjectService;
     private final FindMyApplicationProjectService findMyApplicationProjectService;
+    private final FindMyProjectService findMyProjectService;
     private final FindProjectInfoService findProjectInfoService;
     private final UploadImageService uploadImageService;
     private final SearchProjectService searchProjectService;
@@ -62,7 +64,7 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     @Operation(summary = "프로젝트 상세 조회")
-    public ResponseEntity<ProjectResponseDto> findProjectInfo(@PathVariable Long id) {
+    public ResponseEntity<ProjectInfoResponseDto> findProjectInfo(@PathVariable Long id) {
         return ResponseEntity.ok(findProjectInfoService.execute(id));
     }
 
@@ -94,5 +96,11 @@ public class ProjectController {
     @Operation(summary = "내가 신청한 프로젝트 조회")
     public ResponseEntity<List<ProjectResponseDto>> findMyApplicationProject() {
         return ResponseEntity.ok(findMyApplicationProjectService.execute());
+    }
+
+    @GetMapping("/my")
+    @Operation(summary = "내가 참여중인 프로젝트 조회")
+    public ResponseEntity<List<ProjectResponseDto>> findMyProject() {
+        return ResponseEntity.ok(findMyProjectService.execute());
     }
 }

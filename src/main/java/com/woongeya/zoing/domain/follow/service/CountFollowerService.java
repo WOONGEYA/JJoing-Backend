@@ -15,7 +15,7 @@ public class CountFollowerService {
     private final FollowRepository followRepository;
 
     @Transactional(readOnly = true)
-    public Long execute(Long id) {
+    public Integer execute(Long id) {
         User user = userFacade.getUserById(id);
 
         return followRepository.countByFromUserId(user.getId());
