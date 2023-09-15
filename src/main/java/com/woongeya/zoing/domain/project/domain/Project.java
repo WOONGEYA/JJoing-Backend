@@ -28,6 +28,8 @@ public class Project {
     @Column(length = 1024)
     private String content;
 
+    private String imgUrl;
+
     @Column(nullable = false)
     private Long viewCount;
 
@@ -48,9 +50,10 @@ public class Project {
     private LocalDate endDate;
 
     @Builder
-    public Project(String name, String content, Long viewCount, ProjectState state, Integer requiredPeople, Integer currentPeople, LocalDate startDate, LocalDate endDate) {
+    public Project(String name, String content, String imgUrl, Long viewCount, ProjectState state, Integer requiredPeople, Integer currentPeople, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.content = content;
+        this.imgUrl = imgUrl;
         this.viewCount = viewCount;
         this.state = state;
         this.requiredPeople = requiredPeople;

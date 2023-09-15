@@ -21,7 +21,6 @@ public class CreateProjectService {
     private final ProjectRepository projectRepository;
     private final PositionRepository positionRepository;
     private final MemberRepository memberRepository;
-    private final ImageRepository imageRepository;
     private final MoodRepository moodRepository;
     private final CoopRepository coopRepository;
     private final SkillRepository skillRepository;
@@ -35,6 +34,7 @@ public class CreateProjectService {
                 Project.builder()
                         .name(request.getName())
                         .content(request.getContent())
+                        .imgUrl(request.getImgUrl())
                         .endDate(request.getEndDate())
                         .requiredPeople(request.getRequiredPeople())
                         .currentPeople(0)
@@ -47,10 +47,6 @@ public class CreateProjectService {
         savePositions(project, request.getPositions());
         saveCoops(project, request.getCoops());
         saveSkills(project, request.getSkills());
-
-        Image image = imageRepository.findByImgUrl(request.getImgUrl())
-                .orElseThrow(() -> ImageNotFoundException.EXCEPTION);
-        image.addProject(project);
 
         memberRepository.save(
                 Member.builder()
