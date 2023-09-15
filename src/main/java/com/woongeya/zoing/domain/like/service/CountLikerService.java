@@ -15,7 +15,7 @@ public class CountLikerService {
     private final LikeRepository likeRepository;
 
     @Transactional(readOnly = true)
-    public Long execute(Long id) {
+        public Integer execute(Long id) {
         Project project = projectFacade.getProject(id);
 
         return likeRepository.countByProjectId(project.getId());

@@ -35,7 +35,7 @@ public class FollowController {
 
     @GetMapping("/{id}/following/count")
     @Operation(summary = "유저의 팔로잉 수 조회")
-    public Long countFollowing(@PathVariable Long id) {
+    public Integer countFollowing(@PathVariable Long id) {
         return countFollowingService.execute(id);
     }
 
@@ -47,7 +47,7 @@ public class FollowController {
 
     @GetMapping("/{id}/follower/count")
     @Operation(summary = "유저의 팔로워 수 조회")
-    public Long countFollower(@PathVariable Long id) {
+    public Integer countFollower(@PathVariable Long id) {
         return countFollowerService.execute(id);
     }
 

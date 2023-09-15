@@ -47,7 +47,7 @@ public class LikeController {
 
     @GetMapping("/{id}/liker/count")
     @Operation(summary = "프로젝트의 좋아요 갯수 조회")
-    public Long countLiker(@PathVariable Long id) {
+    public Integer countLiker(@PathVariable Long id) {
         return countLikerService.execute(id);
     }
 }
