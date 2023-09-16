@@ -37,7 +37,7 @@ public class CreateProjectService {
                         .imgUrl(request.getImgUrl())
                         .endDate(request.getEndDate())
                         .requiredPeople(request.getRequiredPeople())
-                        .currentPeople(0)
+                        .currentPeople(1)
                         .viewCount(0L)
                         .state(ProjectState.FINDING)
                         .build()
