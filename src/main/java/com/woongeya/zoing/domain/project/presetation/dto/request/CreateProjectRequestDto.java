@@ -19,12 +19,13 @@ public class CreateProjectRequestDto {
     @NotNull
     private String content;
 
-    private String imgUrl;
-
     @NotNull
     private Integer requiredPeople;
 
+    @NotNull
     private LocalDate endDate;
+
+    private String imgUrl;
 
     private List<String> skills;
 
