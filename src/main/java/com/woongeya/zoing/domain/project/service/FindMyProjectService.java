@@ -2,6 +2,7 @@ package com.woongeya.zoing.domain.project.service;
 
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
+import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
@@ -26,6 +27,7 @@ public class FindMyProjectService {
 
         return members.stream()
                 .map(Member::getProject)
+                .filter(project -> project.getState() != ProjectState.END)
                 .map(ProjectResponseDto::of)
                 .collect(Collectors.toList());
     }
