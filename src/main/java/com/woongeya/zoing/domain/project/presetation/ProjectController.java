@@ -27,6 +27,7 @@ public class ProjectController {
     private final FindAlwaysViewCountProjectService findAlwaysViewCountProjectService;
     private final FindMyApplicationProjectService findMyApplicationProjectService;
     private final FindMyProjectService findMyProjectService;
+    private final FindMyEndProjectService findMyEndProjectService;
     private final FindProjectInfoService findProjectInfoService;
     private final UploadImageService uploadImageService;
     private final SearchProjectService searchProjectService;
@@ -101,6 +102,12 @@ public class ProjectController {
     @GetMapping("/my")
     @Operation(summary = "내가 참여중인 프로젝트 조회")
     public ResponseEntity<List<ProjectResponseDto>> findMyProject() {
+        return ResponseEntity.ok(findMyProjectService.execute());
+    }
+
+    @GetMapping("/my/end")
+    @Operation(summary = "내가 참여했던 프로젝트 조회")
+    public ResponseEntity<List<ProjectResponseDto>> findMyEndProject() {
         return ResponseEntity.ok(findMyProjectService.execute());
     }
 }
