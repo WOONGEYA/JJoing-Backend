@@ -7,7 +7,6 @@ import com.woongeya.zoing.domain.project.domain.type.Role;
 import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
-import com.woongeya.zoing.infrastructure.s3.exception.ImageNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CreateProjectService {
 
@@ -57,42 +57,42 @@ public class CreateProjectService {
         );
     }
 
-    private void saveMoods(Project project, List<String> moods) {
-        moods.stream()
-                .map(mood -> moodRepository.save(
-                        Mood.builder()
-                                .type(mood)
-                                .project(project)
-                                .build()
-                ));
+    public void saveMoods(Project project, List<String> moods) {
+        System.out.println(moods);
+        System.out.println(project.getName());
+
+        moods.forEach(mood -> moodRepository.save(
+                Mood.builder()
+                        .type(mood)
+                        .project(project)
+                        .build()
+        ));
     }
 
-    private void savePositions(Project project, List<String> positions) {
-        positions.stream()
-                .map(position -> positionRepository.save(
-                        Position.builder()
-                                .name(position)
-                                .project(project)
-                                .build()));
+    public void savePositions(Project project, List<String> positions) {
+        positions.forEach(position -> positionRepository.save(
+                Position.builder()
+                        .name(position)
+                        .project(project)
+                        .build()
+        ));
     }
 
-    private void saveCoops(Project project, List<String> tools) {
-        tools.stream()
-                .map(tool -> coopRepository.save(
-                        Coop.builder()
-                                .tool(tool)
-                                .project(project)
-                                .build()
-                ));
+    public void saveCoops(Project project, List<String> tools) {
+        tools.forEach(tool -> coopRepository.save(
+                Coop.builder()
+                        .tool(tool)
+                        .project(project)
+                        .build()
+        ));
     }
 
     private void saveSkills(Project project, List<String> skills) {
-        skills.stream()
-                .map(skill -> skillRepository.save(
-                        Skill.builder()
-                                .name(skill)
-                                .project(project)
-                                .build()
-                ));
+        skills.forEach(skill -> skillRepository.save(
+                Skill.builder()
+                        .name(skill)
+                        .project(project)
+                        .build()
+        ));
     }
 }
