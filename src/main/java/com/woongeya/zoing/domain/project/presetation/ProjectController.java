@@ -108,6 +108,6 @@ public class ProjectController {
     @GetMapping("/my/end")
     @Operation(summary = "내가 참여했던 프로젝트 조회")
     public ResponseEntity<List<ProjectResponseDto>> findMyEndProject() {
-        return ResponseEntity.ok(findMyProjectService.execute());
+        return ResponseEntity.ok(findMyEndProjectService.execute());
     }
 }

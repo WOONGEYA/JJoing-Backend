@@ -27,7 +27,7 @@ public class FindMyProjectService {
 
         return members.stream()
                 .map(Member::getProject)
-                .filter(project -> project.getState() != ProjectState.END)
+                .filter(project -> !project.getState().equals(ProjectState.END))
                 .map(ProjectResponseDto::of)
                 .collect(Collectors.toList());
     }
