@@ -8,26 +8,24 @@ import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class FindMyProjectService {
+public class FindMyEndProjectService {
 
     private final UserFacade userFacade;
     private final MemberRepository memberRepository;
 
-    @Transactional(readOnly = true)
     public List<ProjectResponseDto> execute() {
         User user = userFacade.getCurrentUser();
         List<Member> members = memberRepository.findByUserId(user.getId());
 
         return members.stream()
                 .map(Member::getProject)
-                .filter(project -> project.getState() != ProjectState.END)
+                .filter(project -> project.getState() == ProjectState.END)
                 .map(ProjectResponseDto::of)
                 .collect(Collectors.toList());
     }
