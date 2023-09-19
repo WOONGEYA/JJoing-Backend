@@ -25,7 +25,7 @@ public class FindProjectMemberService {
         Project project = projectFacade.getProject(id);
         List<Member> members = memberRepository.findByProjectId(project.getId());
         List<User> users = members.stream()
-                .map(member -> userFacade.getUserById(member.getId()))
+                .map(member -> userFacade.getUserById(member.getUserId()))
                 .collect(Collectors.toList());
 
         return users.stream()
