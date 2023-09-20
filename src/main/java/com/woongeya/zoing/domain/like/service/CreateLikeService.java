@@ -21,17 +21,12 @@ public class CreateLikeService {
 
     private final UserFacade userFacade;
     private final ProjectFacade projectFacade;
-    private final ProjectRepository projectRepository;
     private final LikeRepository likeRepository;
 
     @Transactional
     public void execute(Long id) {
         User user = userFacade.getCurrentUser();
         Project project = projectFacade.getProject(id);
-
-        projectRepository
-                .findById(project.getId())
-                .orElseThrow(NonExistentProjectException::new);
 
         likeRepository
                 .findByUserIdAndProjectId(user.getId(), project.getId())
