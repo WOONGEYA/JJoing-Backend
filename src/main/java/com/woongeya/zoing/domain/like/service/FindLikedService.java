@@ -29,7 +29,10 @@ public class FindLikedService {
 
         return likes.stream()
                 .map(like -> projectFacade.getProject(like.getProjectId()))
-                .map(ProjectResponseDto::of)
+                .map(project -> {
+                    Integer likeCount = likeRepository.countByProjectId(project.getId());
+                    return ProjectResponseDto.of(project, likeCount);
+                })
                 .collect(Collectors.toList());
 
     }

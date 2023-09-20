@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.project.service;
 
+import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
@@ -19,6 +20,7 @@ public class FindMyProjectService {
 
     private final UserFacade userFacade;
     private final MemberRepository memberRepository;
+    private final LikeRepository likeRepository;
 
     @Transactional(readOnly = true)
     public List<ProjectResponseDto> execute() {
@@ -27,8 +29,11 @@ public class FindMyProjectService {
 
         return members.stream()
                 .map(Member::getProject)
-                .filter(project -> project.getState() != ProjectState.END)
-                .map(ProjectResponseDto::of)
+                .filter(project -> !project.getState().equals(ProjectState.END))
+                .map(project -> {
+                    Integer likeCount = likeRepository.countByProjectId(project.getId());
+                    return ProjectResponseDto.of(project, likeCount);
+                })
                 .collect(Collectors.toList());
     }
 }
