@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.project.presetation.dto.response;
 
+import com.woongeya.zoing.domain.like.domain.Like;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import lombok.Builder;
@@ -18,16 +19,18 @@ public class ProjectResponseDto {
     private LocalDate endTime;
     private Integer requiredPeople;
     private Integer currentPeople;
+    private Integer likeCount;
     private Long viewCount;
     private ProjectState state;
 
-    public static ProjectResponseDto of(Project project) {
+    public static ProjectResponseDto of(Project project, Integer likeCount) {
         return ProjectResponseDto.builder()
                 .id(project.getId())
                 .name(project.getName())
                 .content(project.getContent())
                 .imgUrl(project.getImgUrl())
                 .endTime(project.getEndDate())
+                .likeCount(likeCount)
                 .state(project.getState())
                 .viewCount(project.getViewCount())
                 .requiredPeople(project.getRequiredPeople())

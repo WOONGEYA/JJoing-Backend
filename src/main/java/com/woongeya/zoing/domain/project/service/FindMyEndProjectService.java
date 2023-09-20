@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.project.service;
 
+import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
@@ -18,6 +19,7 @@ public class FindMyEndProjectService {
 
     private final UserFacade userFacade;
     private final MemberRepository memberRepository;
+    private final LikeRepository likeRepository;
 
     public List<ProjectResponseDto> execute() {
         User user = userFacade.getCurrentUser();
@@ -26,7 +28,10 @@ public class FindMyEndProjectService {
         return members.stream()
                 .map(Member::getProject)
                 .filter(project -> project.getState().equals(ProjectState.END))
-                .map(ProjectResponseDto::of)
+                .map(project -> {
+                    Integer likeCount = likeRepository.countByProjectId(project.getId());
+                    return ProjectResponseDto.of(project, likeCount);
+                })
                 .collect(Collectors.toList());
     }
 }

@@ -2,6 +2,7 @@ package com.woongeya.zoing.domain.project.service;
 
 import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
+import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
 import com.woongeya.zoing.domain.user.UserFacade;
@@ -18,8 +19,9 @@ import java.util.stream.Collectors;
 public class FindMyApplicationProjectService {
 
     private final UserFacade userFacade;
-    private final ApplicationRepository applicationRepository;
     private final ProjectFacade projectFacade;
+    private final ApplicationRepository applicationRepository;
+    private final LikeRepository likeRepository;
 
     @Transactional(readOnly = true)
     public List<ProjectResponseDto> execute() {
@@ -28,7 +30,10 @@ public class FindMyApplicationProjectService {
 
         return applications.stream()
                 .map(application -> projectFacade.getProject(application.getProjectId()))
-                .map(ProjectResponseDto::of)
+                .map(project -> {
+                    Integer likeCount = likeRepository.countByProjectId(project.getId());
+                    return ProjectResponseDto.of(project, likeCount);
+                })
                 .collect(Collectors.toList());
     }
 }

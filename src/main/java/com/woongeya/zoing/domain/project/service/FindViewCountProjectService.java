@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.project.service;
 
+import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
@@ -16,13 +17,17 @@ import java.util.stream.Collectors;
 public class FindViewCountProjectService {
 
     private final ProjectRepository projectRepository;
+    private final LikeRepository likeRepository;
 
     @Transactional(readOnly = true)
     public List<ProjectResponseDto> execute(String state) {
         List<Project> projects = projectRepository.findAllByStateOrderByViewCountDesc(ProjectState.valueOf(state));
 
         return projects.stream()
-                .map(ProjectResponseDto::of)
+                .map(project -> {
+                    Integer likeCount = likeRepository.countByProjectId(project.getId());
+                    return ProjectResponseDto.of(project, likeCount);
+                })
                 .collect(Collectors.toList());
     }
 }
