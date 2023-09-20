@@ -1,6 +1,5 @@
 package com.woongeya.zoing.domain.application.domain;
 
-import com.woongeya.zoing.domain.application.domain.type.ApplicationJobPosition;
 import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.AccessLevel;
@@ -29,16 +28,15 @@ public class Application {
     @Column(nullable = false)
     private ApplicationState state;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ApplicationJobPosition position;
+    private String position;
 
     private Long userId;
 
     private Long projectId;
 
     @Builder
-    public Application(String introduce, ApplicationState state, ApplicationJobPosition position, Long userId, Long projectId) {
+    public Application(String introduce, ApplicationState state, String position, Long userId, Long projectId) {
         this.introduce = introduce;
         this.state = state;
         this.position = position;
