@@ -3,14 +3,15 @@ package com.woongeya.zoing.domain.application.service;
 import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
 import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
+import com.woongeya.zoing.domain.application.exception.AlreadyApplicationException;
+import com.woongeya.zoing.domain.application.presetation.dto.request.ApplicationCreateRequest;
 import com.woongeya.zoing.domain.notice.domain.Notification;
 import com.woongeya.zoing.domain.notice.domain.repository.NotificationRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
+import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.domain.type.Role;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
-import com.woongeya.zoing.domain.project.domain.Project;
-import com.woongeya.zoing.domain.application.presetation.dto.request.ApplicationCreateRequest;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -35,13 +36,18 @@ public class CreateApplicationService {
         Member member = memberRepository.findByProjectIdAndRole(project.getId(), Role.WRITER);
         User writer = userFacade.getUserById(member.getUserId());
 
-        applicationRepository.save(Application.builder()
-                .userId(user.getId())
-                .projectId(project.getId())
-                .introduce(request.getIntroduce())
-                .state(ApplicationState.PENDING)
-                .position(request.getPosition())
-                .build());
+        applicationRepository.findByUserIdAndProjectId(user.getId(), project.getId())
+                .ifPresent(application -> { throw new AlreadyApplicationException(); });
+
+        applicationRepository.save(
+                Application.builder()
+                        .userId(user.getId())
+                        .projectId(project.getId())
+                        .introduce(request.getIntroduce())
+                        .state(ApplicationState.PENDING)
+                        .position(request.getPosition())
+                        .build()
+        );
 
         notificationRepository.save(
                 Notification.builder()
