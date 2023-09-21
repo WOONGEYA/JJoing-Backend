@@ -24,6 +24,7 @@ public enum ErrorCode {
     YOU_DONT_LIKE_BEFORE(400, "LIKE-400-1", "You Dont Like Before"),
     ALREADY_LIKE(400, "LIKE-400-1", "Already Like This Project"),
     NON_EXISTENT_PROJECT(404, "LiKE-404-1", "Non Existent Project"),
+    NOTIFICATION_NOT_FOUND(404, "NOTIFICATION-404-1", "Notification Not Found"),
 
     // S3
     IMAGE_FAILED_SAVE(424, "IMAGE-424-1", "Image Failed Save"),
