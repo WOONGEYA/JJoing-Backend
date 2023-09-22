@@ -29,7 +29,7 @@ public class FindMyProjectService {
 
         return members.stream()
                 .map(Member::getProject)
-                .filter(project -> !project.getState().equals(ProjectState.END))
+                .filter(project -> project.getState().equals(ProjectState.FINDING))
                 .map(project -> {
                     Integer likeCount = likeRepository.countByProjectId(project.getId());
                     return ProjectResponseDto.of(project, likeCount);
