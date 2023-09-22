@@ -1,6 +1,7 @@
 package com.woongeya.zoing.domain.notice.presetation;
 
 import com.woongeya.zoing.domain.notice.presetation.dto.response.NotificationResponse;
+import com.woongeya.zoing.domain.notice.service.DeleteAllNotificationService;
 import com.woongeya.zoing.domain.notice.service.DeleteNotificationService;
 import com.woongeya.zoing.domain.notice.service.FindNotificationService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class NotificationController {
 
     private final FindNotificationService findNotificationService;
     private final DeleteNotificationService deleteNotificationService;
+    private final DeleteAllNotificationService deleteAllNotificationService;
 
     @GetMapping()
     public ResponseEntity<List<NotificationResponse>> findNotification() {
@@ -25,5 +27,10 @@ public class NotificationController {
     @DeleteMapping("/{id}")
     public void deleteNotification(@PathVariable Long id) {
         deleteNotificationService.execute(id);
+    }
+
+    @DeleteMapping()
+    public void deleteAll() {
+        deleteAllNotificationService.execute();
     }
 }
