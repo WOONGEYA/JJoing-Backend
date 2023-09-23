@@ -1,6 +1,7 @@
 package com.woongeya.zoing.domain.project.presetation.dto.response;
 
 import com.woongeya.zoing.domain.project.domain.Project;
+import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ public class ProjectInfoResponseDto {
     private LocalDate endDate;
     private Integer requiredPeople;
     private Integer currentPeople;
+    private ProjectState state;
     private List<String> moods;
     private List<String> skills;
     private List<String> coops;
@@ -31,6 +33,7 @@ public class ProjectInfoResponseDto {
         this.endDate = project.getEndDate();
         this.requiredPeople = project.getRequiredPeople();
         this.currentPeople = project.getCurrentPeople();
+        this.state = project.getState();
         this.moods = moods;
         this.skills = skills;
         this.coops = coops;
