@@ -28,6 +28,8 @@ public class ProjectController {
     private final FindMyApplicationProjectService findMyApplicationProjectService;
     private final FindMyProjectService findMyProjectService;
     private final FindMyEndProjectService findMyEndProjectService;
+    private final FindUserProjectService findUserProjectService;
+    private final FindUserEndProjectService findUserEndProjectService;
     private final FindProjectInfoService findProjectInfoService;
     private final UploadImageService uploadImageService;
     private final SearchProjectService searchProjectService;
@@ -109,5 +111,17 @@ public class ProjectController {
     @Operation(summary = "내가 참여했던 프로젝트 조회")
     public ResponseEntity<List<ProjectResponseDto>> findMyEndProject() {
         return ResponseEntity.ok(findMyEndProjectService.execute());
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "유저가 참여중인 프로젝트 조회")
+    public ResponseEntity<List<ProjectResponseDto>> findUserProject(@PathVariable Long id) {
+        return ResponseEntity.ok(findUserProjectService.execute(id));
+    }
+
+    @GetMapping("/{id}/end")
+    @Operation(summary = "유저가 참여했던 프로젝트 조회")
+    public ResponseEntity<List<ProjectResponseDto>> findUserEndProject(@PathVariable Long id) {
+        return ResponseEntity.ok(findUserEndProjectService.execute(id));
     }
 }
