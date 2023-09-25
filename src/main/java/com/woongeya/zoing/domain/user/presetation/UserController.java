@@ -40,7 +40,7 @@ public class UserController {
         return findCurrentUserService.execute();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     @Operation(summary = "다른 유저 정보 조회")
     public UserResponseDto getOtherUserInfo(@PathVariable Long id) { return findOtherUserService.execute(id); }
 }
