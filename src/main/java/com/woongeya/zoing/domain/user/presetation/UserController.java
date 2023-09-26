@@ -9,6 +9,7 @@ import com.woongeya.zoing.domain.user.service.UploadProfileImageService;
 import com.woongeya.zoing.domain.user.service.UserUpdateService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,11 +37,13 @@ public class UserController {
 
     @GetMapping
     @Operation(summary = "현재 로그인된 유저 정보 조회")
-    public UserResponseDto getUserInfo() {
-        return findCurrentUserService.execute();
+    public ResponseEntity<UserResponseDto> getUserInfo() {
+        return ResponseEntity.ok(findCurrentUserService.execute());
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "다른 유저 정보 조회")
-    public UserResponseDto getOtherUserInfo(@PathVariable Long id) { return findOtherUserService.execute(id); }
+    public ResponseEntity<UserResponseDto> getOtherUserInfo(@PathVariable Long id) {
+        return ResponseEntity.ok(findOtherUserService.execute(id));
+    }
 }
