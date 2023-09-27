@@ -2,6 +2,7 @@ package com.woongeya.zoing.domain.application.service;
 
 import com.woongeya.zoing.domain.application.ApplicationFacade;
 import com.woongeya.zoing.domain.application.domain.Application;
+import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
 import com.woongeya.zoing.domain.notice.domain.Notification;
 import com.woongeya.zoing.domain.notice.domain.repository.NotificationRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
@@ -27,6 +28,7 @@ public class AcceptApplicationService {
     private final CustomMemberRepository customMemberRepository;
     private final MemberRepository memberRepository;
     private final NotificationRepository notificationRepository;
+    private final ApplicationRepository applicationRepository;
 
     @Transactional
     public void execute(Long id) {
@@ -53,5 +55,7 @@ public class AcceptApplicationService {
                         .userId(application.getUserId())
                         .build()
         );
+
+        applicationRepository.delete(application);
     }
 }

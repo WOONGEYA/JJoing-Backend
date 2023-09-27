@@ -24,7 +24,7 @@ public class FindProjectInfoService {
     private final SkillRepository skillRepository;
     private final PositionRepository positionRepository;
 
-    @Transactional(readOnly = true)
+    @Transactional
     public ProjectInfoResponseDto execute(Long id) {
         Project project = projectFacade.getProject(id);
         List<String> coops = getCoops(project);

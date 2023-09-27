@@ -113,13 +113,13 @@ public class ProjectController {
         return ResponseEntity.ok(findMyEndProjectService.execute());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/user")
     @Operation(summary = "유저가 참여중인 프로젝트 조회")
     public ResponseEntity<List<ProjectResponseDto>> findUserProject(@PathVariable Long id) {
         return ResponseEntity.ok(findUserProjectService.execute(id));
     }
 
-    @GetMapping("/{id}/end")
+    @GetMapping("/{id}/user/end")
     @Operation(summary = "유저가 참여했던 프로젝트 조회")
     public ResponseEntity<List<ProjectResponseDto>> findUserEndProject(@PathVariable Long id) {
         return ResponseEntity.ok(findUserEndProjectService.execute(id));
