@@ -11,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -86,5 +87,11 @@ public class Project {
         this.name = request.getName();
         this.content = request.getContent();
         this.endDate = request.getEndDate();
+    }
+
+    public void isFull() {
+        if (Objects.equals(this.currentPeople, this.requiredPeople)) {
+            this.state = ProjectState.FOUND;
+        }
     }
 }

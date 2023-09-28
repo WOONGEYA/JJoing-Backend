@@ -47,6 +47,7 @@ public class AcceptApplicationService {
                         .build()
         );
         project.increaseCurrentPeople();
+        project.isFull();
 
         notificationRepository.save(
                 Notification.builder()
