@@ -2,7 +2,7 @@ name: Java CD with Gradle
 
 on:
   push:
-    branches: [ "master", "feat" ]
+    branches: [ "master" ]
 
 permissions:
   contents: read

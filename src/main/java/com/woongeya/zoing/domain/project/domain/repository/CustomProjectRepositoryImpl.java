@@ -14,7 +14,7 @@ import static com.woongeya.zoing.domain.project.domain.QProject.project;
 @RequiredArgsConstructor
 public class CustomProjectRepositoryImpl implements CustomProjectRepository {
 
-    private JPAQueryFactory jpaQueryFactory;
+    private final JPAQueryFactory jpaQueryFactory;
 
     @Override
     public List<Project> searchProject(String q) {
