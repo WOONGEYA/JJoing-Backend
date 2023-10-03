@@ -34,7 +34,7 @@ public class AcceptApplicationService {
     public void execute(Long id) {
         User writer = userFacade.getCurrentUser();
         Application application = applicationFacade.getApplication(id);
-        Project project = projectFacade.getProject(application.getId());
+        Project project = projectFacade.getProject(application.getProjectId());
         Member member = customMemberRepository.findByUserIdAndProjectId(writer.getId(), project.getId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
 
