@@ -31,7 +31,7 @@ public class FindLikedService {
                 .map(like -> projectFacade.getProject(like.getProjectId()))
                 .map(project -> {
                     Integer likeCount = likeRepository.countByProjectId(project.getId());
-                    return ProjectResponseDto.of(project, likeCount);
+                    return ProjectResponseDto.of(project, likeCount, true);
                 })
                 .collect(Collectors.toList());
 
