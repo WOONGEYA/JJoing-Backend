@@ -31,21 +31,25 @@ public class Application {
     @Column(nullable = false)
     private String position;
 
+    @Column(nullable = false)
+    private String phone;
+
     private Long userId;
 
     private Long projectId;
 
     @Builder
-    public Application(String introduce, ApplicationState state, String position, Long userId, Long projectId) {
+    public Application(String introduce, ApplicationState state, String position, String phone, Long userId, Long projectId) {
         this.introduce = introduce;
         this.state = state;
         this.position = position;
+        this.phone = phone;
         this.userId = userId;
         this.projectId = projectId;
     }
 
     public boolean isWriter(User user) {
-        return Objects.equals(user, user.getId());
+        return Objects.equals(userId, user.getId());
     }
 
     public void cancel() {

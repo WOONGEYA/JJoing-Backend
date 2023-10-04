@@ -56,7 +56,5 @@ public class AcceptApplicationService {
                         .userId(application.getUserId())
                         .build()
         );
-
-        applicationRepository.delete(application);
     }
 }

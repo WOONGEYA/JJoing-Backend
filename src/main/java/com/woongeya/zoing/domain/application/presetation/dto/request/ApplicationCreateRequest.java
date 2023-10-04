@@ -11,4 +11,7 @@ public class ApplicationCreateRequest {
 
     @NotNull
     private String position;
+
+    @NotNull
+    private String phone;
 }

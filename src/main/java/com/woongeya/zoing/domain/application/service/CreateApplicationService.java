@@ -44,6 +44,7 @@ public class CreateApplicationService {
                         .userId(user.getId())
                         .projectId(project.getId())
                         .introduce(request.getIntroduce())
+                        .phone(request.getPhone())
                         .state(ApplicationState.PENDING)
                         .position(request.getPosition())
                         .build()
