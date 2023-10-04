@@ -6,12 +6,14 @@ import com.woongeya.zoing.global.error.exception.ZoingException;
 import com.woongeya.zoing.global.security.auth.AuthDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.Optional;
-
 public class SecurityUtil {
 
-    public static Optional<User> getCurrentUserOrOptionalUser() {
-        return Optional.ofNullable(getUser());
+    public static User getCurrentUserOrNull() {
+        try {
+            return getUser();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private static User getUser() {
