@@ -21,9 +21,10 @@ public class ProjectResponseDto {
     private Integer currentPeople;
     private Integer likeCount;
     private Long viewCount;
-    private ProjectState state;
+    private ProjectState projectState;
+    private Boolean likeState;
 
-    public static ProjectResponseDto of(Project project, Integer likeCount) {
+    public static ProjectResponseDto of(Project project, Integer likeCount, Boolean likeState) {
         return ProjectResponseDto.builder()
                 .id(project.getId())
                 .name(project.getName())
@@ -31,10 +32,11 @@ public class ProjectResponseDto {
                 .imgUrl(project.getImgUrl())
                 .endTime(project.getEndDate())
                 .likeCount(likeCount)
-                .state(project.getState())
+                .projectState(project.getState())
                 .viewCount(project.getViewCount())
                 .requiredPeople(project.getRequiredPeople())
                 .currentPeople(project.getCurrentPeople())
+                .likeState(likeState)
                 .build();
     }
 }

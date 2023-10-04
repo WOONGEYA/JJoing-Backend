@@ -12,4 +12,5 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     List<Like> findByUserId(Long userId);
     Integer countByUserId(Long userId);
     Integer countByProjectId(Long projectId);
+    boolean existsByUserIdAndProjectId(Long userId, Long projectId);
 }

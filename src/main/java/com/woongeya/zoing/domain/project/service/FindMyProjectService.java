@@ -2,6 +2,7 @@ package com.woongeya.zoing.domain.project.service;
 
 import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
+import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
@@ -32,8 +33,12 @@ public class FindMyProjectService {
                 .filter(project -> project.getState().equals(ProjectState.FINDING))
                 .map(project -> {
                     Integer likeCount = likeRepository.countByProjectId(project.getId());
-                    return ProjectResponseDto.of(project, likeCount);
+                    return ProjectResponseDto.of(project, likeCount, checkLike(project, user));
                 })
                 .collect(Collectors.toList());
+    }
+
+    private boolean checkLike(Project project, User user){
+        return likeRepository.existsByUserIdAndProjectId(user.getId(), project.getId());
     }
 }
