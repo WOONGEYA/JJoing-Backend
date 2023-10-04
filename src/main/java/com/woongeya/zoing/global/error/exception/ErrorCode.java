@@ -11,6 +11,7 @@ public enum ErrorCode {
 
     EXPIRED_JWT(403, "TOKEN-403-1", "Expired Jwt"),
     INVALID_JWT(403, "TOKEN-403-2", "Invalid Jwt"),
+    USER_NOT_LOGIN(403, "USER-403-1", "User Not Login"),
     FAILED_AUTHENTICATION(401, "AUTHENTICATION-401-1", "Failed Authentication"),
     NOT_MEISTER_MEMBER(401, "AUTHENTICATION-401-2", "Not Meister Member"),
     USER_NOT_FOUND(404, "USER-404-1", "User Not Found"),
