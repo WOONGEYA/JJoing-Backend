@@ -36,15 +36,11 @@ public class FindProjectApplicationService {
         }
 
         List<Application> applications = applicationRepository.findByProjectId(id);
-        Map<User, Application> applicationMap = applications.stream().collect(
-                Collectors.toMap(
-                        application -> userFacade.getUserById(application.getUserId()),
-                        application -> application
-                )
-        );
-
-        return applicationMap.entrySet().stream()
-                .map(entry -> new ApplicationResponseDto(entry.getValue().getId() ,entry.getValue().getIntroduce(), entry.getKey().getName(), entry.getValue().getPosition()))
+        return applications.stream()
+                .map(application -> {
+                    User applicationUser = userFacade.getUserById(application.getUserId());
+                    return new ApplicationResponseDto(application, applicationUser);
+                })
                 .collect(Collectors.toList());
     }
 }
