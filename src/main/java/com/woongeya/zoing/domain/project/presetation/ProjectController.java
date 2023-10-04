@@ -25,6 +25,8 @@ public class ProjectController {
     private final FindAlwaysNewProjectService findAlwaysNewProjectService;
     private final FindViewCountProjectService findViewCountProjectService;
     private final FindAlwaysViewCountProjectService findAlwaysViewCountProjectService;
+    private final FindAlwaysLikeProjectService findAlwaysLikeProjectService;
+    private final FindLikeProjectService findLikeProjectService;
     private final FindMyApplicationProjectService findMyApplicationProjectService;
     private final FindMyProjectService findMyProjectService;
     private final FindMyEndProjectService findMyEndProjectService;
@@ -79,11 +81,17 @@ public class ProjectController {
             if (criteria.equals("view")) {
                 return findAlwaysViewCountProjectService.execute();
             }
+            if (criteria.equals("like")) {
+                return findAlwaysLikeProjectService.execute();
+            }
             return findAlwaysNewProjectService.execute();
         }
 
         if (criteria.equals("view")) {
             return findViewCountProjectService.execute(state);
+        }
+        if (criteria.equals("like")) {
+            return findLikeProjectService.execute(state);
         }
 
         return findNewProjectService.execute(state);
