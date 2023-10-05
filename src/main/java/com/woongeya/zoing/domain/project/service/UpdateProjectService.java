@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,7 +61,7 @@ public class UpdateProjectService {
                                 .type(mood)
                                 .project(project)
                                 .build()
-                ));
+                )).collect(Collectors.toList());
     }
 
     private void updatePositions(Project project, List<String> positions) {
@@ -69,7 +70,8 @@ public class UpdateProjectService {
                         Position.builder()
                                 .name(position)
                                 .project(project)
-                                .build()));
+                                .build()
+                )).collect(Collectors.toList());
     }
 
     private void updateCoops(Project project, List<String> tools) {
@@ -79,7 +81,7 @@ public class UpdateProjectService {
                                 .tool(tool)
                                 .project(project)
                                 .build()
-                ));
+                )).collect(Collectors.toList());
     }
 
     private void updateSkills(Project project, List<String> skills) {
@@ -89,6 +91,6 @@ public class UpdateProjectService {
                                 .name(skill)
                                 .project(project)
                                 .build()
-                ));
+                )).collect(Collectors.toList());
     }
 }
