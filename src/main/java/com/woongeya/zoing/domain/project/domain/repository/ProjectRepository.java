@@ -4,6 +4,7 @@ import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ProjectRepository extends JpaRepository<Project, Long>, CustomProjectRepository {
@@ -12,5 +13,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long>, CustomP
     List<Project> findAllByStateOrderByViewCountDesc(ProjectState state);
     List<Project> findAllByOrderByIdDesc();
     List<Project> findAllByOrderByViewCountDesc();
+    void deleteByState(ProjectState state);
+    List<Project> findByEndDate(LocalDate endDate);
 
 }
