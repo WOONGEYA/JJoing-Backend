@@ -51,3 +51,5 @@ jobs:
             sudo docker pull ${{ secrets.DOCKER_REPO }}/jjoing
             docker-compose up -d
             docker image prune -f
+            cd /docekr
+            docker-compose up -d
