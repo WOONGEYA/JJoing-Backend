@@ -5,6 +5,7 @@ import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
 import com.woongeya.zoing.domain.notice.domain.Notification;
 import com.woongeya.zoing.domain.notice.domain.repository.NotificationRepository;
+import com.woongeya.zoing.domain.notice.domain.type.NotificationState;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
@@ -54,6 +55,7 @@ public class AcceptApplicationService {
                         .title(writer.getNickName() + " 님이 " + project.getName() + " 프로젝트 쪼잉을 수락하셨어요.")
                         .content("이제부터 " + project.getName() + " 프로젝트의 일원이 되셨어요!")
                         .userId(application.getUserId())
+                        .state(NotificationState.UNCHECK)
                         .build()
         );
     }

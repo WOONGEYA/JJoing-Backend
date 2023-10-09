@@ -23,6 +23,7 @@ public class FindNotificationService {
     public List<NotificationResponse> execute() {
         User user = userFacade.getCurrentUser();
         List<Notification> notifications = notificationRepository.findByUserId(user.getId());
+        notifications.forEach(Notification::checkState);
 
         return notifications.stream()
                 .map(NotificationResponse::of)
