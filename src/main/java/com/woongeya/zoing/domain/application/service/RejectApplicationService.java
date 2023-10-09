@@ -5,6 +5,7 @@ import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
 import com.woongeya.zoing.domain.notice.domain.Notification;
 import com.woongeya.zoing.domain.notice.domain.repository.NotificationRepository;
+import com.woongeya.zoing.domain.notice.domain.type.NotificationState;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
@@ -42,6 +43,7 @@ public class RejectApplicationService {
                         .title(project.getName() + "의 쪼잉이 거절되었어요.")
                         .content("아쉽지만 다른 프로젝트 찾아보기")
                         .userId(application.getUserId())
+                        .state(NotificationState.UNCHECK)
                         .build()
         );
 

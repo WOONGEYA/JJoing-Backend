@@ -7,6 +7,7 @@ import com.woongeya.zoing.domain.application.exception.AlreadyApplicationExcepti
 import com.woongeya.zoing.domain.application.presetation.dto.request.ApplicationCreateRequest;
 import com.woongeya.zoing.domain.notice.domain.Notification;
 import com.woongeya.zoing.domain.notice.domain.repository.NotificationRepository;
+import com.woongeya.zoing.domain.notice.domain.type.NotificationState;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
@@ -55,6 +56,7 @@ public class CreateApplicationService {
                         .title(user.getNickName() + " 님으로부터 " + project.getName() + " 프로젝트 쪼잉 신청이 왔어요.")
                         .content("알림을 눌러 프로필과 한 줄 소개를 확인해 보세요 !")
                         .userId(writer.getId())
+                        .state(NotificationState.UNCHECK)
                         .build()
         );
     }
