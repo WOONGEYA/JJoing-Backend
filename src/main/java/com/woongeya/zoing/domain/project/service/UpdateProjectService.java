@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UpdateProjectService {
 
-    private final CustomMemberRepository customMemberRepository;
+    private final MemberRepository memberRepository;
     private final ProjectFacade projectFacade;
     private final UserFacade userFacade;
     private final PositionRepository positionRepository;
@@ -35,7 +35,7 @@ public class UpdateProjectService {
         moodRepository.deleteByProjectId(project.getId());
         coopRepository.deleteByProjectId(project.getId());
 
-        Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
+        Member member = memberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
 
         if (!checkMember(member)) {

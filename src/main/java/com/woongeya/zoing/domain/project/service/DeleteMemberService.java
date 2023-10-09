@@ -18,12 +18,11 @@ public class DeleteMemberService {
 
     private final UserFacade userFacade;
     private final MemberRepository memberRepository;
-    private final CustomMemberRepository customMemberRepository;
 
     @Transactional
     public void execute(Long id, MemberRequestDto request) {
         User user = userFacade.getCurrentUser();
-        Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), id)
+        Member member = memberRepository.findByUserIdAndProjectId(user.getId(), id)
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
 
         if (!member.isWriter()) {
