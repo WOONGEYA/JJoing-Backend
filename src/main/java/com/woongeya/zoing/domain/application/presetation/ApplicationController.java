@@ -21,6 +21,7 @@ public class ApplicationController {
     private final RejectApplicationService rejectApplicationService;
     private final AcceptApplicationService acceptApplicationService;
     private final FindProjectApplicationService findProjectApplicationService;
+    private final FindApplicationService findApplicationService;
 
     @PostMapping("/{id}")
     @Operation(summary = "신청 생성")
@@ -50,5 +51,11 @@ public class ApplicationController {
     @Operation(summary = "프로젝트에 신청한 모든 유저 조회")
     public ResponseEntity<List<ApplicationResponseDto>> findProjectApplication(@PathVariable Long id) {
         return ResponseEntity.ok(findProjectApplicationService.execute(id));
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "신청 하나 조회")
+    public ResponseEntity<ApplicationResponseDto> findOneApplication(@PathVariable Long id) {
+        return ResponseEntity.ok(findApplicationService.execute(id));
     }
 }
