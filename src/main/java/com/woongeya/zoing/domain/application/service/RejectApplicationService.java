@@ -8,8 +8,7 @@ import com.woongeya.zoing.domain.notice.domain.repository.NotificationRepository
 import com.woongeya.zoing.domain.notice.domain.type.NotificationState;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
-import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
-import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
+import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
 import com.woongeya.zoing.domain.user.UserFacade;
@@ -25,7 +24,7 @@ public class RejectApplicationService {
     private final UserFacade userFacade;
     private final ApplicationFacade applicationFacade;
     private final ProjectFacade projectFacade;
-    private final CustomMemberRepository customMemberRepository;
+    private final MemberRepository memberRepository;
     private final NotificationRepository notificationRepository;
     private final ApplicationRepository applicationRepository;
 
@@ -33,7 +32,7 @@ public class RejectApplicationService {
     public void execute(Long id) {
         User user = userFacade.getCurrentUser();
         Application application = applicationFacade.getApplication(id);
-        Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), application.getProjectId())
+        Member member = memberRepository.findByUserIdAndProjectId(user.getId(), application.getProjectId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
         Project project = projectFacade.getProject(application.getId());
 

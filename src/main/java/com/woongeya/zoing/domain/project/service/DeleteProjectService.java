@@ -24,7 +24,6 @@ public class DeleteProjectService {
     private final PositionRepository positionRepository;
     private final SkillRepository skillRepository;
     private final MoodRepository moodRepository;
-    private final CustomMemberRepository customMemberRepository;
     private final ProjectFacade projectFacade;
     private final UserFacade userFacade;
 
@@ -32,7 +31,7 @@ public class DeleteProjectService {
     public void execute(Long id) {
         User user = userFacade.getCurrentUser();
         Project project = projectFacade.getProject(id);
-        Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
+        Member member = memberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
 
         if (!member.isWriter()) {

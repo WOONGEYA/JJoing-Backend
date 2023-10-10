@@ -5,6 +5,7 @@ import com.woongeya.zoing.domain.application.domain.repository.ApplicationReposi
 import com.woongeya.zoing.domain.application.presetation.dto.response.ApplicationResponseDto;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
+import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
 import com.woongeya.zoing.domain.user.UserFacade;
@@ -22,13 +23,13 @@ import java.util.stream.Collectors;
 public class FindProjectApplicationService {
 
     private final ApplicationRepository applicationRepository;
-    private final CustomMemberRepository customMemberRepository;
+    private final MemberRepository memberRepository;
     private final UserFacade userFacade;
 
     @Transactional(readOnly = true)
     public List<ApplicationResponseDto> execute(Long id) {
         User user = userFacade.getCurrentUser();
-        Member member = customMemberRepository.findByUserIdAndProjectId(user.getId(), id)
+        Member member = memberRepository.findByUserIdAndProjectId(user.getId(), id)
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
 
         if (!member.isWriter()) {
