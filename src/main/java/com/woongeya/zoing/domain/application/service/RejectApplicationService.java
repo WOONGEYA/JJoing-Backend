@@ -42,6 +42,7 @@ public class RejectApplicationService {
                         .title(project.getName() + "의 쪼잉이 거절되었어요.")
                         .content("아쉽지만 다른 프로젝트 찾아보기")
                         .userId(application.getUserId())
+                        .projectId(application.getProjectId())
                         .state(NotificationState.UNCHECK)
                         .build()
         );

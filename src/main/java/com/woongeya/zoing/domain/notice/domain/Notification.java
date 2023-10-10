@@ -23,14 +23,20 @@ public class Notification {
 
     private Long userId;
 
+    private Long projectId;
+
+    private Long applicationId;
+
     @Enumerated(EnumType.STRING)
     private NotificationState state;
 
     @Builder
-    public Notification(String title, String content, Long userId, NotificationState state) {
+    public Notification(String title, String content, Long userId, Long projectId, Long applicationId, NotificationState state) {
         this.title = title;
         this.content = content;
         this.userId = userId;
+        this.projectId = projectId;
+        this.applicationId = applicationId;
         this.state = state;
     }
 
