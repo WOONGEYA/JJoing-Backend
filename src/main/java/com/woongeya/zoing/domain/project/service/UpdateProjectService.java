@@ -31,9 +31,6 @@ public class UpdateProjectService {
     public void execute(Long id, CreateProjectRequestDto request) {
         Project project = projectFacade.getProject(id);
         User user = userFacade.getCurrentUser();
-        positionRepository.deleteByProjectId(project.getId());
-        moodRepository.deleteByProjectId(project.getId());
-        coopRepository.deleteByProjectId(project.getId());
 
         Member member = memberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
@@ -42,6 +39,9 @@ public class UpdateProjectService {
             throw new IsNotWriterException();
         }
 
+        positionRepository.deleteByProjectId(project.getId());
+        moodRepository.deleteByProjectId(project.getId());
+        coopRepository.deleteByProjectId(project.getId());
         updateMoods(project, request.getMoods());
         updatePositions(project, request.getPositions());
         updateCoops(project, request.getCoops());

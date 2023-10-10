@@ -53,6 +53,8 @@ public class AcceptApplicationService {
                         .title(writer.getNickName() + " 님이 " + project.getName() + " 프로젝트 쪼잉을 수락하셨어요.")
                         .content("이제부터 " + project.getName() + " 프로젝트의 일원이 되셨어요!")
                         .userId(application.getUserId())
+                        .projectId(project.getId())
+                        .applicationId(application.getId())
                         .state(NotificationState.UNCHECK)
                         .build()
         );

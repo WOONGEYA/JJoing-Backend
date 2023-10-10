@@ -40,7 +40,7 @@ public class CreateApplicationService {
         applicationRepository.findByUserIdAndProjectId(user.getId(), project.getId())
                 .ifPresent(application -> { throw new AlreadyApplicationException(); });
 
-        applicationRepository.save(
+        Long applicationId = applicationRepository.save(
                 Application.builder()
                         .userId(user.getId())
                         .projectId(project.getId())
@@ -49,13 +49,15 @@ public class CreateApplicationService {
                         .state(ApplicationState.PENDING)
                         .position(request.getPosition())
                         .build()
-        );
+        ).getId();
 
         notificationRepository.save(
                 Notification.builder()
                         .title(user.getNickName() + " 님으로부터 " + project.getName() + " 프로젝트 쪼잉 신청이 왔어요.")
                         .content("알림을 눌러 프로필과 한 줄 소개를 확인해 보세요 !")
                         .userId(writer.getId())
+                        .projectId(project.getId())
+                        .applicationId(applicationId)
                         .state(NotificationState.UNCHECK)
                         .build()
         );
