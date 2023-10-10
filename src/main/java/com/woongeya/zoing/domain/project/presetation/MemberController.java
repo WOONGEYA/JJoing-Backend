@@ -35,7 +35,7 @@ public class MemberController {
 
     @GetMapping("/check/{id}")
     @Operation(summary = "프로젝트 멤버 확인")
-    public Boolean checkMember(Long id) {
+    public Boolean checkMember(@PathVariable Long id) {
         return checkMemberService.execute(id);
     }
 }
