@@ -42,6 +42,7 @@ public class UpdateProjectService {
         positionRepository.deleteByProjectId(project.getId());
         moodRepository.deleteByProjectId(project.getId());
         coopRepository.deleteByProjectId(project.getId());
+        skillRepository.deleteByProjectId(project.getId());
         updateMoods(project, request.getMoods());
         updatePositions(project, request.getPositions());
         updateCoops(project, request.getCoops());
