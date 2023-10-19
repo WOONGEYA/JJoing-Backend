@@ -19,7 +19,7 @@ public class FindNotificationService {
     private final NotificationRepository notificationRepository;
     private final UserFacade userFacade;
 
-    @Transactional(readOnly = true)
+    @Transactional()
     public List<NotificationResponse> execute() {
         User user = userFacade.getCurrentUser();
         List<Notification> notifications = notificationRepository.findByUserId(user.getId());
