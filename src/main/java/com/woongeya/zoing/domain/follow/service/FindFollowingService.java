@@ -26,8 +26,8 @@ public class FindFollowingService {
         List<Follow> follows = followRepository.findByToUserId(user.getId());
 
         return follows.stream()
-                .map(follow -> userFacade.getUserById(follow.getToUserId()).getName())
-                .map(name -> new FollowResponseDto(id, name))
+                .map(follow -> userFacade.getUserById(follow.getToUserId()))
+                .map(FollowResponseDto::new)
                 .collect(Collectors.toList());
     }
 }
