@@ -27,7 +27,7 @@ public class FindFollowingService {
 
         return follows.stream()
                 .map(follow -> userFacade.getUserById(follow.getToUserId()))
-                .map(FollowResponseDto::new)
+                .map(FollowResponseDto::of)
                 .collect(Collectors.toList());
     }
 }
