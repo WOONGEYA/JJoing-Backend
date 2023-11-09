@@ -4,11 +4,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -21,14 +19,17 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 30)
     private String title;
 
+    @Column(length = 1000)
     private String content;
 
     private Integer viewCount;
 
     private String imgUrl;
 
+    @CreatedDate
     private LocalDateTime createTime;
 
     private Long userId;
@@ -41,5 +42,10 @@ public class Post {
         this.imgUrl = imgUrl;
         this.createTime = createTime;
         this.userId = userId;
+    }
+
+    @PrePersist
+    public void createAt() {
+        this.createTime = LocalDateTime.now();
     }
 }
