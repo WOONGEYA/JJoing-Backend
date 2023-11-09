@@ -1,9 +1,6 @@
 package com.woongeya.zoing.domain.post.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -11,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post {
@@ -32,16 +30,16 @@ public class Post {
     @CreatedDate
     private LocalDateTime createTime;
 
-    private Long userId;
+    private Long writer;
 
     @Builder
-    public Post(String title, String content, Integer viewCount, String imgUrl, LocalDateTime createTime, Long userId) {
+    public Post(String title, String content, Integer viewCount, String imgUrl, LocalDateTime createTime, Long writer) {
         this.title = title;
         this.content = content;
         this.viewCount = viewCount;
         this.imgUrl = imgUrl;
         this.createTime = createTime;
-        this.userId = userId;
+        this.writer = writer;
     }
 
     @PrePersist
