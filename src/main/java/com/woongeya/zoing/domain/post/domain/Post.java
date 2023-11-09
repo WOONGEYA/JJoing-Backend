@@ -1,11 +1,13 @@
 package com.woongeya.zoing.domain.post.domain;
 
+import com.woongeya.zoing.domain.post.presetation.dto.request.CreatePostRequest;
+import com.woongeya.zoing.domain.user.domain.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -45,5 +47,15 @@ public class Post {
     @PrePersist
     public void createAt() {
         this.createTime = LocalDateTime.now();
+    }
+
+    public void update(CreatePostRequest request) {
+        this.title = request.getTitle();
+        this.content = request.getContent();
+        this.imgUrl = request.getImgUrl();
+    }
+
+    public Boolean isWriter(User user) {
+        return Objects.equals(user.getId(), writer);
     }
 }
