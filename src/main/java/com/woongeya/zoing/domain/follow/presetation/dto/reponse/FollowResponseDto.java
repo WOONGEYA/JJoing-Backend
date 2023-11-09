@@ -13,14 +13,16 @@ public class FollowResponseDto {
     private String imgUrl;
     private String school;
     private String major;
+    private Boolean followState;
 
-    public static FollowResponseDto of(User user) {
+    public static FollowResponseDto of(User user, Boolean followState) {
         return FollowResponseDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .imgUrl(user.getImgUrl())
                 .school(user.getSchool())
                 .major(user.getMajor())
+                .followState(followState)
                 .build();
     }
 }
