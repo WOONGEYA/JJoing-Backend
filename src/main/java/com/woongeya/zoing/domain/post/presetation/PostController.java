@@ -8,6 +8,7 @@ import com.woongeya.zoing.domain.post.service.command.DeletePostService;
 import com.woongeya.zoing.domain.post.service.command.UpdatePostService;
 import com.woongeya.zoing.domain.post.service.qeury.QueryPostOneService;
 import com.woongeya.zoing.domain.post.service.qeury.QueryPostService;
+import com.woongeya.zoing.domain.post.service.qeury.QuerySearchPostService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class PostController {
     private final CreatePostService createPostService;
     private final QueryPostService queryPostService;
     private final QueryPostOneService queryPostOneService;
+    private final QuerySearchPostService querySearchPostService;
     private final UpdatePostService updatePostService;
     private final DeletePostService deletePostService;
 
@@ -41,6 +43,12 @@ public class PostController {
     @Operation(summary = "게시글 상세 조회")
     public ResponseEntity<PostResponse> getOne(@PathVariable Long id) {
         return ResponseEntity.ok(queryPostOneService.execute(id));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "게시글 검색")
+    public ResponseEntity<PostResponseList> search(@RequestParam(name = "q") String q) {
+        return ResponseEntity.ok(querySearchPostService.execute(q));
     }
 
     @PutMapping("/{id}")
