@@ -1,10 +1,12 @@
 package com.woongeya.zoing.domain.post.presetation;
 
 import com.woongeya.zoing.domain.post.presetation.dto.request.CreatePostRequest;
+import com.woongeya.zoing.domain.post.presetation.dto.response.PostResponse;
 import com.woongeya.zoing.domain.post.presetation.dto.response.PostResponseList;
 import com.woongeya.zoing.domain.post.service.command.CreatePostService;
 import com.woongeya.zoing.domain.post.service.command.DeletePostService;
 import com.woongeya.zoing.domain.post.service.command.UpdatePostService;
+import com.woongeya.zoing.domain.post.service.qeury.QueryPostOneService;
 import com.woongeya.zoing.domain.post.service.qeury.QueryPostService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ public class PostController {
 
     private final CreatePostService createPostService;
     private final QueryPostService queryPostService;
+    private final QueryPostOneService queryPostOneService;
     private final UpdatePostService updatePostService;
     private final DeletePostService deletePostService;
 
@@ -32,6 +35,12 @@ public class PostController {
     @Operation(summary = "게시글 전체 조회")
     public ResponseEntity<PostResponseList> getAll() {
         return ResponseEntity.ok(queryPostService.execute());
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "게시글 상세 조회")
+    public ResponseEntity<PostResponse> getOne(@PathVariable Long id) {
+        return ResponseEntity.ok(queryPostOneService.execute(id));
     }
 
     @PutMapping("/{id}")

@@ -58,4 +58,8 @@ public class Post {
     public Boolean isWriter(User user) {
         return Objects.equals(user.getId(), writer);
     }
+
+    public void increaseViewCnt() {
+        this.viewCount++;
+    }
 }
