@@ -26,6 +26,7 @@ public class CreatePostRequest {
                 .title(title)
                 .content(content)
                 .imgUrl(imgUrl)
+                .viewCount(0)
                 .writer(user.getId())
                 .build();
     }
