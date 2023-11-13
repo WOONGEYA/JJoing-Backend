@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.comment.domain;
 
+import com.woongeya.zoing.domain.comment.presetation.dto.request.CreateCommentRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,5 +46,9 @@ public class ReComment {
 
     public boolean isWriter(Long id) {
         return Objects.equals(id, userId);
+    }
+
+    public void update(CreateCommentRequest request) {
+        this.content = request.getContent();
     }
 }

@@ -4,6 +4,7 @@ import com.woongeya.zoing.domain.comment.presetation.dto.request.CreateCommentRe
 import com.woongeya.zoing.domain.comment.presetation.dto.response.ReCommentResponse;
 import com.woongeya.zoing.domain.comment.service.command.CreateReCommentService;
 import com.woongeya.zoing.domain.comment.service.command.DeleteReCommentService;
+import com.woongeya.zoing.domain.comment.service.command.UpdateReCommentService;
 import com.woongeya.zoing.domain.comment.service.query.QueryReCommentListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class ReCommentController {
     private final CreateReCommentService createReCommentService;
     private final QueryReCommentListService queryReCommentListService;
     private final DeleteReCommentService deleteReCommentService;
+    private final UpdateReCommentService updateReCommentService;
 
     @PostMapping("/{id}")
     public ResponseEntity<Void> create(@PathVariable Long id, @RequestBody CreateCommentRequest request) {
@@ -34,6 +36,12 @@ public class ReCommentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteReCommentService.execute(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody CreateCommentRequest request) {
+        updateReCommentService.execute(id, request);
         return ResponseEntity.noContent().build();
     }
 }
