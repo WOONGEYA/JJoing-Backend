@@ -25,6 +25,8 @@ public class Comment {
     @CreatedDate
     private LocalDateTime createTime;
 
+    private Integer reCommentCount;
+
     @Column(nullable = false)
     private Long postId;
 
@@ -36,6 +38,7 @@ public class Comment {
         this.content = content;
         this.postId = postId;
         this.userId = userId;
+        this.reCommentCount = 0;
     }
 
     @PrePersist
@@ -49,5 +52,13 @@ public class Comment {
 
     public void update(CreateCommentRequest request) {
         this.content = content;
+    }
+
+    public void increaseReCommentCount() {
+        this.reCommentCount++;
+    }
+
+    public void decreaseReCommentCount() {
+        this.reCommentCount--;
     }
 }

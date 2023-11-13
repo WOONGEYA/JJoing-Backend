@@ -26,6 +26,8 @@ public class Post {
 
     private Integer viewCount;
 
+    private Integer commentCount;
+
     private String imgUrl;
 
     @CreatedDate
@@ -41,6 +43,7 @@ public class Post {
         this.imgUrl = imgUrl;
         this.createTime = createTime;
         this.writer = writer;
+        this.commentCount = 0;
     }
 
     @PrePersist
@@ -60,5 +63,13 @@ public class Post {
 
     public void increaseViewCnt() {
         this.viewCount++;
+    }
+
+    public void increaseCommentCount() {
+        this.commentCount++;
+    }
+
+    public void decreaseCommentCount() {
+        this.commentCount--;
     }
 }

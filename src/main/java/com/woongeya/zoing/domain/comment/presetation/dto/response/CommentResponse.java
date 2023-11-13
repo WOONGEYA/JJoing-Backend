@@ -17,12 +17,14 @@ public class CommentResponse {
     private Long userId;
     private String userName;
     private String userImg;
+    private Integer reCommentCount;
 
     public static CommentResponse of(Comment comment, User user) {
         return CommentResponse.builder()
                 .id(comment.getId())
                 .content(comment.getContent())
                 .createTime(comment.getCreateTime())
+                .reCommentCount(comment.getReCommentCount())
                 .userId(user.getId())
                 .userName(user.getName())
                 .userImg(user.getImgUrl())
