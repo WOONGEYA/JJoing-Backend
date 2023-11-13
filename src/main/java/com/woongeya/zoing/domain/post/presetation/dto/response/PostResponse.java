@@ -16,6 +16,7 @@ public class PostResponse {
     private String title;
     private String content;
     private Integer viewCount;
+    private String postImg;
     private LocalDateTime createTime;
     private Long userId;
     private String userName;
@@ -26,6 +27,7 @@ public class PostResponse {
                 .id(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
+                .postImg(post.getImgUrl())
                 .createTime(post.getCreateTime())
                 .viewCount(post.getViewCount())
                 .userId(user.getId())
