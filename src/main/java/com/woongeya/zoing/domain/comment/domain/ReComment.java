@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Recomment {
+public class ReComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,15 +18,13 @@ public class Recomment {
 
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "comment_id")
-    private Comment comment;
+    private Long commentId;
 
     private Long userId;
 
-    public Recomment(String content, Comment comment, Long userId) {
+    public ReComment(String content, Long commentId, Long userId) {
         this.content = content;
-        this.comment = comment;
+        this.commentId = commentId;
         this.userId = userId;
     }
 }
