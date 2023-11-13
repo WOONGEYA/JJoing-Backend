@@ -24,7 +24,7 @@ public class UpdatePostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
 
-        if(post.isWriter(user)) {
+        if(!post.isWriter(user)) {
             throw new IsNotWriterException();
         }
         post.update(request);
