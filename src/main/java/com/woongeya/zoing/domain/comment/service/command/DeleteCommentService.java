@@ -1,0 +1,32 @@
+package com.woongeya.zoing.domain.comment.service.command;
+
+import com.woongeya.zoing.domain.comment.domain.Comment;
+import com.woongeya.zoing.domain.comment.domain.repository.CommentRepository;
+import com.woongeya.zoing.domain.comment.exception.CommentNotFoundException;
+import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
+import com.woongeya.zoing.domain.user.UserFacade;
+import com.woongeya.zoing.domain.user.domain.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
+@Service
+@RequiredArgsConstructor
+public class DeleteCommentService {
+
+    private final UserFacade userFacade;
+    private final CommentRepository commentRepository;
+
+    public void execute(Long id) {
+        User user = userFacade.getCurrentUser();
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+
+        if(!comment.isWriter(user.getId())) {
+            throw new IsNotWriterException();
+        }
+
+        commentRepository.delete(comment);
+    }
+}
