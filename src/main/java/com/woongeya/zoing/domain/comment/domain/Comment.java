@@ -1,10 +1,12 @@
 package com.woongeya.zoing.domain.comment.domain;
 
+import com.woongeya.zoing.domain.comment.presetation.dto.request.CreateCommentRequest;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,5 +41,13 @@ public class Comment {
     @PrePersist
     public void createAt() {
         this.createTime = LocalDateTime.now();
+    }
+
+    public boolean isWriter(Long writerId) {
+        return Objects.equals(this.userId, writerId);
+    }
+
+    public void update(CreateCommentRequest request) {
+        this.content = content;
     }
 }
