@@ -28,6 +28,7 @@ public enum ErrorCode {
     NOTIFICATION_NOT_FOUND(404, "NOTIFICATION-404-1", "Notification Not Found"),
     POST_NOT_FOUND(404, "POST-404-1", "Post Not Found"),
     COMMENT_NOT_FOUND(404, "COMMENT-404-1", "Comment Not Found"),
+    RECOMMENT_NOT_FOUND(404, "RECOMMENT-404-1", "ReComment Not Found"),
     // S3
     IMAGE_FAILED_SAVE(424, "IMAGE-424-1", "Image Failed Save"),
     IMAGE_NOT_FOUND(404, "IMAGE-404-1", "Image Not Found"),

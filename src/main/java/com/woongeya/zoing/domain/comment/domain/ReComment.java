@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -40,5 +41,9 @@ public class ReComment {
     @PrePersist
     public void createAt() {
         this.createTime = LocalDateTime.now();
+    }
+
+    public boolean isWriter(Long id) {
+        return Objects.equals(id, userId);
     }
 }
