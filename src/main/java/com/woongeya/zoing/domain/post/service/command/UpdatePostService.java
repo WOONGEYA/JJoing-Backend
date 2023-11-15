@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UpdatePostService {
 
-    private final  UserFacade userFacade;
+    private final UserFacade userFacade;
     private final PostRepository postRepository;
 
     public void execute(Long id, CreatePostRequest request) {
