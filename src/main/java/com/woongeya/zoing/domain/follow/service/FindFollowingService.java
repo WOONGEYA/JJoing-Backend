@@ -21,7 +21,6 @@ public class FindFollowingService {
     private final FollowRepository followRepository;
 
     @Transactional
-
     public List<FollowResponseDto> execute(Long id) {
         User currentUser = SecurityUtil.getCurrentUserOrNull();
         User user = userFacade.getUserById(id);
