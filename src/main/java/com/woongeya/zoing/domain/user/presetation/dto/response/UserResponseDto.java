@@ -1,9 +1,11 @@
 package com.woongeya.zoing.domain.user.presetation.dto.response;
 
+import com.woongeya.zoing.domain.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class UserResponseDto {
 
     private Long id;
@@ -16,16 +18,17 @@ public class UserResponseDto {
     private String githubUrl;
     private String statusMessage;
 
-    @Builder
-    public UserResponseDto(Long id, String name, String nickName, String email, String major, String imgUrl, String school, String githubUrl, String statusMessage) {
-        this.id = id;
-        this.name = name;
-        this.nickName = nickName;
-        this.email = email;
-        this.major = major;
-        this.imgUrl = imgUrl;
-        this.school = school;
-        this.githubUrl = githubUrl;
-        this.statusMessage = statusMessage;
+    public static UserResponseDto from(User user) {
+        return UserResponseDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .nickName(user.getNickName())
+                .email(user.getEmail())
+                .major(user.getMajor())
+                .imgUrl(user.getImgUrl())
+                .school(user.getSchool())
+                .githubUrl(user.getGithubUrl())
+                .statusMessage(user.getStatusMessage())
+                .build();
     }
 }
