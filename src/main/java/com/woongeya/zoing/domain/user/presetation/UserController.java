@@ -2,6 +2,7 @@ package com.woongeya.zoing.domain.user.presetation;
 
 import com.woongeya.zoing.domain.project.presetation.dto.response.ImageResponseDto;
 import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequestDto;
+import com.woongeya.zoing.domain.user.presetation.dto.response.SearchUserResponse;
 import com.woongeya.zoing.domain.user.presetation.dto.response.UserResponseDto;
 import com.woongeya.zoing.domain.user.service.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +50,7 @@ public class UserController {
 
     @GetMapping("/search")
     @Operation(summary = "유저 검색")
-    public ResponseEntity<List<UserResponseDto>> search(@RequestParam(name = "q") String q) {
+    public ResponseEntity<List<SearchUserResponse>> search(@RequestParam(name = "q") String q) {
         return ResponseEntity.ok(searchUserService.execute(q));
     }
 }
