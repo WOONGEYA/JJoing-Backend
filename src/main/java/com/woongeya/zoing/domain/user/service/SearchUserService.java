@@ -26,7 +26,7 @@ public class SearchUserService {
         User currentUser = SecurityUtil.getCurrentUserOrNull();
         List<User> users = userRepository.searchUser(q);
         return users.stream()
-                .map(user -> SearchUserResponse.of(user, followRepository.countByToUserId(user.getId()), followRepository.countByFromUserId(user.getId()), currentUser != null && followRepository.existsByToUserIdAndFromUserId(currentUser.getId(), user.getId())))
+                .map(user -> SearchUserResponse.of(user, followRepository.countByToUserId(user.getId()), followRepository.countByFromUserId(user.getId()), currentUser != null && followRepository.existsByToUserIdAndFromUserId(user.getId(), currentUser.getId())))
                 .collect(Collectors.toList());
     }
 }
