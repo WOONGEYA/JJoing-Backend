@@ -5,9 +5,9 @@ import com.woongeya.zoing.global.error.exception.ZoingException;
 
 public class UserNotFoundException extends ZoingException {
 
-    public final static UserNotFoundException EXCEPTION = new UserNotFoundException(ErrorCode.USER_NOT_FOUND);
+    public final static UserNotFoundException EXCEPTION = new UserNotFoundException();
 
-    public UserNotFoundException(ErrorCode errorCode) {
-        super(errorCode);
+    public UserNotFoundException() {
+        super(ErrorCode.USER_NOT_FOUND);
     }
 }
