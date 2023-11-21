@@ -85,6 +85,7 @@ public class Project {
 
     public void update(CreateProjectRequestDto request) {
         this.name = request.getName();
+        this.imgUrl = request.getImgUrl();
         this.requiredPeople = request.getRequiredPeople();
         this.content = request.getContent();
         this.endDate = request.getEndDate();
