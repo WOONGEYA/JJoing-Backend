@@ -1,6 +1,7 @@
 package com.woongeya.zoing.domain.project.service;
 
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
+import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.*;
@@ -22,6 +23,7 @@ public class DeleteProjectService {
     private final MemberRepository memberRepository;
     private final CoopRepository coopRepository;
     private final PositionRepository positionRepository;
+    private final LikeRepository likeRepository;
     private final SkillRepository skillRepository;
     private final MoodRepository moodRepository;
     private final ProjectFacade projectFacade;
@@ -48,6 +50,7 @@ public class DeleteProjectService {
         skillRepository.deleteByProjectId(project.getId());
         coopRepository.deleteByProjectId(project.getId());
         positionRepository.deleteByProjectId(project.getId());
+        likeRepository.deleteByProjectId(project.getId());
         projectRepository.delete(project);
     }
 

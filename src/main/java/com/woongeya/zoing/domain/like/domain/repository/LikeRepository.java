@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LikeRepository extends JpaRepository<Like, Long> {
+    void deleteByProjectId(Long projectId);
     Optional<Like> findByUserIdAndProjectId(Long userId, Long projectId);
     List<Like> findByProjectId(Long projectId);
     List<Like> findByUserId(Long userId);
