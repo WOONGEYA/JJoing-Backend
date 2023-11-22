@@ -13,7 +13,8 @@ public class NotificationResponse {
     private String content;
     private Long applicationId;
     private Long projectId;
-    private Long userId;
+    private Long toUserId;
+    private Long fromUserId;
 
     public static NotificationResponse of(Notification notification) {
         return NotificationResponse.builder()
@@ -22,7 +23,8 @@ public class NotificationResponse {
                 .content(notification.getContent())
                 .applicationId(notification.getApplicationId())
                 .projectId(notification.getProjectId())
-                .userId(notification.getUserId())
+                .toUserId(notification.getToUserId())
+                .fromUserId(notification.getFromUserId())
                 .build();
     }
 }

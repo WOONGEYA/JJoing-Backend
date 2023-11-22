@@ -16,6 +16,6 @@ public class CountNotificationService {
 
     public Long execute() {
         User user = userFacade.getCurrentUser();
-        return notificationRepository.countByUserIdAndState(user.getId(), NotificationState.UNCHECK);
+        return notificationRepository.countByToUserIdAndState(user.getId(), NotificationState.UNCHECK);
     }
 }

@@ -22,7 +22,7 @@ public class FindNotificationService {
     @Transactional()
     public List<NotificationResponse> execute() {
         User user = userFacade.getCurrentUser();
-        List<Notification> notifications = notificationRepository.findByUserId(user.getId());
+        List<Notification> notifications = notificationRepository.findByToUserId(user.getId());
         notifications.forEach(Notification::checkState);
 
         return notifications.stream()
