@@ -21,7 +21,9 @@ public class Notification {
 
     private String content;
 
-    private Long userId;
+    private Long toUserId;
+
+    private Long fromUserId;
 
     private Long projectId;
 
@@ -31,10 +33,11 @@ public class Notification {
     private NotificationState state;
 
     @Builder
-    public Notification(String title, String content, Long userId, Long projectId, Long applicationId, NotificationState state) {
+    public Notification(String title, String content, Long toUserId, Long fromUserId, Long projectId, Long applicationId, NotificationState state) {
         this.title = title;
         this.content = content;
-        this.userId = userId;
+        this.toUserId = toUserId;
+        this.fromUserId = fromUserId;
         this.projectId = projectId;
         this.applicationId = applicationId;
         this.state = state;
