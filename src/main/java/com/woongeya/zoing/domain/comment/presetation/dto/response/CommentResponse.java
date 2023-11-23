@@ -15,7 +15,7 @@ public class CommentResponse {
     private String content;
     private LocalDateTime createTime;
     private Long userId;
-    private String userName;
+    private String userNickName;
     private String userImg;
     private Integer reCommentCount;
 
@@ -26,7 +26,7 @@ public class CommentResponse {
                 .createTime(comment.getCreateTime())
                 .reCommentCount(comment.getReCommentCount())
                 .userId(user.getId())
-                .userName(user.getName())
+                .userNickName(user.getNickName())
                 .userImg(user.getImgUrl())
                 .build();
     }
