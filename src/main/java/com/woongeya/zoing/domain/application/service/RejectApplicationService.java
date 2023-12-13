@@ -48,6 +48,7 @@ public class RejectApplicationService {
                         .build()
         );
 
+        notificationRepository.deleteByApplicationId(id);
         applicationRepository.delete(application);
     }
 }

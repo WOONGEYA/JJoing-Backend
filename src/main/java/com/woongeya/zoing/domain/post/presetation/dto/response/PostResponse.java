@@ -20,7 +20,7 @@ public class PostResponse {
     private String postImg;
     private LocalDateTime createTime;
     private Long userId;
-    private String userName;
+    private String userNickName;
     private String userImg;
 
     public static PostResponse of(Post post, User user) {
@@ -32,7 +32,7 @@ public class PostResponse {
                 .createTime(post.getCreateTime())
                 .viewCount(post.getViewCount())
                 .userId(user.getId())
-                .userName(user.getName())
+                .userNickName(user.getNickName())
                 .userImg(user.getImgUrl())
                 .commentCount(post.getCommentCount())
                 .build();

@@ -18,7 +18,7 @@ public class DeleteAllNotificationService {
 
     public void execute() {
         User user = userFacade.getCurrentUser();
-        List<Notification> notifications = notificationRepository.findByUserId(user.getId());
+        List<Notification> notifications = notificationRepository.findByToUserId(user.getId());
 
         notificationRepository.deleteAll(notifications);
     }

@@ -15,7 +15,7 @@ public class ReCommentResponse {
     private String content;
     private LocalDateTime createTime;
     private Long userId;
-    private String userName;
+    private String userNickName;
     private String userImg;
 
     public static ReCommentResponse of(ReComment reComment, User user) {
@@ -24,7 +24,7 @@ public class ReCommentResponse {
                 .content(reComment.getContent())
                 .createTime(reComment.getCreateTime())
                 .userId(user.getId())
-                .userName(user.getName())
+                .userNickName(user.getNickName())
                 .userImg(user.getImgUrl())
                 .build();
     }
