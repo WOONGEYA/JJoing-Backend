@@ -43,7 +43,7 @@ public class CustomProjectRepositoryImpl implements CustomProjectRepository {
                 .selectFrom(project)
                 .leftJoin(like).on(project.id.eq(like.projectId))
                 .groupBy(project)
-                .orderBy(like.count().desc())
+                .orderBy(like.count().desc(), project.id.desc())
                 .fetch();
     }
 
@@ -54,7 +54,7 @@ public class CustomProjectRepositoryImpl implements CustomProjectRepository {
                 .leftJoin(like).on(project.id.eq(like.projectId))
                 .where(project.state.eq(state))
                 .groupBy(project)
-                .orderBy(like.count().desc())
+                .orderBy(like.count().desc(), project.id.desc())
                 .fetch();
     }
 }
