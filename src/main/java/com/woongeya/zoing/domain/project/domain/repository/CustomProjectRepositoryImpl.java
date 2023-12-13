@@ -1,7 +1,6 @@
 package com.woongeya.zoing.domain.project.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.woongeya.zoing.domain.application.domain.QApplication;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,7 @@ import java.util.List;
 
 import static com.woongeya.zoing.domain.application.domain.QApplication.application;
 import static com.woongeya.zoing.domain.like.domain.QLike.like;
-import static com.woongeya.zoing.domain.project.domain.QMember.member;
+import static com.woongeya.zoing.domain.project.domain.QMember.*;
 import static com.woongeya.zoing.domain.project.domain.QProject.project;
 
 @Repository
@@ -31,11 +30,20 @@ public class CustomProjectRepositoryImpl implements CustomProjectRepository {
     }
 
     @Override
-    public List<Project> findProject(Long id) {
+    public List<Project> findMyEndProject(Long userId) {
         return jpaQueryFactory
                 .selectFrom(project)
-                .innerJoin(member.project, project).fetchJoin()
-                .where(member.userId.eq(id))
+                .join(member).on(member.project.eq(project))
+                .where(member.userId.eq(userId).and(project.state.eq(ProjectState.FOUND)))
+                .fetch();
+    }
+
+    @Override
+    public List<Project> findMyProject(Long userId) {
+        return jpaQueryFactory
+                .selectFrom(project)
+                .join(member).on(member.project.eq(project))
+                .where(member.userId.eq(userId).and(project.state.eq(ProjectState.FINDING)))
                 .fetch();
     }
 
