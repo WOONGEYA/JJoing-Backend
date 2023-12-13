@@ -1,6 +1,7 @@
 package com.woongeya.zoing.domain.project.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.woongeya.zoing.domain.application.domain.QApplication;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.woongeya.zoing.domain.application.domain.QApplication.application;
 import static com.woongeya.zoing.domain.like.domain.QLike.like;
 import static com.woongeya.zoing.domain.project.domain.QMember.member;
 import static com.woongeya.zoing.domain.project.domain.QProject.project;
@@ -55,6 +57,16 @@ public class CustomProjectRepositoryImpl implements CustomProjectRepository {
                 .where(project.state.eq(state))
                 .groupBy(project)
                 .orderBy(like.count().desc(), project.id.desc())
+                .fetch();
+    }
+
+    @Override
+    public List<Project> findMyApplicationProject(Long userId) {
+        return jpaQueryFactory
+                .selectFrom(project)
+                .join(application).on(project.id.eq(application.projectId))
+                .where(application.userId.eq(userId))
+                .orderBy(application.id.desc())
                 .fetch();
     }
 }

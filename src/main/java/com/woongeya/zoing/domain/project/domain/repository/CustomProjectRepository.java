@@ -14,4 +14,6 @@ public interface CustomProjectRepository {
     List<Project> findProjectLikeDesc();
 
     List<Project> findProjectByStateLikeDesc(ProjectState state);
+
+    List<Project> findMyApplicationProject(Long userId);
 }
