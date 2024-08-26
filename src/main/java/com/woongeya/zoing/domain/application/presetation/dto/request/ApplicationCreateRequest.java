@@ -2,7 +2,7 @@ package com.woongeya.zoing.domain.application.presetation.dto.request;
 
 import lombok.Getter;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 @Getter
 public class ApplicationCreateRequest {

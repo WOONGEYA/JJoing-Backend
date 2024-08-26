@@ -1,16 +1,23 @@
 package com.woongeya.zoing.domain.application.domain;
 
+import static com.woongeya.zoing.domain.application.domain.type.ApplicationState.*;
+
+import java.util.Objects;
+
 import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
 import com.woongeya.zoing.domain.user.domain.User;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.Objects;
-
-import static com.woongeya.zoing.domain.application.domain.type.ApplicationState.*;
 
 @Entity
 @Getter
