@@ -38,9 +38,6 @@ public class User {
     @Column(nullable = false)
     private String imgUrl;
 
-    @Column(length = 32)
-    private String school;
-
     @Column(length = 8)
     private int age;
 
@@ -52,23 +49,21 @@ public class User {
     private Authority authority;
 
     @Builder
-    public User(String name, String nickName, String email, String githubUrl, String statusMessage, String imgUrl, String school, int age, String major, Authority authority) {
+    public User(String name, String nickName, String email, String githubUrl, String statusMessage, String imgUrl, int age, String major, Authority authority) {
         this.name = name;
         this.nickName = nickName;
         this.email = email;
         this.githubUrl = githubUrl;
         this.statusMessage = statusMessage;
         this.imgUrl = imgUrl;
-        this.school = school;
         this.age = age;
         this.major = major;
         this.authority = authority;
     }
 
-    public User update(GoogleInfoResponseDto response, String school) {
+    public User update(GoogleInfoResponseDto response) {
         this.email = response.getEmail();
         this.name = response.getName();
-        this.school = school;
         return this;
     }
 

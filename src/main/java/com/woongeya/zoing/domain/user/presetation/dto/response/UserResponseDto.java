@@ -14,7 +14,6 @@ public class UserResponseDto {
     private String email;
     private String major;
     private String imgUrl;
-    private String school;
     private String githubUrl;
     private String statusMessage;
 
@@ -26,7 +25,6 @@ public class UserResponseDto {
                 .email(user.getEmail())
                 .major(user.getMajor())
                 .imgUrl(user.getImgUrl())
-                .school(user.getSchool())
                 .githubUrl(user.getGithubUrl())
                 .statusMessage(user.getStatusMessage())
                 .build();

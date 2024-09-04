@@ -12,7 +12,6 @@ public class ApplicationResponseDto {
     private Long userId;
     private String userName;
     private String userImg;
-    private String school;
     private String phone;
     private String position;
 
@@ -22,7 +21,6 @@ public class ApplicationResponseDto {
         this.userName = user.getName();
         this.userImg = user.getImgUrl();
         this.userId = user.getId();
-        this.school = user.getSchool();
         this.phone = application.getPhone();
         this.position = application.getPosition();
     }

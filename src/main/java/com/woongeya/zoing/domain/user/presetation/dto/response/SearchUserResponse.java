@@ -11,7 +11,6 @@ public class SearchUserResponse {
     private String name;
     private String nickName;
     private String imgUrl;
-    private String school;
     private String major;
     private Integer followCount;
     private Integer followerCount;
@@ -23,7 +22,6 @@ public class SearchUserResponse {
                 .name(user.getName())
                 .nickName(user.getNickName())
                 .imgUrl(user.getImgUrl())
-                .school(user.getSchool())
                 .major(user.getMajor())
                 .followCount(followCount)
                 .followerCount(followerCount)
