@@ -1,11 +1,11 @@
 package com.woongeya.zoing.global.jwt.config;
 
-import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
+import org.springframework.boot.context.properties.bind.ConstructorBinding;
+
+import lombok.Getter;
 
 @Getter
-@ConstructorBinding
 @ConfigurationProperties(prefix = "auth.jwt")
 public class JwtProperties {
 
@@ -15,6 +15,7 @@ public class JwtProperties {
     private final Long refreshExp;
     private final String prefix;
 
+    @ConstructorBinding
     public JwtProperties(String header, String secret, Long accessExp, Long refreshExp, String prefix) {
         this.header = header;
         this.secret = secret;

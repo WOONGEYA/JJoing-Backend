@@ -24,7 +24,6 @@ public class FindCurrentUserService {
                 .imgUrl(user.getImgUrl())
                 .email(user.getEmail())
                 .major(user.getMajor())
-                .school(user.getSchool())
                 .githubUrl(user.getGithubUrl())
                 .statusMessage(user.getStatusMessage())
                 .build();
