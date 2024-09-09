@@ -11,7 +11,6 @@ public class FollowResponseDto {
     private Long id;
     private String name;
     private String imgUrl;
-    private String school;
     private String major;
     private Boolean followState;
 
@@ -20,7 +19,6 @@ public class FollowResponseDto {
                 .id(user.getId())
                 .name(user.getName())
                 .imgUrl(user.getImgUrl())
-                .school(user.getSchool())
                 .major(user.getMajor())
                 .followState(followState)
                 .build();

@@ -1,12 +1,11 @@
 package com.woongeya.zoing.domain.project.domain;
 
-import com.woongeya.zoing.domain.project.domain.Project;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Getter

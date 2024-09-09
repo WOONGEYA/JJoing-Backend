@@ -33,24 +33,9 @@ public class OAuth2GoogleService {
                 createRequest(code)
         ).getAccessToken();
         GoogleInfoResponseDto userInfo = googleInfoClient.getUserInfo(googleToken);
-        String school = checkMeisterMember(userInfo.getEmail()) + "소프트웨어마이스터고등학교";
-        User user = saveOrUpdate(userInfo, school);
+        User user = saveOrUpdate(userInfo);
 
         return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString());
-    }
-
-    private String checkMeisterMember(String email) {
-        String splitMail = email.split("@")[1];
-        if(splitMail.equals("bssm.hs.kr"))
-            return "부산";
-        else if(splitMail.equals("dsm.hs.kr"))
-            return "대덕";
-        else if(splitMail.equals("gsm.hs.kr"))
-            return "광주";
-        else if(splitMail.equals("dgsw.hs.kr"))
-            return "대구";
-
-        throw NotMeisterMemberException.EXCEPTION;
     }
 
     public GoogleTokenRequestDto createRequest(String code) {
@@ -62,7 +47,7 @@ public class OAuth2GoogleService {
                 .build();
     }
 
-    private User saveOrUpdate(GoogleInfoResponseDto response, String school) {
+    private User saveOrUpdate(GoogleInfoResponseDto response) {
         Optional<User> user = userRepository.findByEmail(response.getEmail());
 
         if (user.isEmpty()) {
@@ -71,11 +56,10 @@ public class OAuth2GoogleService {
                     .name(response.getName())
                     .nickName(response.getName())
                     .authority(Authority.USER)
-                    .school (school)
                     .imgUrl(response.getPicture())
                     .build());
         }
 
-        return user.get().update(response, school);
+        return user.get().update(response);
     }
 }
