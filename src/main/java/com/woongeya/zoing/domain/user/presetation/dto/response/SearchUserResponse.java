@@ -1,20 +1,20 @@
 package com.woongeya.zoing.domain.user.presetation.dto.response;
 
 import com.woongeya.zoing.domain.user.domain.User;
-import lombok.Builder;
-import lombok.Getter;
 
-@Getter
+import lombok.Builder;
+
 @Builder
-public class SearchUserResponse {
-    private Long id;
-    private String name;
-    private String nickName;
-    private String imgUrl;
-    private String major;
-    private Integer followCount;
-    private Integer followerCount;
-    private Boolean followState;
+public record SearchUserResponse (
+    Long id,
+    String name,
+    String nickName,
+    String imgUrl,
+    String major,
+    Integer followCount,
+    Integer followerCount,
+    Boolean followState
+) {
 
     public static SearchUserResponse of(User user, Integer followCount, Integer followerCount, Boolean state) {
         return SearchUserResponse.builder()
