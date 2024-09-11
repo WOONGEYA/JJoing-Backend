@@ -68,11 +68,11 @@ public class User {
     }
 
     public void updateInfo(UpdateUserRequestDto request) {
-        this.nickName = request.getNickName();
-        this.age = request.getAge();
-        this.major = request.getMajor();
-        this.githubUrl = request.getGithubUrl();
-        this.statusMessage = request.getStatusMessage();
-        this.imgUrl = request.getImageUrl();
+        this.nickName = request.nickName();
+        this.age = request.age();
+        this.major = request.major();
+        this.githubUrl = request.githubUrl();
+        this.statusMessage = request.statusMessage();
+        this.imgUrl = request.imageUrl();
     }
 }
