@@ -9,7 +9,9 @@ public interface CustomProjectRepository {
 
     List<Project> searchProject(String q);
 
-    List<Project> findProject(Long id);
+    List<Project> findMyEndProject(Long userId);
+
+    List<Project> findMyProject(Long userId);
 
     List<Project> findProjectLikeDesc();
 
