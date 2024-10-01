@@ -1,42 +1,44 @@
 package com.woongeya.zoing.domain.project.presetation.dto.response;
 
-import com.woongeya.zoing.domain.project.domain.Project;
-import com.woongeya.zoing.domain.project.domain.type.ProjectState;
-import lombok.Getter;
-
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-public class ProjectInfoResponseDto {
+import com.woongeya.zoing.domain.project.domain.Project;
+import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 
-    private Long id;
-    private String name;
-    private String content;
-    private String imgUrl;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private Integer requiredPeople;
-    private Integer currentPeople;
-    private ProjectState state;
-    private List<String> moods;
-    private List<String> skills;
-    private List<String> coops;
-    private List<String> positions;
+import lombok.Builder;
 
-    public ProjectInfoResponseDto(Project project, List<String> moods, List<String> skills, List<String> coops, List<String> positions) {
-        this.id = project.getId();
-        this.name = project.getName();
-        this.content = project.getContent();
-        this.imgUrl = project.getImgUrl();
-        this.startDate = project.getStartDate();
-        this.endDate = project.getEndDate();
-        this.requiredPeople = project.getRequiredPeople();
-        this.currentPeople = project.getCurrentPeople();
-        this.state = project.getState();
-        this.moods = moods;
-        this.skills = skills;
-        this.coops = coops;
-        this.positions = positions;
+@Builder
+public record ProjectInfoResponseDto (
+    Long id,
+    String name,
+    String content,
+    String imgUrl,
+    LocalDate startDate,
+    LocalDate endDate,
+    Integer requiredPeople,
+    Integer currentPeople,
+    ProjectState state,
+    List<String> moods,
+    List<String> skills,
+    List<String> coops,
+    List<String> positions
+) {
+    public static ProjectInfoResponseDto of(Project project, List<String> moods, List<String> skills, List<String> coops, List<String> positions) {
+        return ProjectInfoResponseDto.builder()
+            .id(project.getId())
+            .name(project.getName())
+            .content(project.getContent())
+            .imgUrl(project.getImgUrl())
+            .startDate(project.getStartDate())
+            .endDate(project.getEndDate())
+            .requiredPeople(project.getRequiredPeople())
+            .currentPeople(project.getCurrentPeople())
+            .state(project.getState())
+            .moods(moods)
+            .skills(skills)
+            .coops(coops)
+            .positions(positions)
+            .build();
     }
 }

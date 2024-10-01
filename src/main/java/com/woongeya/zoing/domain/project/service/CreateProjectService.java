@@ -32,21 +32,21 @@ public class CreateProjectService {
 
         Project project = projectRepository.save(
                 Project.builder()
-                        .name(request.getName())
-                        .content(request.getContent())
-                        .imgUrl(request.getImgUrl())
-                        .endDate(request.getEndDate())
-                        .requiredPeople(request.getRequiredPeople())
+                        .name(request.name())
+                        .content(request.content())
+                        .imgUrl(request.imgUrl())
+                        .endDate(request.endDate())
+                        .requiredPeople(request.requiredPeople())
                         .currentPeople(1)
                         .viewCount(0L)
                         .state(ProjectState.FINDING)
                         .build()
         );
 
-        saveMoods(project, request.getMoods());
-        savePositions(project, request.getPositions());
-        saveCoops(project, request.getCoops());
-        saveSkills(project, request.getSkills());
+        saveMoods(project, request.moods());
+        savePositions(project, request.positions());
+        saveCoops(project, request.coops());
+        saveSkills(project, request.skills());
 
         memberRepository.save(
                 Member.builder()

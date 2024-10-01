@@ -34,7 +34,7 @@ public class FindProjectInfoService {
 
         project.increaseViewCnt();
 
-        return new ProjectInfoResponseDto(project, moods, skills, coops, positions);
+        return ProjectInfoResponseDto.of(project, moods, skills, coops, positions);
     }
 
     private List<String> getSkills(Project project) {
