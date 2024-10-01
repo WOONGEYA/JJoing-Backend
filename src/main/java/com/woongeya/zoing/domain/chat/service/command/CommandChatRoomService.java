@@ -15,6 +15,6 @@ public class CommandChatRoomService {
 	private final ChatRoomRepository chatRoomRepository;
 
 	public void create(ChatRoomRequest request) {
-		chatRoomRepository.save(new ChatRoom(request.name()));
+		chatRoomRepository.save(request.toEntity());
 	}
 }

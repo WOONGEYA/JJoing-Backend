@@ -21,7 +21,10 @@ public class ChatRoom {
 
 	private String name;
 
-	public ChatRoom(String name) {
+	private String imageUrl;
+
+	public ChatRoom(String name, String imageUrl) {
 		this.name = name;
+		this.imageUrl = imageUrl;
 	}
 }

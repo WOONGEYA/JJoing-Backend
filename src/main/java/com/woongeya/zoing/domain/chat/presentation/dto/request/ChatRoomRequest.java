@@ -1,10 +1,13 @@
 package com.woongeya.zoing.domain.chat.presentation.dto.request;
 
+import com.woongeya.zoing.domain.chat.domain.ChatRoom;
+
 public record ChatRoomRequest(
-	String name
+	String name,
+	String imageUrl
 ) {
 
-	public ChatRoomRequest(String name) {
-		this.name = name;
+	public ChatRoom toEntity() {
+		return new ChatRoom(name, imageUrl);
 	}
 }
