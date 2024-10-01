@@ -5,7 +5,7 @@ import java.util.List;
 public record PostResponseList(
     List<PostResponse> postResponses
 ) {
-    public static PostResponseList of(List<PostResponse> postResponses) {
+    public static PostResponseList from(List<PostResponse> postResponses) {
         return new PostResponseList(postResponses);
     }
 }
