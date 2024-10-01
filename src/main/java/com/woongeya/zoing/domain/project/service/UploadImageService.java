@@ -17,6 +17,6 @@ public class UploadImageService {
     public ImageResponseDto execute(MultipartFile file) {
         String image = s3Service.uploadImage(file);
 
-        return new ImageResponseDto(image);
+        return ImageResponseDto.from(image);
     }
 }

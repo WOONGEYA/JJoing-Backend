@@ -1,28 +1,25 @@
 package com.woongeya.zoing.domain.post.presetation.dto.response;
 
-import com.woongeya.zoing.domain.post.domain.Post;
-import com.woongeya.zoing.domain.user.domain.User;
-import com.woongeya.zoing.domain.user.presetation.dto.response.UserResponseDto;
-import lombok.Builder;
-import lombok.Getter;
-
 import java.time.LocalDateTime;
 
-@Getter
+import com.woongeya.zoing.domain.post.domain.Post;
+import com.woongeya.zoing.domain.user.domain.User;
+
+import lombok.Builder;
+
 @Builder
-public class PostResponse {
-
-    private Long id;
-    private String title;
-    private String content;
-    private Integer viewCount;
-    private Integer commentCount;
-    private String postImg;
-    private LocalDateTime createTime;
-    private Long userId;
-    private String userNickName;
-    private String userImg;
-
+public record PostResponse(
+    Long id,
+    String title,
+    String content,
+    Integer viewCount,
+    Integer commentCount,
+    String postImg,
+    LocalDateTime createTime,
+    Long userId,
+    String userNickName,
+    String userImg
+) {
     public static PostResponse of(Post post, User user) {
         return PostResponse.builder()
                 .id(post.getId())

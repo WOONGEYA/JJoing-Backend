@@ -1,37 +1,35 @@
 package com.woongeya.zoing.domain.project.presetation.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreateProjectRequestDto {
+import com.woongeya.zoing.domain.project.domain.Project;
+import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 
-    @NotNull
-    private String name;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 
-    @NotNull
-    private String content;
+public record CreateProjectRequestDto (
+    @NotNull String name,
+    @NotNull String content,
+    @NotNull Integer requiredPeople,
+    @NotNull LocalDate endDate,
+    String imgUrl,
+    List<String> skills,
+    List<String> coops,
+    List<String> moods,
+    List<String> positions
+) {
 
-    @NotNull
-    private Integer requiredPeople;
-
-    @NotNull
-    private LocalDate endDate;
-
-    private String imgUrl;
-
-    private List<String> skills;
-
-    private List<String> coops;
-
-    private List<String> moods;
-
-    private List<String> positions;
+	public Project toEntity() {
+		return Project.builder()
+			.name(name)
+			.content(content)
+			.requiredPeople(requiredPeople)
+			.endDate(endDate)
+			.imgUrl(imgUrl)
+			.currentPeople(1)
+			.state(ProjectState.FINDING)
+			.build();
+	}
 }

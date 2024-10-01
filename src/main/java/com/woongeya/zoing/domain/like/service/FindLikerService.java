@@ -29,7 +29,7 @@ public class FindLikerService {
         return likes.stream()
                 .map(like -> userFacade.getUserById(like.getUserId()))
                 .map(User::getName)
-                .map(name -> new LikerResponseDto(id, name))
+                .map(name -> LikerResponseDto.of(id, name))
                 .collect(Collectors.toList());
 
     }

@@ -26,7 +26,7 @@ public class FindNotificationService {
         notifications.forEach(Notification::checkState);
 
         return notifications.stream()
-                .map(NotificationResponse::of)
+                .map(NotificationResponse::from)
                 .collect(Collectors.toList());
     }
 }

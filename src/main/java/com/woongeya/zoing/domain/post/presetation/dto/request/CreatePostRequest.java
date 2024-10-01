@@ -2,25 +2,16 @@ package com.woongeya.zoing.domain.post.presetation.dto.request;
 
 import com.woongeya.zoing.domain.post.domain.Post;
 import com.woongeya.zoing.domain.user.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import jakarta.validation.constraints.NotNull;
 
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-public class CreatePostRequest {
-
+public record CreatePostRequest(
     @NotNull
-    private String title;
-
+    String title,
     @NotNull
-    private String content;
-
-    private String imgUrl;
-
+    String content,
+    String imgUrl
+) {
     public Post toEntity(User user) {
         return Post.builder()
                 .title(title)

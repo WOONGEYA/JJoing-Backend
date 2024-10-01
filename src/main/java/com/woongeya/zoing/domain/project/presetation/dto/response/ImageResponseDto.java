@@ -1,13 +1,9 @@
 package com.woongeya.zoing.domain.project.presetation.dto.response;
 
-import lombok.Getter;
-
-@Getter
-public class ImageResponseDto {
-
-    private String imgUrl;
-
-    public ImageResponseDto(String imgUrl) {
-        this.imgUrl = imgUrl;
+public record ImageResponseDto (
+    String imgUrl
+){
+    public static ImageResponseDto from(String imgUrl) {
+        return new ImageResponseDto(imgUrl);
     }
 }

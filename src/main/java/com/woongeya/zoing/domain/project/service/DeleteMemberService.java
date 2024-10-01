@@ -1,16 +1,17 @@
 package com.woongeya.zoing.domain.project.service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.woongeya.zoing.domain.project.domain.Member;
-import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
 import com.woongeya.zoing.domain.project.presetation.dto.request.MemberRequestDto;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,9 +31,6 @@ public class DeleteMemberService {
         }
 
         member.getProject().decreaseCurrentPeople();
-        memberRepository.delete(
-                memberRepository.findById(request.getMemberId())
-                        .orElseThrow(() -> MemberNotFoundException.EXCEPTION)
-        );
+        memberRepository.deleteById(request.memberId());
     }
 }

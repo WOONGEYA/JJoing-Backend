@@ -43,10 +43,10 @@ public class UpdateProjectService {
         moodRepository.deleteByProjectId(project.getId());
         coopRepository.deleteByProjectId(project.getId());
         skillRepository.deleteByProjectId(project.getId());
-        updateMoods(project, request.getMoods());
-        updatePositions(project, request.getPositions());
-        updateCoops(project, request.getCoops());
-        updateSkills(project, request.getSkills());
+        updateMoods(project, request.moods());
+        updatePositions(project, request.positions());
+        updateCoops(project, request.coops());
+        updateSkills(project, request.skills());
 
         project.update(request);
     }

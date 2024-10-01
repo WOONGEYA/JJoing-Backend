@@ -29,7 +29,7 @@ public class FindProjectMemberService {
                 .collect(Collectors.toList());
 
         return users.stream()
-                .map(MemberResponseDto::of)
+                .map(MemberResponseDto::from)
                 .collect(Collectors.toList());
     }
 }
