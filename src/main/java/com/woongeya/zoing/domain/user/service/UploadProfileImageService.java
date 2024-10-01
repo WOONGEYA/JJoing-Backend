@@ -17,6 +17,6 @@ public class UploadProfileImageService {
     public ImageResponseDto execute(MultipartFile file) {
         String imgUrl = s3Service.uploadImage(file);
 
-        return new ImageResponseDto(imgUrl);
+        return ImageResponseDto.from(imgUrl);
     }
 }
