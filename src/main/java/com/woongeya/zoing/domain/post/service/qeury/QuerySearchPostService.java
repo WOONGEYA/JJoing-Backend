@@ -25,7 +25,7 @@ public class QuerySearchPostService {
     public PostResponseList execute(String q) {
         List<Post> posts = postRepository.searchPost(q);
 
-        return PostResponseList.of(
+        return PostResponseList.from(
                 posts.stream()
                         .map(post -> PostResponse.of(post, userFacade.getUserById(post.getWriter())))
                         .collect(Collectors.toList())

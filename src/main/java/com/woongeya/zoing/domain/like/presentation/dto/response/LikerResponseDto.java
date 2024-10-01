@@ -1,15 +1,10 @@
 package com.woongeya.zoing.domain.like.presentation.dto.response;
 
-import lombok.Getter;
-
-@Getter
-public class LikerResponseDto {
-
-    private Long id;
-    private String name;
-
-    public LikerResponseDto(Long id, String name) {
-        this.id = id;
-        this.name = name;
+public record LikerResponseDto (
+    Long id,
+    String name
+) {
+    public static LikerResponseDto of(Long id, String name) {
+        return new LikerResponseDto(id, name);
     }
 }

@@ -23,7 +23,7 @@ public class QueryPostService {
     public PostResponseList execute() {
         List<Post> posts = postRepository.findAll();
 
-        return PostResponseList.of(
+        return PostResponseList.from(
                 posts.stream()
                     .map(post -> PostResponse.of(post, userFacade.getUserById(post.getWriter())))
                     .collect(Collectors.toList())
