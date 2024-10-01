@@ -84,11 +84,11 @@ public class Project {
     }
 
     public void update(CreateProjectRequestDto request) {
-        this.name = request.getName();
-        this.imgUrl = request.getImgUrl();
-        this.requiredPeople = request.getRequiredPeople();
-        this.content = request.getContent();
-        this.endDate = request.getEndDate();
+        this.name = request.name();
+        this.imgUrl = request.imgUrl();
+        this.requiredPeople = request.requiredPeople();
+        this.content = request.content();
+        this.endDate = request.endDate();
     }
 
     public void isFull() {

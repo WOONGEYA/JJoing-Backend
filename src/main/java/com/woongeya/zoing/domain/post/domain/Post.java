@@ -52,9 +52,9 @@ public class Post {
     }
 
     public void update(CreatePostRequest request) {
-        this.title = request.getTitle();
-        this.content = request.getContent();
-        this.imgUrl = request.getImgUrl();
+        this.title = request.title();
+        this.content = request.content();
+        this.imgUrl = request.imgUrl();
     }
 
     public Boolean isWriter(User user) {
