@@ -1,17 +1,28 @@
 package com.woongeya.zoing.domain.project.service;
 
-import com.woongeya.zoing.domain.project.domain.*;
-import com.woongeya.zoing.domain.project.domain.repository.*;
-import com.woongeya.zoing.domain.project.domain.type.ProjectState;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.woongeya.zoing.domain.project.domain.Coop;
+import com.woongeya.zoing.domain.project.domain.Member;
+import com.woongeya.zoing.domain.project.domain.Mood;
+import com.woongeya.zoing.domain.project.domain.Position;
+import com.woongeya.zoing.domain.project.domain.Project;
+import com.woongeya.zoing.domain.project.domain.Skill;
+import com.woongeya.zoing.domain.project.domain.repository.CoopRepository;
+import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
+import com.woongeya.zoing.domain.project.domain.repository.MoodRepository;
+import com.woongeya.zoing.domain.project.domain.repository.PositionRepository;
+import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
+import com.woongeya.zoing.domain.project.domain.repository.SkillRepository;
 import com.woongeya.zoing.domain.project.domain.type.Role;
 import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
@@ -29,38 +40,26 @@ public class CreateProjectService {
     @Transactional
     public void execute(CreateProjectRequestDto request) {
         User user = userFacade.getCurrentUser();
-
-        Project project = projectRepository.save(
-                Project.builder()
-                        .name(request.name())
-                        .content(request.content())
-                        .imgUrl(request.imgUrl())
-                        .endDate(request.endDate())
-                        .requiredPeople(request.requiredPeople())
-                        .currentPeople(1)
-                        .viewCount(0L)
-                        .state(ProjectState.FINDING)
-                        .build()
-        );
+        Project project = projectRepository.save(request.toEntity());
 
         saveMoods(project, request.moods());
         savePositions(project, request.positions());
         saveCoops(project, request.coops());
         saveSkills(project, request.skills());
+        saveMember(project, user);
+    }
 
+    private void saveMember(Project project, User user) {
         memberRepository.save(
-                Member.builder()
-                        .project(project)
-                        .role(Role.WRITER)
-                        .userId(user.getId())
-                        .build()
+            Member.builder()
+                .project(project)
+                .role(Role.WRITER)
+                .userId(user.getId())
+                .build()
         );
     }
 
-    public void saveMoods(Project project, List<String> moods) {
-        System.out.println(moods);
-        System.out.println(project.getName());
-
+    private void saveMoods(Project project, List<String> moods) {
         moods.forEach(mood -> moodRepository.save(
                 Mood.builder()
                         .type(mood)
@@ -69,7 +68,7 @@ public class CreateProjectService {
         ));
     }
 
-    public void savePositions(Project project, List<String> positions) {
+    private void savePositions(Project project, List<String> positions) {
         positions.forEach(position -> positionRepository.save(
                 Position.builder()
                         .name(position)
@@ -78,7 +77,7 @@ public class CreateProjectService {
         ));
     }
 
-    public void saveCoops(Project project, List<String> tools) {
+    private void saveCoops(Project project, List<String> tools) {
         tools.forEach(tool -> coopRepository.save(
                 Coop.builder()
                         .tool(tool)

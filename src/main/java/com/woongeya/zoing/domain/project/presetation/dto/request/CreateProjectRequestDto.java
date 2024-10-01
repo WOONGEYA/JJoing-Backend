@@ -3,6 +3,9 @@ package com.woongeya.zoing.domain.project.presetation.dto.request;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.woongeya.zoing.domain.project.domain.Project;
+import com.woongeya.zoing.domain.project.domain.type.ProjectState;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
@@ -17,4 +20,16 @@ public record CreateProjectRequestDto (
     List<String> moods,
     List<String> positions
 ) {
+
+	public Project toEntity() {
+		return Project.builder()
+			.name(name)
+			.content(content)
+			.requiredPeople(requiredPeople)
+			.endDate(endDate)
+			.imgUrl(imgUrl)
+			.currentPeople(1)
+			.state(ProjectState.FINDING)
+			.build();
+	}
 }
