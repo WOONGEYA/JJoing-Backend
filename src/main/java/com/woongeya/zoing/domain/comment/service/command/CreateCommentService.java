@@ -25,7 +25,7 @@ public class CreateCommentService {
         User user = userFacade.getCurrentUser();
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
-        commentRepository.save(new Comment(request.getContent(), postId, user.getId()));
+        commentRepository.save(request.toEntity(postId, user));
         post.increaseCommentCount();
     }
 }

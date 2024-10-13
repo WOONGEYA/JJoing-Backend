@@ -49,6 +49,6 @@ public class ReComment {
     }
 
     public void update(CreateCommentRequest request) {
-        this.content = request.getContent();
+        this.content = request.content();
     }
 }

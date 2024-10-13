@@ -1,16 +1,16 @@
 package com.woongeya.zoing.domain.comment.presetation.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.woongeya.zoing.domain.comment.domain.Comment;
+import com.woongeya.zoing.domain.user.domain.User;
 
 import jakarta.validation.constraints.NotNull;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreateCommentRequest {
-
+public record CreateCommentRequest (
     @NotNull
-    private String content;
+    String content
+) {
+
+    public Comment toEntity(Long postId, User user) {
+        return new Comment(content, postId, user.getId());
+    }
 }
