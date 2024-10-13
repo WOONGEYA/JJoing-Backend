@@ -26,7 +26,7 @@ public class CreateReCommentService {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
         reCommentRepository.save(
-                new ReComment(request.getContent(), id, user.getId())
+                new ReComment(request.content(), id, user.getId())
         );
         comment.increaseReCommentCount();
     }

@@ -41,14 +41,7 @@ public class CreateApplicationService {
                 .ifPresent(application -> { throw new AlreadyApplicationException(); });
 
         Long applicationId = applicationRepository.save(
-                Application.builder()
-                        .userId(user.getId())
-                        .projectId(project.getId())
-                        .introduce(request.getIntroduce())
-                        .phone(request.getPhone())
-                        .state(ApplicationState.PENDING)
-                        .position(request.getPosition())
-                        .build()
+            request.toEntity(user, project)
         ).getId();
 
         notificationRepository.save(

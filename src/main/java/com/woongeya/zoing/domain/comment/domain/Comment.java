@@ -51,7 +51,7 @@ public class Comment {
     }
 
     public void update(CreateCommentRequest request) {
-        this.content = request.getContent();
+        this.content = request.content();
     }
 
     public void increaseReCommentCount() {
