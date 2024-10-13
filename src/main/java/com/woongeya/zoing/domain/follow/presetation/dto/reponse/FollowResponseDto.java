@@ -1,18 +1,17 @@
 package com.woongeya.zoing.domain.follow.presetation.dto.reponse;
 
 import com.woongeya.zoing.domain.user.domain.User;
+
 import lombok.Builder;
-import lombok.Getter;
 
-@Getter
 @Builder
-public class FollowResponseDto {
-
-    private Long id;
-    private String name;
-    private String imgUrl;
-    private String major;
-    private Boolean followState;
+public record FollowResponseDto (
+    Long id,
+    String name,
+    String imgUrl,
+    String major,
+    Boolean followState
+) {
 
     public static FollowResponseDto of(User user, Boolean followState) {
         return FollowResponseDto.builder()
