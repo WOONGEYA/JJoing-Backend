@@ -1,0 +1,70 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url : jdbc:h2:mem:test;MODE=MYSQL
+    username: sa
+    password:
+
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: debug
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: client-id
+            client-secret: client-secret
+            redirect-uri: redirect-uri
+            scope:
+              - profile
+              - email
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+auth:
+  jwt:
+    header: header
+    secret: jianfiashfusfbuasfusbfushuhfhaubsubfubdus
+    accessExp: 12341234
+    refreshExp: 123412341234
+    prefix: preifx
+
+cloud:
+  aws:
+    s3:
+      bucket: s3
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      instance-profile: true
+      access-key: access-key
+      secret-key: secret-key
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true

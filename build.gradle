@@ -32,6 +32,7 @@ dependencies {
 	implementation 'org.webjars:stomp-websocket:2.3.3-1'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	testRuntimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
@@ -60,9 +61,9 @@ clean {
 	delete file('src/main/generated')
 }
 
-//tasks.named('test') {
-//	useJUnitPlatform()
-//}
+tasks.named('test') {
+	useJUnitPlatform()
+}
 
 jar {
 	enabled = false
