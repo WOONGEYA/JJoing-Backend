@@ -1,9 +1,8 @@
-package com.woongeya.zoing.project.domain;
+package com.woongeya.zoing.domain.project.domain;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 
 public class ProjectTest {
