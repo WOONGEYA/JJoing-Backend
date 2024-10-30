@@ -1,6 +1,6 @@
 package com.woongeya.zoing.global.feign;
 
-import com.woongeya.zoing.global.feign.dto.response.GoogleInfoResponseDto;
+import com.woongeya.zoing.global.feign.dto.response.GoogleInfoResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface GoogleInfoClient {
 
     @GetMapping("?access_token={TOKEN}")
-    GoogleInfoResponseDto getUserInfo(@PathVariable("TOKEN") String token);
+	GoogleInfoResponse getUserInfo(@PathVariable("TOKEN") String token);
 }

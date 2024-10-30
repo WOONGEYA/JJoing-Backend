@@ -9,7 +9,7 @@ import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import lombok.Builder;
 
 @Builder
-public record ProjectInfoResponseDto (
+public record ProjectInfoResponse(
     Long id,
     String name,
     String content,
@@ -24,8 +24,8 @@ public record ProjectInfoResponseDto (
     List<String> coops,
     List<String> positions
 ) {
-    public static ProjectInfoResponseDto of(Project project, List<String> moods, List<String> skills, List<String> coops, List<String> positions) {
-        return ProjectInfoResponseDto.builder()
+    public static ProjectInfoResponse of(Project project, List<String> moods, List<String> skills, List<String> coops, List<String> positions) {
+        return ProjectInfoResponse.builder()
             .id(project.getId())
             .name(project.getName())
             .content(project.getContent())

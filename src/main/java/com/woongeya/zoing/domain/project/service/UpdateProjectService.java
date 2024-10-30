@@ -5,7 +5,7 @@ import com.woongeya.zoing.domain.project.domain.repository.*;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
-import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
+import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequest;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class UpdateProjectService {
     private final SkillRepository skillRepository;
 
     @Transactional
-    public void execute(Long id, CreateProjectRequestDto request) {
+    public void execute(Long id, CreateProjectRequest request) {
         Project project = projectFacade.getProject(id);
         User user = userFacade.getCurrentUser();
 

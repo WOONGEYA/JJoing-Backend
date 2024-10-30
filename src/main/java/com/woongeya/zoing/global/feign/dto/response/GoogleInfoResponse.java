@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class GoogleInfoResponseDto {
+public class GoogleInfoResponse {
 
     private String name;
     private String email;

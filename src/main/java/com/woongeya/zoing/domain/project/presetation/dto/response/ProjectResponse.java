@@ -8,7 +8,7 @@ import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 import lombok.Builder;
 
 @Builder
-public record ProjectResponseDto(
+public record ProjectResponse(
     Long id,
     String name,
     String content,
@@ -21,8 +21,8 @@ public record ProjectResponseDto(
     ProjectState projectState,
     Boolean likeState
 ) {
-    public static ProjectResponseDto of(Project project, Integer likeCount, Boolean likeState) {
-        return ProjectResponseDto.builder()
+    public static ProjectResponse of(Project project, Integer likeCount, Boolean likeState) {
+        return ProjectResponse.builder()
                 .id(project.getId())
                 .name(project.getName())
                 .content(project.getContent())

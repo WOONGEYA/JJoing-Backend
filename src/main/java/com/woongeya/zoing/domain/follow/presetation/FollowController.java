@@ -1,6 +1,6 @@
 package com.woongeya.zoing.domain.follow.presetation;
 
-import com.woongeya.zoing.domain.follow.presetation.dto.reponse.FollowResponseDto;
+import com.woongeya.zoing.domain.follow.presetation.dto.reponse.FollowResponse;
 import com.woongeya.zoing.domain.follow.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class FollowController {
 
     @GetMapping("/{id}/following")
     @Operation(summary = "유저의 모든 팔로잉 조회")
-    public ResponseEntity<List<FollowResponseDto>> findFollwing(@PathVariable Long id) {
+    public ResponseEntity<List<FollowResponse>> findFollwing(@PathVariable Long id) {
         return ResponseEntity.ok(findFollowingService.execute(id));
     }
 
@@ -41,7 +41,7 @@ public class FollowController {
 
     @GetMapping("/{id}/follower")
     @Operation(summary = "유저의 모든 팔로워 조회")
-    public ResponseEntity<List<FollowResponseDto>> findFollower(@PathVariable Long id) {
+    public ResponseEntity<List<FollowResponse>> findFollower(@PathVariable Long id) {
         return ResponseEntity.ok(findFollowerService.execute(id));
     }
 

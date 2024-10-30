@@ -2,7 +2,7 @@ package com.woongeya.zoing.domain.user.service;
 
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
-import com.woongeya.zoing.domain.user.presetation.dto.response.UserResponseDto;
+import com.woongeya.zoing.domain.user.presetation.dto.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +14,10 @@ public class FindOtherUserService {
     private final UserFacade userFacade;
 
     @Transactional(readOnly = true)
-    public UserResponseDto execute(Long id) {
+    public UserResponse execute(Long id) {
         User user = userFacade.getUserById(id);
 
-        return UserResponseDto.builder()
+        return UserResponse.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .nickName(user.getNickName())

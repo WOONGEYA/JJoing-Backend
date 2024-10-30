@@ -7,9 +7,8 @@ import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
 
-public record CreateProjectRequestDto (
+public record CreateProjectRequest(
     @NotNull String name,
     @NotNull String content,
     @NotNull Integer requiredPeople,

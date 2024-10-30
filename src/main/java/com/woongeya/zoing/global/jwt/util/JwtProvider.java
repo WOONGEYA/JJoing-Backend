@@ -1,7 +1,7 @@
 package com.woongeya.zoing.global.jwt.util;
 
 import com.woongeya.zoing.global.jwt.config.JwtProperties;
-import com.woongeya.zoing.global.jwt.dto.TokenResponseDto;
+import com.woongeya.zoing.global.jwt.dto.TokenResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +22,11 @@ public class JwtProvider {
         return jwtProperties.getPrefix() + EMPTY.getMessage() + generateToken(authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
     }
 
-    public TokenResponseDto generateToken(String authId, String role) {
+    public TokenResponse generateToken(String authId, String role) {
         String accessToken = jwtProperties.getPrefix() + EMPTY.getMessage() + generateToken(authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
         String refreshToken = jwtProperties.getPrefix() + EMPTY.getMessage() + generateToken(authId, role, REFRESH_KEY.getMessage(), jwtProperties.getRefreshExp());
 
-        return new TokenResponseDto(accessToken, refreshToken, getExpiredTime());
+        return new TokenResponse(accessToken, refreshToken, getExpiredTime());
     }
 
     private String generateToken(String authId, String role, String type, Long time) {

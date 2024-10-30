@@ -5,7 +5,7 @@ import com.woongeya.zoing.domain.user.domain.User;
 import lombok.Builder;
 
 @Builder
-public record FollowResponseDto (
+public record FollowResponse(
     Long id,
     String name,
     String imgUrl,
@@ -13,8 +13,8 @@ public record FollowResponseDto (
     Boolean followState
 ) {
 
-    public static FollowResponseDto of(User user, Boolean followState) {
-        return FollowResponseDto.builder()
+    public static FollowResponse of(User user, Boolean followState) {
+        return FollowResponse.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .imgUrl(user.getImgUrl())

@@ -1,7 +1,7 @@
 package com.woongeya.zoing.global.feign;
 
-import com.woongeya.zoing.global.feign.dto.request.GoogleTokenRequestDto;
-import com.woongeya.zoing.global.feign.dto.response.GoogleTokenResponseDto;
+import com.woongeya.zoing.global.feign.dto.request.GoogleTokenRequest;
+import com.woongeya.zoing.global.feign.dto.response.GoogleTokenResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface GoogleAuthClient {
 
     @PostMapping()
-    GoogleTokenResponseDto getGoogleToken(GoogleTokenRequestDto request);
+    GoogleTokenResponse getGoogleToken(GoogleTokenRequest request);
 }
