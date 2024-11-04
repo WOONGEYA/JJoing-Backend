@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.time.ZonedDateTime;
 
 @Getter
-public class TokenResponseDto {
+public class TokenResponse {
 
     private final String accessToken;
     private final String refreshToken;
@@ -16,7 +16,7 @@ public class TokenResponseDto {
     private final ZonedDateTime expiredAt;
 
     @Builder
-    public TokenResponseDto(String accessToken, String refreshToken, ZonedDateTime expiredAt) {
+    public TokenResponse(String accessToken, String refreshToken, ZonedDateTime expiredAt) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.expiredAt = expiredAt;

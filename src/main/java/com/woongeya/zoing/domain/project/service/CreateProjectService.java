@@ -18,7 +18,7 @@ import com.woongeya.zoing.domain.project.domain.repository.PositionRepository;
 import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
 import com.woongeya.zoing.domain.project.domain.repository.SkillRepository;
 import com.woongeya.zoing.domain.project.domain.type.Role;
-import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
+import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequest;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 
@@ -38,7 +38,7 @@ public class CreateProjectService {
     private final UserFacade userFacade;
 
     @Transactional
-    public void execute(CreateProjectRequestDto request) {
+    public void execute(CreateProjectRequest request) {
         User user = userFacade.getCurrentUser();
         Project project = projectRepository.save(request.toEntity());
 

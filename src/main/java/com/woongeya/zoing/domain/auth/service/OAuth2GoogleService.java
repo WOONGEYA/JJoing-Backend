@@ -3,12 +3,11 @@ package com.woongeya.zoing.domain.auth.service;
 import com.woongeya.zoing.domain.user.domain.User;
 import com.woongeya.zoing.domain.user.domain.autority.Authority;
 import com.woongeya.zoing.domain.user.domain.repository.UserRepository;
-import com.woongeya.zoing.domain.user.exception.NotMeisterMemberException;
 import com.woongeya.zoing.global.feign.GoogleAuthClient;
 import com.woongeya.zoing.global.feign.GoogleInfoClient;
-import com.woongeya.zoing.global.feign.dto.request.GoogleTokenRequestDto;
-import com.woongeya.zoing.global.feign.dto.response.GoogleInfoResponseDto;
-import com.woongeya.zoing.global.jwt.dto.TokenResponseDto;
+import com.woongeya.zoing.global.feign.dto.request.GoogleTokenRequest;
+import com.woongeya.zoing.global.feign.dto.response.GoogleInfoResponse;
+import com.woongeya.zoing.global.jwt.dto.TokenResponse;
 import com.woongeya.zoing.global.jwt.util.JwtProvider;
 import com.woongeya.zoing.global.config.propertise.AuthProperties;
 import lombok.RequiredArgsConstructor;
@@ -28,18 +27,18 @@ public class OAuth2GoogleService {
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;
 
-    public TokenResponseDto execute(String code) {
+    public TokenResponse execute(String code) {
         String googleToken = googleAuthClient.getGoogleToken(
                 createRequest(code)
         ).getAccessToken();
-        GoogleInfoResponseDto userInfo = googleInfoClient.getUserInfo(googleToken);
+        GoogleInfoResponse userInfo = googleInfoClient.getUserInfo(googleToken);
         User user = saveOrUpdate(userInfo);
 
         return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString());
     }
 
-    public GoogleTokenRequestDto createRequest(String code) {
-        return GoogleTokenRequestDto.builder()
+    public GoogleTokenRequest createRequest(String code) {
+        return GoogleTokenRequest.builder()
                 .code(code)
                 .clientId(authProperties.getClientId())
                 .clientSecret(authProperties.getClientSecret())
@@ -47,7 +46,7 @@ public class OAuth2GoogleService {
                 .build();
     }
 
-    private User saveOrUpdate(GoogleInfoResponseDto response) {
+    private User saveOrUpdate(GoogleInfoResponse response) {
         Optional<User> user = userRepository.findByEmail(response.getEmail());
 
         if (user.isEmpty()) {

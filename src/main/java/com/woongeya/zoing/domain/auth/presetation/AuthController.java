@@ -2,7 +2,7 @@ package com.woongeya.zoing.domain.auth.presetation;
 
 import com.woongeya.zoing.domain.auth.service.OAuth2GoogleService;
 import com.woongeya.zoing.domain.auth.service.RefreshTokenService;
-import com.woongeya.zoing.global.jwt.dto.TokenResponseDto;
+import com.woongeya.zoing.global.jwt.dto.TokenResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -20,13 +20,13 @@ public class AuthController {
 
     @PostMapping("/google")
     @Operation(summary = "구글 로그인")
-    public TokenResponseDto loginOfGoogle(@Validated @RequestParam(name = "code") String code) {
+    public TokenResponse loginOfGoogle(@Validated @RequestParam(name = "code") String code) {
         return googleService.execute(code);
     }
 
     @PutMapping()
     @Operation(summary = "토큰 재발급")
-    public TokenResponseDto refreshToken(@RequestHeader(value = "Refresh-Token") @NotBlank String refreshToken) {
+    public TokenResponse refreshToken(@RequestHeader(value = "Refresh-Token") @NotBlank String refreshToken) {
         return refreshTokenService.execute(refreshToken);
     }
 }

@@ -3,7 +3,7 @@ package com.woongeya.zoing.domain.user.service;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import com.woongeya.zoing.domain.user.domain.repository.UserRepository;
-import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequestDto;
+import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ public class UserUpdateService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void execute(UpdateUserRequestDto request) {
+    public void execute(UpdateUserRequest request) {
         User user = userFacade.getCurrentUser();
         user.updateInfo(request);
 

@@ -2,7 +2,7 @@ package com.woongeya.zoing.domain.project.domain;
 
 
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
-import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
+import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -83,7 +83,7 @@ public class Project {
         this.startDate = LocalDate.now();
     }
 
-    public void update(CreateProjectRequestDto request) {
+    public void update(CreateProjectRequest request) {
         this.name = request.name();
         this.imgUrl = request.imgUrl();
         this.requiredPeople = request.requiredPeople();

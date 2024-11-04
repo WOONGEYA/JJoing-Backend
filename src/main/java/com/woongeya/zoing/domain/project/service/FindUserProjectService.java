@@ -6,7 +6,7 @@ import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
 import com.woongeya.zoing.domain.project.domain.type.ProjectState;
-import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
+import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponse;
 import com.woongeya.zoing.domain.user.domain.User;
 import com.woongeya.zoing.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class FindUserProjectService {
     private final LikeRepository likeRepository;
 
     @Transactional(readOnly = true)
-    public List<ProjectResponseDto> execute(Long id) {
+    public List<ProjectResponse> execute(Long id) {
         User user = SecurityUtil.getCurrentUserOrNull();
         List<Member> members = memberRepository.findByUserId(id);
 
@@ -34,7 +34,7 @@ public class FindUserProjectService {
                 .filter(project -> project.getState().equals(ProjectState.FINDING))
                 .map(project -> {
                     Integer likeCount = likeRepository.countByProjectId(project.getId());
-                    return ProjectResponseDto.of(project, likeCount, user != null && checkLike(project, user));
+                    return ProjectResponse.of(project, likeCount, user != null && checkLike(project, user));
                 })
                 .collect(Collectors.toList());
     }

@@ -6,7 +6,7 @@ import com.woongeya.zoing.domain.project.domain.repository.MoodRepository;
 import com.woongeya.zoing.domain.project.domain.repository.PositionRepository;
 import com.woongeya.zoing.domain.project.domain.repository.SkillRepository;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
-import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectInfoResponseDto;
+import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,7 @@ public class FindProjectInfoService {
     private final PositionRepository positionRepository;
 
     @Transactional
-    public ProjectInfoResponseDto execute(Long id) {
+    public ProjectInfoResponse execute(Long id) {
         Project project = projectFacade.getProject(id);
         List<String> coops = getCoops(project);
         List<String> moods = getMoods(project);
@@ -34,7 +34,7 @@ public class FindProjectInfoService {
 
         project.increaseViewCnt();
 
-        return ProjectInfoResponseDto.of(project, moods, skills, coops, positions);
+        return ProjectInfoResponse.of(project, moods, skills, coops, positions);
     }
 
     private List<String> getSkills(Project project) {

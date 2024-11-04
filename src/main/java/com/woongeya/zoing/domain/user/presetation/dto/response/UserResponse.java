@@ -5,7 +5,7 @@ import com.woongeya.zoing.domain.user.domain.User;
 import lombok.Builder;
 
 @Builder
-public record UserResponseDto (
+public record UserResponse(
     Long id,
     String name,
     String nickName,
@@ -15,8 +15,8 @@ public record UserResponseDto (
     String githubUrl,
     String statusMessage
 ) {
-    public static UserResponseDto from(User user) {
-        return UserResponseDto.builder()
+    public static UserResponse from(User user) {
+        return UserResponse.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .nickName(user.getNickName())

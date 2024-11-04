@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @Builder
-public class GoogleTokenRequestDto {
+public class GoogleTokenRequest {
 
     private final String code;
     private final String clientId;

@@ -1,6 +1,6 @@
 package com.woongeya.zoing.domain.user.presetation.dto.request;
 
-public record UpdateUserRequestDto (
+public record UpdateUserRequest(
     String nickName,
     Integer age,
     String major,

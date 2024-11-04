@@ -1,9 +1,9 @@
 package com.woongeya.zoing.domain.project.presetation;
 
-import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequestDto;
-import com.woongeya.zoing.domain.project.presetation.dto.response.ImageResponseDto;
-import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectInfoResponseDto;
-import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
+import com.woongeya.zoing.domain.project.presetation.dto.request.CreateProjectRequest;
+import com.woongeya.zoing.domain.project.presetation.dto.response.ImageResponse;
+import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectInfoResponse;
+import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponse;
 import com.woongeya.zoing.domain.project.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -39,19 +39,19 @@ public class ProjectController {
 
     @PostMapping()
     @Operation(summary = "프로젝트 생성")
-    public void createProject(@RequestBody CreateProjectRequestDto request) {
+    public void createProject(@RequestBody CreateProjectRequest request) {
         createProjectService.execute(request);
     }
 
     @PostMapping("/image")
     @Operation(summary = "프로젝트 이미지 등록")
-    public ImageResponseDto uploadImage(@RequestPart("image") MultipartFile image) {
+    public ImageResponse uploadImage(@RequestPart("image") MultipartFile image) {
         return uploadImageService.execute(image);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "프로젝트 수정")
-    public void updateProject(@PathVariable Long id, @RequestBody CreateProjectRequestDto request) {
+    public void updateProject(@PathVariable Long id, @RequestBody CreateProjectRequest request) {
         updateProjectService.execute(id, request);
     }
 
@@ -69,13 +69,13 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     @Operation(summary = "프로젝트 상세 조회")
-    public ResponseEntity<ProjectInfoResponseDto> findProjectInfo(@PathVariable Long id) {
+    public ResponseEntity<ProjectInfoResponse> findProjectInfo(@PathVariable Long id) {
         return ResponseEntity.ok(findProjectInfoService.execute(id));
     }
 
     @GetMapping()
     @Operation(summary = "전체 프로젝트 조회(정렬 기능 있음)")
-    public List<ProjectResponseDto> findProject(@RequestParam(name = "criteria", required = false, defaultValue = ("id")) String criteria,
+    public List<ProjectResponse> findProject(@RequestParam(name = "criteria", required = false, defaultValue = ("id")) String criteria,
                                                 @RequestParam(name = "state", required = false, defaultValue = ("always")) String state) {
         if (state.equals("always")) {
             if (criteria.equals("view")) {
@@ -99,37 +99,37 @@ public class ProjectController {
 
     @GetMapping("/search")
     @Operation(summary = "프로젝트 검색")
-    public ResponseEntity<List<ProjectResponseDto>> searchProject(@RequestParam(name = "q") String q) {
+    public ResponseEntity<List<ProjectResponse>> searchProject(@RequestParam(name = "q") String q) {
         return ResponseEntity.ok(searchProjectService.execute(q));
     }
 
     @GetMapping("/application")
     @Operation(summary = "내가 신청한 프로젝트 조회")
-    public ResponseEntity<List<ProjectResponseDto>> findMyApplicationProject() {
+    public ResponseEntity<List<ProjectResponse>> findMyApplicationProject() {
         return ResponseEntity.ok(findMyApplicationProjectService.execute());
     }
 
     @GetMapping("/my")
     @Operation(summary = "내가 참여중인 프로젝트 조회")
-    public ResponseEntity<List<ProjectResponseDto>> findMyProject() {
+    public ResponseEntity<List<ProjectResponse>> findMyProject() {
         return ResponseEntity.ok(findMyProjectService.execute());
     }
 
     @GetMapping("/my/end")
     @Operation(summary = "내가 참여했던 프로젝트 조회")
-    public ResponseEntity<List<ProjectResponseDto>> findMyEndProject() {
+    public ResponseEntity<List<ProjectResponse>> findMyEndProject() {
         return ResponseEntity.ok(findMyEndProjectService.execute());
     }
 
     @GetMapping("/{id}/user")
     @Operation(summary = "유저가 참여중인 프로젝트 조회")
-    public ResponseEntity<List<ProjectResponseDto>> findUserProject(@PathVariable Long id) {
+    public ResponseEntity<List<ProjectResponse>> findUserProject(@PathVariable Long id) {
         return ResponseEntity.ok(findUserProjectService.execute(id));
     }
 
     @GetMapping("/{id}/user/end")
     @Operation(summary = "유저가 참여했던 프로젝트 조회")
-    public ResponseEntity<List<ProjectResponseDto>> findUserEndProject(@PathVariable Long id) {
+    public ResponseEntity<List<ProjectResponse>> findUserEndProject(@PathVariable Long id) {
         return ResponseEntity.ok(findUserEndProjectService.execute(id));
     }
 }

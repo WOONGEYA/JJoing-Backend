@@ -2,10 +2,8 @@ package com.woongeya.zoing.domain.user.service;
 
 import com.woongeya.zoing.domain.follow.domain.repository.FollowRepository;
 import com.woongeya.zoing.domain.user.domain.User;
-import com.woongeya.zoing.domain.user.domain.repository.CustomUserRepository;
 import com.woongeya.zoing.domain.user.domain.repository.UserRepository;
 import com.woongeya.zoing.domain.user.presetation.dto.response.SearchUserResponse;
-import com.woongeya.zoing.domain.user.presetation.dto.response.UserResponseDto;
 import com.woongeya.zoing.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

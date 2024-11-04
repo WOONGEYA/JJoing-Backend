@@ -1,8 +1,9 @@
 package com.woongeya.zoing.domain.like.presentation;
 
-import com.woongeya.zoing.domain.like.presentation.dto.response.LikerResponseDto;
+import com.woongeya.zoing.domain.like.presentation.dto.response.LikerResponse;
 import com.woongeya.zoing.domain.like.service.*;
-import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
+import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponse;
+
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +37,13 @@ public class LikeController {
 
     @GetMapping("/{id}/liker")
     @Operation(summary = "좋아요 누른 사람 조회")
-    public ResponseEntity<List<LikerResponseDto>> findLiker(@PathVariable Long id) {
+    public ResponseEntity<List<LikerResponse>> findLiker(@PathVariable Long id) {
         return ResponseEntity.ok(findLikerService.execute(id));
     }
 
     @GetMapping("/my")
     @Operation(summary = "내가 좋아요 누른 프로젝트 조회")
-    public ResponseEntity<List<ProjectResponseDto>> findLikedProject() {
+    public ResponseEntity<List<ProjectResponse>> findLikedProject() {
         return ResponseEntity.ok(findLikedService.execute());
     }
 

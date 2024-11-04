@@ -2,9 +2,8 @@ package com.woongeya.zoing.domain.like.service;
 
 import com.woongeya.zoing.domain.like.domain.Like;
 import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
-import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
-import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponseDto;
+import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponse;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,7 @@ public class FindLikedService {
     private final LikeRepository likeRepository;
 
     @Transactional(readOnly = true)
-    public List<ProjectResponseDto> execute() {
+    public List<ProjectResponse> execute() {
         User user = userFacade.getCurrentUser();
         List<Like> likes = likeRepository.findByUserId(user.getId());
 
@@ -31,7 +30,7 @@ public class FindLikedService {
                 .map(like -> projectFacade.getProject(like.getProjectId()))
                 .map(project -> {
                     Integer likeCount = likeRepository.countByProjectId(project.getId());
-                    return ProjectResponseDto.of(project, likeCount, true);
+                    return ProjectResponse.of(project, likeCount, true);
                 })
                 .collect(Collectors.toList());
 

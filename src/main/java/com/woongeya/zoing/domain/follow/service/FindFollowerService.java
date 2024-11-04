@@ -2,7 +2,7 @@ package com.woongeya.zoing.domain.follow.service;
 
 import com.woongeya.zoing.domain.follow.domain.Follow;
 import com.woongeya.zoing.domain.follow.domain.repository.FollowRepository;
-import com.woongeya.zoing.domain.follow.presetation.dto.reponse.FollowResponseDto;
+import com.woongeya.zoing.domain.follow.presetation.dto.reponse.FollowResponse;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import com.woongeya.zoing.global.util.SecurityUtil;
@@ -21,7 +21,7 @@ public class FindFollowerService {
     private final FollowRepository followRepository;
 
     @Transactional
-    public List<FollowResponseDto> execute(Long id) {
+    public List<FollowResponse> execute(Long id) {
         User currentUser = SecurityUtil.getCurrentUserOrNull();
         User user = userFacade.getUserById(id);
         List<Follow> follows = followRepository.findByFromUserId(user.getId());
@@ -29,7 +29,7 @@ public class FindFollowerService {
         return follows.stream()
                 .map(follow -> {
                     User toUser = userFacade.getUserById(follow.getToUserId());
-                    return FollowResponseDto.of(toUser, currentUser != null && checkFollow(toUser, currentUser));
+                    return FollowResponse.of(toUser, currentUser != null && checkFollow(toUser, currentUser));
                 })
                 .collect(Collectors.toList());
     }
