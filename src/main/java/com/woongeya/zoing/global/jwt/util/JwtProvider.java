@@ -1,13 +1,12 @@
 package com.woongeya.zoing.global.jwt.util;
 
 import com.woongeya.zoing.global.jwt.config.JwtProperties;
-import com.woongeya.zoing.global.jwt.dto.TokenResponse;
+import com.woongeya.zoing.domain.auth.presetation.dto.response.TokenResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.ZonedDateTime;
 import java.util.Date;
 
 import static com.woongeya.zoing.global.jwt.config.JwtConstants.*;
@@ -26,7 +25,7 @@ public class JwtProvider {
         String accessToken = jwtProperties.getPrefix() + EMPTY.getMessage() + generateToken(authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
         String refreshToken = jwtProperties.getPrefix() + EMPTY.getMessage() + generateToken(authId, role, REFRESH_KEY.getMessage(), jwtProperties.getRefreshExp());
 
-        return new TokenResponse(accessToken, refreshToken, getExpiredTime());
+        return new TokenResponse(accessToken, refreshToken);
     }
 
     private String generateToken(String authId, String role, String type, Long time) {
@@ -37,9 +36,5 @@ public class JwtProvider {
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .setExpiration(new Date(System.currentTimeMillis() + time * 1000))
                 .compact();
-    }
-
-    public ZonedDateTime getExpiredTime() {
-        return ZonedDateTime.now().plusSeconds(jwtProperties.getRefreshExp());
     }
 }

@@ -1,14 +1,20 @@
 package com.woongeya.zoing.domain.auth.presetation;
 
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.woongeya.zoing.domain.auth.presetation.dto.response.TokenResponse;
 import com.woongeya.zoing.domain.auth.service.OAuth2GoogleService;
 import com.woongeya.zoing.domain.auth.service.RefreshTokenService;
-import com.woongeya.zoing.global.jwt.dto.TokenResponse;
-import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/login")

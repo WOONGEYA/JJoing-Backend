@@ -7,7 +7,7 @@ import com.woongeya.zoing.global.feign.GoogleAuthClient;
 import com.woongeya.zoing.global.feign.GoogleInfoClient;
 import com.woongeya.zoing.global.feign.dto.request.GoogleTokenRequest;
 import com.woongeya.zoing.global.feign.dto.response.GoogleInfoResponse;
-import com.woongeya.zoing.global.jwt.dto.TokenResponse;
+import com.woongeya.zoing.domain.auth.presetation.dto.response.TokenResponse;
 import com.woongeya.zoing.global.jwt.util.JwtProvider;
 import com.woongeya.zoing.global.config.propertise.AuthProperties;
 import lombok.RequiredArgsConstructor;
