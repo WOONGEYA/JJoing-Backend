@@ -8,14 +8,12 @@ import lombok.Getter;
 public class ErrorResponse {
 
     private int status;
-    private String code;
     private String message;
 
     @Override
     public String toString() {
         return "{\n" +
                 "\t\"status\": " + status +
-                ",\n\t\"code\": \"" + code + '\"' +
                 ",\n\t\"message\": \"" + message + '\"' +
                 "\n}";
     }

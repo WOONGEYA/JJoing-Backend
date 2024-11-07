@@ -1,62 +1,52 @@
 package com.woongeya.zoing.global.error;
 
-import com.woongeya.zoing.global.error.exception.ZoingException;
+import static org.springframework.http.HttpStatus.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.woongeya.zoing.global.error.exception.ErrorCode.INTERNAL_SERVER_ERROR;
+import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ZoingException.class)
-    public ResponseEntity<?> handleCustomException(ZoingException e) {
-        return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getStatus(), e.getErrorCode().getCode(), e.getErrorCode().getMessage()), HttpStatus.valueOf(e.getErrorCode().getStatus()));
+    @ExceptionHandler(JJoingException.class)
+    public ResponseEntity<ErrorResponse> handleDefineException(JJoingException e) {
+        log.warn(e.getMessage() + "\n \t {}", e);
+        return ResponseEntity.status(e.getStatus())
+            .body(new ErrorResponse(e.getStatus().value(), e.getMessage()));
     }
 
-    @ExceptionHandler(BindException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ResponseEntity<?> bindException(BindException e) {
-        Map<String, String> errorMap = new HashMap<>();
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ResponseStatus(BAD_REQUEST)
+    public ErrorResponse handleDefineException(MethodArgumentNotValidException e) {
+        log.warn(e.getMessage() + "\n \t {}", e);
 
-        for (FieldError error : e.getFieldErrors()) {
-            errorMap.put(error.getField(), error.getDefaultMessage());
+        String message;
+
+        if (e.getFieldError() == null) {
+            message = "";
+        } else {
+            message = e.getFieldError().getDefaultMessage();
         }
 
-        return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler({ConstraintViolationException.class})
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException e) {
-        Map<String, String> errorMap = new HashMap<>();
-
-        for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
-            errorMap.put(violation.getPropertyPath().toString(), violation.getMessage());
-        }
-
-        return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
+        return new ErrorResponse(400, message);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleServerException(Exception ex) {
-        return new ResponseEntity<>(
-                new ErrorResponse(
-                        INTERNAL_SERVER_ERROR.getStatus(),
-                        INTERNAL_SERVER_ERROR.getCode(),
-                        INTERNAL_SERVER_ERROR.getMessage()
-                ),
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
+    @ResponseStatus(INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleDefineException(Exception e) {
+        log.error(e.getMessage() + "\n \t {}", e);
+        return new ErrorResponse(500, "서버에서 알 수 없는 에러가 발생했습니다.");
     }
 }
