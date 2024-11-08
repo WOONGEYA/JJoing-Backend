@@ -1,4 +1,4 @@
-package com.woongeya.zoing.domain.annotation;
+package com.woongeya.zoing.domain.auth.annotation;
 
 import static java.lang.annotation.ElementType.*;
 

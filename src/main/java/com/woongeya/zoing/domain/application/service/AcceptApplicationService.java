@@ -3,6 +3,7 @@ package com.woongeya.zoing.domain.application.service;
 import com.woongeya.zoing.domain.application.ApplicationFacade;
 import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.notice.domain.Notification;
 import com.woongeya.zoing.domain.notice.domain.repository.NotificationRepository;
 import com.woongeya.zoing.domain.notice.domain.type.NotificationState;

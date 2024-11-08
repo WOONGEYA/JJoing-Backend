@@ -5,6 +5,7 @@ import com.woongeya.zoing.domain.application.domain.repository.ApplicationReposi
 import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
 import com.woongeya.zoing.domain.application.exception.AlreadyApplicationException;
 import com.woongeya.zoing.domain.application.presetation.dto.request.ApplicationCreateRequest;
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.notice.domain.Notification;
 import com.woongeya.zoing.domain.notice.domain.repository.NotificationRepository;
 import com.woongeya.zoing.domain.notice.domain.type.NotificationState;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CreateApplicationService {
 
     private final AuthRepository authRepository;
+    private final UserFacade userFacade;
     private final ProjectFacade projectFacade;
     private final ApplicationRepository applicationRepository;
     private final NotificationRepository notificationRepository;

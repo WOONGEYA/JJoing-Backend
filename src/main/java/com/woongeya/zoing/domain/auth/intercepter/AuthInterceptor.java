@@ -3,13 +3,12 @@ package com.woongeya.zoing.domain.auth.intercepter;
 import static org.springframework.http.HttpHeaders.*;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.woongeya.zoing.domain.annotation.AdminOnly;
-import com.woongeya.zoing.domain.annotation.LoginOrNot;
-import com.woongeya.zoing.domain.annotation.LoginRequired;
+import com.woongeya.zoing.domain.auth.annotation.AdminOnly;
+import com.woongeya.zoing.domain.auth.annotation.LoginOrNot;
+import com.woongeya.zoing.domain.auth.annotation.LoginRequired;
 import com.woongeya.zoing.domain.auth.exception.TokenNotExistException;
 import com.woongeya.zoing.domain.auth.exception.UserIsNotAdminException;
 import com.woongeya.zoing.domain.auth.repository.AuthRepository;
@@ -29,7 +28,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
 	private final JwtParser jwtParser;
 	private final AuthRepository authRepository;
-	private final AuthRepository authRepository;
+	private final UserFacade userFacade;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

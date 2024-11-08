@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class FindApplicationService {
 
     private final ApplicationFacade applicationFacade;
-    private final AuthRepository authRepository;
+    private final UserFacade userFacade;
 
     public ApplicationResponse execute(Long id) {
         Application application = applicationFacade.getApplication(id);
