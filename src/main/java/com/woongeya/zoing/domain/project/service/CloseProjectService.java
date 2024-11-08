@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.project.service;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.CustomMemberRepository;
@@ -18,13 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class CloseProjectService {
 
     private final ProjectFacade projectFacade;
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final MemberRepository memberRepository;
 
     @Transactional
     public void execute(Long id) {
-
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         Project project = projectFacade.getProject(id);
         Member member = memberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);

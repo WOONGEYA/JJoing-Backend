@@ -1,5 +1,10 @@
 package com.woongeya.zoing.domain.project.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
@@ -7,11 +12,8 @@ import com.woongeya.zoing.domain.project.facade.ProjectFacade;
 import com.woongeya.zoing.domain.project.presetation.dto.response.MemberResponse;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

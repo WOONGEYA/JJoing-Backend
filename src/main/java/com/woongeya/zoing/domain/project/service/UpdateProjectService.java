@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.project.service;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.project.domain.*;
 import com.woongeya.zoing.domain.project.domain.repository.*;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
@@ -21,7 +22,7 @@ public class UpdateProjectService {
 
     private final MemberRepository memberRepository;
     private final ProjectFacade projectFacade;
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final PositionRepository positionRepository;
     private final MoodRepository moodRepository;
     private final CoopRepository coopRepository;
@@ -30,7 +31,7 @@ public class UpdateProjectService {
     @Transactional
     public void execute(Long id, CreateProjectRequest request) {
         Project project = projectFacade.getProject(id);
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
 
         Member member = memberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);

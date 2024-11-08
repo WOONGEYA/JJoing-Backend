@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CreateApplicationService {
 
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final ProjectFacade projectFacade;
     private final ApplicationRepository applicationRepository;
     private final NotificationRepository notificationRepository;
@@ -32,7 +32,7 @@ public class CreateApplicationService {
     @Transactional
     public void execute(ApplicationCreateRequest request, Long id) {
 
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         Project project = projectFacade.getProject(id);
         Member member = memberRepository.findByProjectIdAndRole(project.getId(), Role.WRITER);
         User writer = userFacade.getUserById(member.getUserId());

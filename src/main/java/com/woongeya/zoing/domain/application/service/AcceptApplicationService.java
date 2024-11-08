@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AcceptApplicationService {
 
     private final ApplicationFacade applicationFacade;
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final ProjectFacade projectFacade;
     private final MemberRepository memberRepository;
     private final NotificationRepository notificationRepository;
@@ -31,7 +31,7 @@ public class AcceptApplicationService {
 
     @Transactional
     public void execute(Long id) {
-        User writer = userFacade.getCurrentUser();
+        User writer = authRepository.getCurrentUser();
         Application application = applicationFacade.getApplication(id);
         Project project = projectFacade.getProject(application.getProjectId());
         Member member = memberRepository.findByUserIdAndProjectId(writer.getId(), project.getId())

@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.comment.service.command;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.comment.domain.ReComment;
 import com.woongeya.zoing.domain.comment.domain.repository.ReCommentRepository;
 import com.woongeya.zoing.domain.comment.exception.ReCommentNotFoundException;
@@ -16,11 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UpdateReCommentService {
 
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final ReCommentRepository reCommentRepository;
 
     public void execute(Long id, CreateCommentRequest request) {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         ReComment reComment = reCommentRepository.findById(id)
                 .orElseThrow(() -> ReCommentNotFoundException.EXCEPTION);
 

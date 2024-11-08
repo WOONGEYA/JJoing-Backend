@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.follow.service;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.follow.domain.Follow;
 import com.woongeya.zoing.domain.follow.domain.repository.FollowRepository;
 import com.woongeya.zoing.domain.follow.exception.AlreadyFollowException;
@@ -15,12 +16,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CreateFollowService {
 
+    private final AuthRepository authRepository;
     private final UserFacade userFacade;
     private final FollowRepository followRepository;
 
     @Transactional
     public void execute(Long id) {
-        User fromUser = userFacade.getCurrentUser();
+        User fromUser = authRepository.getCurrentUser();
         User toUser = userFacade.getUserById(id);
 
         Optional<Follow> follow = followRepository.findByFromUserIdAndToUserId(fromUser.getId(), toUser.getId());

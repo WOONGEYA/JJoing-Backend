@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.post.service.command;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.post.domain.repository.PostRepository;
 import com.woongeya.zoing.domain.post.presetation.dto.request.CreatePostRequest;
 import com.woongeya.zoing.domain.user.UserFacade;
@@ -13,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CreatePostService {
 
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final PostRepository postRepository;
 
     public void execute(CreatePostRequest request) {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         postRepository.save(request.toEntity(user));
     }
 }

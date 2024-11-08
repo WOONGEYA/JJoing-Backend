@@ -1,6 +1,7 @@
 package com.woongeya.zoing.domain.project.service;
 
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Project;
@@ -27,11 +28,11 @@ public class DeleteProjectService {
     private final SkillRepository skillRepository;
     private final MoodRepository moodRepository;
     private final ProjectFacade projectFacade;
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
 
     @Transactional
     public void execute(Long id) {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         Project project = projectFacade.getProject(id);
         Member member = memberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);

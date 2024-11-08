@@ -1,11 +1,11 @@
 package com.woongeya.zoing.domain.application.exception;
 
 import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.exception.ZoingException;
+import com.woongeya.zoing.global.error.JJoingException;
 
-public class AlreadyApplicationException extends ZoingException {
+public class AlreadyApplicationException extends JJoingException {
 
-    public static final ZoingException EXCEPTION = new AlreadyApplicationException();
+    public static final JJoingException EXCEPTION = new AlreadyApplicationException();
 
     public AlreadyApplicationException() {
         super(ErrorCode.ALREADY_APPLICATION);

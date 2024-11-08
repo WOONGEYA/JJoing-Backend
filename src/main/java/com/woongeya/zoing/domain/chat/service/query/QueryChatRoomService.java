@@ -16,10 +16,10 @@ import lombok.RequiredArgsConstructor;
 public class QueryChatRoomService {
 
 	private final ChatRoomRepository chatRoomRepository;
-	private final UserFacade userFacade;
+	private final AuthRepository authRepository;
 
 	public List<ChatRoomResponse> findMyChatRoom() {
-		return chatRoomRepository.findMyChatRoom(userFacade.getCurrentUser().getId()).stream()
+		return chatRoomRepository.findMyChatRoom(authRepository.getCurrentUser().getId()).stream()
 			.map(ChatRoomResponse::from).toList();
 	}
 }

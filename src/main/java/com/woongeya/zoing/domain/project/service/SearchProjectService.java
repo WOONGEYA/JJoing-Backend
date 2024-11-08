@@ -1,28 +1,31 @@
 package com.woongeya.zoing.domain.project.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponse;
 import com.woongeya.zoing.domain.user.domain.User;
-import com.woongeya.zoing.global.util.SecurityUtil;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class SearchProjectService {
 
+    private final AuthRepository authRepository;
     private final ProjectRepository projectRepository;
     private final LikeRepository likeRepository;
 
     @Transactional(readOnly = true)
     public List<ProjectResponse> execute(String q) {
-        User user = SecurityUtil.getCurrentUserOrNull();
+        User user = authRepository.getNullableCurrentUser();
 
         return projectRepository.searchProject(q).stream()
                 .map(project -> {

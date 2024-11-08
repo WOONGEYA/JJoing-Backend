@@ -1,4 +1,5 @@
 package com.woongeya.zoing.domain.like.service;
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.like.domain.Like;
 import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.like.presentation.dto.response.LikerResponse;

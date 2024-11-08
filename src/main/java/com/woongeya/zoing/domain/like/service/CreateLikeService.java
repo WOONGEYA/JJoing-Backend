@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.like.service;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.like.domain.Like;
 import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.like.exception.AlreadyLikeException;
@@ -19,13 +20,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CreateLikeService {
 
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final ProjectFacade projectFacade;
     private final LikeRepository likeRepository;
 
     @Transactional
     public void execute(Long id) {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         Project project = projectFacade.getProject(id);
 
         likeRepository

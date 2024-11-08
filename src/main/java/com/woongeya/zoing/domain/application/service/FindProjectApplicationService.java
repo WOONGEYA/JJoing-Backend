@@ -24,11 +24,11 @@ public class FindProjectApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final MemberRepository memberRepository;
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
 
     @Transactional(readOnly = true)
     public List<ApplicationResponse> execute(Long id) {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         Member member = memberRepository.findByUserIdAndProjectId(user.getId(), id)
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
 

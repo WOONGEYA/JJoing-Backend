@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RejectApplicationService {
 
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final ApplicationFacade applicationFacade;
     private final ProjectFacade projectFacade;
     private final MemberRepository memberRepository;
@@ -30,7 +30,7 @@ public class RejectApplicationService {
 
     @Transactional
     public void execute(Long id) {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         Application application = applicationFacade.getApplication(id);
         Member member = memberRepository.findByUserIdAndProjectId(user.getId(), application.getProjectId())
                 .orElseThrow(() -> MemberNotFoundException.EXCEPTION);

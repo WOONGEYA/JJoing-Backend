@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.user.service;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import com.woongeya.zoing.domain.user.presetation.dto.response.UserResponse;
@@ -11,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class FindCurrentUserService {
 
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
 
     @Transactional(readOnly = true)
     public UserResponse execute() {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
 
         return UserResponse.builder()
                 .id(user.getId())

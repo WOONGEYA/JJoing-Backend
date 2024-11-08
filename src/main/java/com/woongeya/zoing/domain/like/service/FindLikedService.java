@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.like.service;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.like.domain.Like;
 import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
@@ -18,12 +19,12 @@ import java.util.stream.Collectors;
 public class FindLikedService {
 
     private final ProjectFacade projectFacade;
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final LikeRepository likeRepository;
 
     @Transactional(readOnly = true)
     public List<ProjectResponse> execute() {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         List<Like> likes = likeRepository.findByUserId(user.getId());
 
         return likes.stream()

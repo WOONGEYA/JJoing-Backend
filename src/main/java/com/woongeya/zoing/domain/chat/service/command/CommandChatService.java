@@ -16,12 +16,12 @@ public class CommandChatService {
 
 	private final ChatRepository chatRepository;
 	private final ChatRoomRepository chatRoomRepository;
-	private final UserFacade userFacade;
+	private final AuthRepository authRepository;
 
 	public void create(Long roomId, ChatRequest request) {
 		ChatRoom chatRoom = chatRoomRepository.getById(roomId);
 		chatRepository.save(
-			request.toEntity(userFacade.getCurrentUser(), chatRoom)
+			request.toEntity(authRepository.getCurrentUser(), chatRoom)
 		);
 	}
 }

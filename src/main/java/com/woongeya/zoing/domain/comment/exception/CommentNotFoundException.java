@@ -1,11 +1,11 @@
 package com.woongeya.zoing.domain.comment.exception;
 
 import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.exception.ZoingException;
+import com.woongeya.zoing.global.error.JJoingException;
 
-public class CommentNotFoundException extends ZoingException {
+public class CommentNotFoundException extends JJoingException {
 
-    public static final ZoingException EXCEPTION = new CommentNotFoundException();
+    public static final JJoingException EXCEPTION = new CommentNotFoundException();
 
     public CommentNotFoundException() {
         super(ErrorCode.COMMENT_NOT_FOUND);

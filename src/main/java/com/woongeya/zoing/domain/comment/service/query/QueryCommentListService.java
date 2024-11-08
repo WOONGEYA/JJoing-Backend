@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class QueryCommentListService {
 
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final CommentRepository commentRepository;
 
     public List<CommentResponse> execute(Long id) {
