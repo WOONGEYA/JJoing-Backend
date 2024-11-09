@@ -32,7 +32,7 @@ public class FindProjectApplicationService {
     public List<ApplicationResponse> execute(Long id) {
         User user = authRepository.getCurrentUser();
         Member member = memberRepository.findByUserIdAndProjectId(user.getId(), id)
-                .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
+                .orElseThrow(MemberNotFoundException::new);
 
         if (!member.isWriter()) {
             throw new IsNotWriterException();

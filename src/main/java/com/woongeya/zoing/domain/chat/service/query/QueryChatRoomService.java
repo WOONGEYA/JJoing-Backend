@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.chat.domain.ChatRoom;
 import com.woongeya.zoing.domain.chat.domain.repository.ChatRoomRepository;
 import com.woongeya.zoing.domain.chat.presentation.dto.response.ChatRoomResponse;

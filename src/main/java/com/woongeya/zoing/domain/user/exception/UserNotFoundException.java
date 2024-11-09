@@ -1,13 +1,12 @@
 package com.woongeya.zoing.domain.user.exception;
 
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.JJoingException;
+import org.springframework.http.HttpStatus;
+
+import com.woongeya.zoing.global.exception.JJoingException;
 
 public class UserNotFoundException extends JJoingException {
 
-    public final static UserNotFoundException EXCEPTION = new UserNotFoundException();
-
-    public UserNotFoundException() {
-        super(ErrorCode.USER_NOT_FOUND);
+    public UserNotFoundException(Long id) {
+        super(HttpStatus.NOT_FOUND, String.format("%s의 아이디를 찾을 수 없습니다.",  id));
     }
 }

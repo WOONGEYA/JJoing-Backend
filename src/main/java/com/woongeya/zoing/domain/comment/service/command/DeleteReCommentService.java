@@ -27,14 +27,14 @@ public class DeleteReCommentService {
     public void execute(Long id) {
         User user = authRepository.getCurrentUser();
         ReComment reComment = reCommentRepository.findById(id)
-                .orElseThrow(() -> ReCommentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> new ReCommentNotFoundException(id));
 
         if(!reComment.isWriter(user.getId())) {
             throw new IsNotWriterException();
         }
 
         Comment comment = commentRepository.findById(reComment.getCommentId())
-                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> new CommentNotFoundException(reComment.getCommentId()));
         reCommentRepository.delete(reComment);
         comment.decreaseReCommentCount();
     }

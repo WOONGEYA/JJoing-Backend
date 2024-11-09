@@ -2,7 +2,7 @@ package com.woongeya.zoing.domain.auth.exception;
 
 import static org.springframework.http.HttpStatus.*;
 
-import com.woongeya.zoing.global.error.JJoingException;
+import com.woongeya.zoing.global.exception.JJoingException;
 
 public class UserIsNotAdminException extends JJoingException {
 	public UserIsNotAdminException() {

@@ -22,7 +22,7 @@ public class QueryPostOneService {
 
     public PostResponse execute(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                .orElseThrow(() -> new PostNotFoundException(id));
         User writer = userFacade.getUserById(post.getWriter());
         post.increaseViewCnt();
 

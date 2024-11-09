@@ -2,9 +2,7 @@ package com.woongeya.zoing.domain.auth.exception;
 
 import static org.springframework.http.HttpStatus.*;
 
-import org.springframework.http.HttpStatus;
-
-import com.woongeya.zoing.global.error.JJoingException;
+import com.woongeya.zoing.global.exception.JJoingException;
 
 public class UserNotLoginException extends JJoingException {
 	public UserNotLoginException() {

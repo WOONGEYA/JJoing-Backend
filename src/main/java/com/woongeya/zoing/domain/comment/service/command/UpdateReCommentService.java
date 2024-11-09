@@ -23,7 +23,7 @@ public class UpdateReCommentService {
     public void execute(Long id, CreateCommentRequest request) {
         User user = authRepository.getCurrentUser();
         ReComment reComment = reCommentRepository.findById(id)
-                .orElseThrow(() -> ReCommentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> new ReCommentNotFoundException(id));
 
         if(!reComment.isWriter(user.getId())) {
             throw new IsNotWriterException();

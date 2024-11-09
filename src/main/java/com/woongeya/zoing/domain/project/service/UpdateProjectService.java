@@ -34,7 +34,7 @@ public class UpdateProjectService {
         User user = authRepository.getCurrentUser();
 
         Member member = memberRepository.findByUserIdAndProjectId(user.getId(), project.getId())
-                .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
+                .orElseThrow(MemberNotFoundException::new);
 
         if (!checkMember(member)) {
             throw new IsNotWriterException();

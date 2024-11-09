@@ -1,14 +1,13 @@
 package com.woongeya.zoing.domain.comment.exception;
 
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.JJoingException;
+import org.springframework.http.HttpStatus;
+
+import com.woongeya.zoing.global.exception.JJoingException;
 
 public class ReCommentNotFoundException extends JJoingException {
 
-    public static final JJoingException EXCEPTION = new CommentNotFoundException();
-
-    public ReCommentNotFoundException() {
-        super(ErrorCode.RECOMMENT_NOT_FOUND);
+    public ReCommentNotFoundException(Long id) {
+        super(HttpStatus.NOT_FOUND, String.format("%s의 아이디를 가진 대댓글을 찾을 수 없습니다", id));
     }
 }
 

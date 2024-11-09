@@ -1,8 +1,9 @@
 package com.woongeya.zoing.domain.application.service;
 
-import com.woongeya.zoing.domain.application.domain.Application;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
-import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
 import com.woongeya.zoing.domain.application.exception.AlreadyApplicationException;
 import com.woongeya.zoing.domain.application.presetation.dto.request.ApplicationCreateRequest;
 import com.woongeya.zoing.domain.auth.repository.AuthRepository;
@@ -16,9 +17,8 @@ import com.woongeya.zoing.domain.project.domain.type.Role;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +40,7 @@ public class CreateApplicationService {
         User writer = userFacade.getUserById(member.getUserId());
 
         applicationRepository.findByUserIdAndProjectId(user.getId(), project.getId())
-                .ifPresent(application -> { throw new AlreadyApplicationException(); });
+                .ifPresent(application -> { throw new AlreadyApplicationException(project.getId());});
 
         Long applicationId = applicationRepository.save(
             request.toEntity(user, project)

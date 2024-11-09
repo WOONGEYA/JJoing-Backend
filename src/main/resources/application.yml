@@ -44,8 +44,9 @@ spring:
       fail-on-empty-beans: false
 
 jwt:
-  accessTokenExpirationTime: ${ACCESS-EXP}
-  refreshTokenExpirationTime: ${REFRESH-EXP}
+  secret-key: ${SECRET_KEY}
+  accessTokenExpirationTime: ${ACCESS_EXP}
+  refreshTokenExpirationTime: ${REFRESH_EXP}
 
 cloud:
   aws:

@@ -1,13 +1,12 @@
 package com.woongeya.zoing.domain.comment.exception;
 
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.JJoingException;
+import org.springframework.http.HttpStatus;
+
+import com.woongeya.zoing.global.exception.JJoingException;
 
 public class CommentNotFoundException extends JJoingException {
 
-    public static final JJoingException EXCEPTION = new CommentNotFoundException();
-
-    public CommentNotFoundException() {
-        super(ErrorCode.COMMENT_NOT_FOUND);
+    public CommentNotFoundException(Long id) {
+        super(HttpStatus.NOT_FOUND, String.format("%s의 아이디를 가진 댓글을 찾을 수 없습니다", id));
     }
 }

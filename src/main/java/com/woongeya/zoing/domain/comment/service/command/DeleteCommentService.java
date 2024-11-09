@@ -27,14 +27,14 @@ public class DeleteCommentService {
     public void execute(Long id) {
         User user = authRepository.getCurrentUser();
         Comment comment = commentRepository.findById(id)
-                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> new CommentNotFoundException(id));
 
         if(!comment.isWriter(user.getId())) {
             throw new IsNotWriterException();
         }
 
         Post post = postRepository.findById(comment.getPostId())
-                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                .orElseThrow(() -> new PostNotFoundException(comment.getPostId()));
         commentRepository.delete(comment);
         post.decreaseCommentCount();
     }

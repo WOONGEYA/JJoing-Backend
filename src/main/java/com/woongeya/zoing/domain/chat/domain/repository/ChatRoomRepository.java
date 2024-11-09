@@ -8,6 +8,6 @@ import com.woongeya.zoing.domain.chat.exception.ChatRoomNotFoundException;
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long>, CustomChatRoomRepository {
 
 	default public ChatRoom getById(Long chatRoomId) {
-		return findById(chatRoomId).orElseThrow(ChatRoomNotFoundException::new);
+		return findById(chatRoomId).orElseThrow(() -> new ChatRoomNotFoundException(chatRoomId));
 	}
 }

@@ -1,13 +1,12 @@
 package com.woongeya.zoing.domain.notice.exception;
 
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.JJoingException;
+import org.springframework.http.HttpStatus;
+
+import com.woongeya.zoing.global.exception.JJoingException;
 
 public class NotificationNotFoundException extends JJoingException {
 
-    public static final JJoingException EXCEPTION = new NotificationNotFoundException();
-
-    public NotificationNotFoundException() {
-        super(ErrorCode.APPLICATION_NOT_FOUND);
+    public NotificationNotFoundException(Long id) {
+        super(HttpStatus.NOT_FOUND, String.format("%s의 아이디를 가진 알람을 찾을 수 없습니다.", id));
     }
 }

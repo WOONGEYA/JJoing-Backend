@@ -24,7 +24,7 @@ public class DeleteFollowService {
 
         followRepository.delete(
                 followRepository.findByFromUserIdAndToUserId(fromUser.getId(), toUser.getId())
-                        .orElseThrow(() -> FollowNotFoundException.EXCEPTION)
+                        .orElseThrow(FollowNotFoundException::new)
         );
     }
 }

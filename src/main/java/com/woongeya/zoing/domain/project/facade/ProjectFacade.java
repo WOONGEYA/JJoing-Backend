@@ -13,6 +13,6 @@ public class ProjectFacade {
     private final ProjectRepository projectRepository;
 
     public Project getProject(Long id) {
-        return projectRepository.findById(id).orElseThrow(() -> ProjectNotFoundException.EXCEPTION);
+        return projectRepository.findById(id).orElseThrow(() -> new ProjectNotFoundException(id));
     }
 }

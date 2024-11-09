@@ -25,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	private final JwtParser jwtParser;
 	private final AuthRepository authRepository;
-	private final AuthRepository authRepository;
+	private final UserFacade userFacade;
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
@@ -42,6 +42,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthInterceptor(jwtParser, userFacade, authRepository));
+		registry.addInterceptor(new AuthInterceptor(jwtParser, authRepository, userFacade));
 	}
 }

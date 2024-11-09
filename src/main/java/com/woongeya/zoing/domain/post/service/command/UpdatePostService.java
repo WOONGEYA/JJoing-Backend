@@ -1,16 +1,17 @@
 package com.woongeya.zoing.domain.post.service.command;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.post.domain.Post;
 import com.woongeya.zoing.domain.post.domain.repository.PostRepository;
 import com.woongeya.zoing.domain.post.exception.PostNotFoundException;
 import com.woongeya.zoing.domain.post.presetation.dto.request.CreatePostRequest;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
-import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class UpdatePostService {
     public void execute(Long id, CreatePostRequest request) {
         User user = authRepository.getCurrentUser();
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                .orElseThrow(() -> new PostNotFoundException(id));
 
         if(!post.isWriter(user)) {
             throw new IsNotWriterException();

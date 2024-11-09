@@ -25,7 +25,7 @@ public class CreateCommentService {
     public void execute(Long postId, CreateCommentRequest request) {
         User user = authRepository.getCurrentUser();
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                .orElseThrow(() -> new PostNotFoundException(postId));
         commentRepository.save(request.toEntity(postId, user));
         post.increaseCommentCount();
     }

@@ -1,4 +1,4 @@
-package com.woongeya.zoing.global.error;
+package com.woongeya.zoing.global.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

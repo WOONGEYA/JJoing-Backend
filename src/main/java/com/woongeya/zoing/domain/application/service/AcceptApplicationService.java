@@ -36,7 +36,7 @@ public class AcceptApplicationService {
         Application application = applicationFacade.getApplication(id);
         Project project = projectFacade.getProject(application.getProjectId());
         Member member = memberRepository.findByUserIdAndProjectId(writer.getId(), project.getId())
-                .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
+                .orElseThrow(MemberNotFoundException::new);
 
         member.acceptApplication(application);
         memberRepository.save(

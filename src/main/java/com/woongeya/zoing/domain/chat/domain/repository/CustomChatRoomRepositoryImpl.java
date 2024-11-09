@@ -9,9 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.woongeya.zoing.domain.chat.domain.ChatRoom;
-import com.woongeya.zoing.domain.chat.domain.QChat;
-import com.woongeya.zoing.domain.chat.domain.QChatRoom;
-import com.woongeya.zoing.domain.user.domain.User;
 
 import lombok.RequiredArgsConstructor;
 

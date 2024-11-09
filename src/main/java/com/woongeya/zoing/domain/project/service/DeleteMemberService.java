@@ -9,7 +9,6 @@ import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
 import com.woongeya.zoing.domain.project.exception.MemberNotFoundException;
 import com.woongeya.zoing.domain.project.presetation.dto.request.MemberRequest;
-import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,7 @@ public class DeleteMemberService {
     public void execute(Long id, MemberRequest request) {
         User user = authRepository.getCurrentUser();
         Member member = memberRepository.findByUserIdAndProjectId(user.getId(), id)
-                .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
+                .orElseThrow(MemberNotFoundException::new);
 
         if (!member.isWriter()) {
             throw new IsNotWriterException();

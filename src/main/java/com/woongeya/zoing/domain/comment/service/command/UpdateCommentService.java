@@ -24,7 +24,7 @@ public class UpdateCommentService {
     public void execute(Long id, CreateCommentRequest request) {
         User user = authRepository.getCurrentUser();
         Comment comment = commentRepository.findById(id)
-                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+                .orElseThrow(() -> new CommentNotFoundException(id));
 
         if(!comment.isWriter(user.getId())) {
             throw new IsNotWriterException();

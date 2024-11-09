@@ -28,7 +28,7 @@ public class CreateFollowService {
         Optional<Follow> follow = followRepository.findByFromUserIdAndToUserId(fromUser.getId(), toUser.getId());
 
         if (follow.isPresent()) {
-            throw new AlreadyFollowException();
+            throw new AlreadyFollowException(toUser.getId());
         }
 
         followRepository.save(

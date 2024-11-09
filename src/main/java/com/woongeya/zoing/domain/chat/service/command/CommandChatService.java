@@ -2,6 +2,7 @@ package com.woongeya.zoing.domain.chat.service.command;
 
 import org.springframework.stereotype.Service;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.chat.domain.ChatRoom;
 import com.woongeya.zoing.domain.chat.domain.repository.ChatRepository;
 import com.woongeya.zoing.domain.chat.domain.repository.ChatRoomRepository;
