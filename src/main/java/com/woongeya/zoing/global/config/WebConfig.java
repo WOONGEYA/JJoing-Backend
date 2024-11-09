@@ -8,7 +8,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.woongeya.zoing.domain.auth.intercepter.AuthInterceptor;
-import com.woongeya.zoing.domain.auth.repository.AuthRepository;
+import com.woongeya.zoing.domain.auth.service.implementation.AuthReader;
+import com.woongeya.zoing.domain.auth.service.implementation.AuthUpdater;
 import com.woongeya.zoing.domain.auth.util.JwtParser;
 import com.woongeya.zoing.domain.user.UserFacade;
 
@@ -24,7 +25,8 @@ public class WebConfig implements WebMvcConfigurer {
 	private static final String HTTPS_FRONTEND_LOCALHOST = "https://localhost:3000";
 
 	private final JwtParser jwtParser;
-	private final AuthRepository authRepository;
+	private final AuthReader authReader;
+	private final AuthUpdater authUpdater;
 	private final UserFacade userFacade;
 
 	@Override
@@ -42,6 +44,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthInterceptor(jwtParser, authRepository, userFacade));
+		registry.addInterceptor(new AuthInterceptor(jwtParser, authUpdater, authReader, userFacade));
 	}
 }

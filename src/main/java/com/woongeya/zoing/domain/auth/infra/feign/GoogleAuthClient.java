@@ -1,7 +1,7 @@
-package com.woongeya.zoing.global.feign;
+package com.woongeya.zoing.domain.auth.infra.feign;
 
-import com.woongeya.zoing.global.feign.dto.request.GoogleTokenRequest;
-import com.woongeya.zoing.global.feign.dto.response.GoogleTokenResponse;
+import com.woongeya.zoing.domain.auth.infra.feign.dto.request.GoogleTokenRequest;
+import com.woongeya.zoing.domain.auth.infra.feign.dto.response.GoogleTokenResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 

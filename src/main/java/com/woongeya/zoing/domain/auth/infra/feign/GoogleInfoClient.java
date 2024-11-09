@@ -1,6 +1,6 @@
-package com.woongeya.zoing.global.feign;
+package com.woongeya.zoing.domain.auth.infra.feign;
 
-import com.woongeya.zoing.global.feign.dto.response.GoogleInfoResponse;
+import com.woongeya.zoing.domain.auth.infra.feign.dto.response.GoogleInfoResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

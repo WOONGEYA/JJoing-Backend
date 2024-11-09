@@ -12,6 +12,8 @@ import com.woongeya.zoing.domain.auth.annotation.LoginRequired;
 import com.woongeya.zoing.domain.auth.exception.TokenNotExistException;
 import com.woongeya.zoing.domain.auth.exception.UserIsNotAdminException;
 import com.woongeya.zoing.domain.auth.repository.AuthRepository;
+import com.woongeya.zoing.domain.auth.service.implementation.AuthReader;
+import com.woongeya.zoing.domain.auth.service.implementation.AuthUpdater;
 import com.woongeya.zoing.domain.auth.util.BearerTokenExtractor;
 import com.woongeya.zoing.domain.auth.util.JwtParser;
 import com.woongeya.zoing.domain.user.UserFacade;
@@ -27,7 +29,8 @@ import lombok.RequiredArgsConstructor;
 public class AuthInterceptor implements HandlerInterceptor {
 
 	private final JwtParser jwtParser;
-	private final AuthRepository authRepository;
+	private final AuthUpdater authUpdater;
+	private final AuthReader authReader;
 	private final UserFacade userFacade;
 
 	@Override
@@ -37,22 +40,22 @@ public class AuthInterceptor implements HandlerInterceptor {
 				String bearer = request.getHeader(AUTHORIZATION);
 
 				if (bearer == null) {
-					authRepository.updateCurrentUser(null);
+					authUpdater.updateCurrentUser(null);
 				} else {
 					String jwt = BearerTokenExtractor.extract(bearer);
 					Long userId = jwtParser.getIdFromJwt(jwt);
 					User user = userFacade.getUserById(userId);
-					authRepository.updateCurrentUser(user);
+					authUpdater.updateCurrentUser(user);
 				}
 			}
 
 			if (hm.hasMethodAnnotation(LoginRequired.class)) {
-				if (authRepository.getCurrentUser() == null) {
+				if (authReader.getCurrentUser() == null) {
 					throw new TokenNotExistException();
 				}
 			}
 			if (hm.hasMethodAnnotation(AdminOnly.class)) {
-				User currentUser = authRepository.getCurrentUser();
+				User currentUser = authReader.getCurrentUser();
 				shouldUserAdmin(currentUser);
 			}
 		}
