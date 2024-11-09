@@ -43,13 +43,10 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
-auth:
-  jwt:
-    header: ${HEADER}
-    secret: ${SECRET}
-    accessExp: ${ACCESS-EXP}
-    refreshExp: ${REFRESH-EXP}
-    prefix: ${PREFIX}
+jwt:
+  secret-key: ${SECRET_KEY}
+  accessTokenExpirationTime: ${ACCESS_EXP}
+  refreshTokenExpirationTime: ${REFRESH_EXP}
 
 cloud:
   aws:

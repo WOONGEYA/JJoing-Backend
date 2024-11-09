@@ -13,6 +13,6 @@ public class ApplicationFacade {
     private final ApplicationRepository applicationRepository;
 
     public Application getApplication(Long id) {
-        return applicationRepository.findById(id).orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
+        return applicationRepository.findById(id).orElseThrow(() -> new ApplicationNotFoundException(id));
     }
 }

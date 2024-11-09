@@ -1,14 +1,12 @@
 package com.woongeya.zoing.domain.follow.exception;
 
-import com.woongeya.zoing.domain.application.exception.ApplicationNotFoundException;
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.exception.ZoingException;
+import org.springframework.http.HttpStatus;
 
-public class FollowNotFoundException extends ZoingException {
+import com.woongeya.zoing.global.exception.JJoingException;
 
-    public static final ZoingException EXCEPTION = new FollowNotFoundException();
+public class FollowNotFoundException extends JJoingException {
 
     public FollowNotFoundException () {
-        super(ErrorCode.FOLLOW_NOT_FOUND);
+        super(HttpStatus.NOT_FOUND, "팔로우를 찾을 수 없습니다.");
     }
 }

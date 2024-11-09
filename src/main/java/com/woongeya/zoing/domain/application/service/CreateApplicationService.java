@@ -1,10 +1,12 @@
 package com.woongeya.zoing.domain.application.service;
 
-import com.woongeya.zoing.domain.application.domain.Application;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
-import com.woongeya.zoing.domain.application.domain.type.ApplicationState;
 import com.woongeya.zoing.domain.application.exception.AlreadyApplicationException;
 import com.woongeya.zoing.domain.application.presetation.dto.request.ApplicationCreateRequest;
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.notice.domain.Notification;
 import com.woongeya.zoing.domain.notice.domain.repository.NotificationRepository;
 import com.woongeya.zoing.domain.notice.domain.type.NotificationState;
@@ -15,14 +17,14 @@ import com.woongeya.zoing.domain.project.domain.type.Role;
 import com.woongeya.zoing.domain.project.facade.ProjectFacade;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class CreateApplicationService {
 
+    private final AuthRepository authRepository;
     private final UserFacade userFacade;
     private final ProjectFacade projectFacade;
     private final ApplicationRepository applicationRepository;
@@ -32,13 +34,13 @@ public class CreateApplicationService {
     @Transactional
     public void execute(ApplicationCreateRequest request, Long id) {
 
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         Project project = projectFacade.getProject(id);
         Member member = memberRepository.findByProjectIdAndRole(project.getId(), Role.WRITER);
         User writer = userFacade.getUserById(member.getUserId());
 
         applicationRepository.findByUserIdAndProjectId(user.getId(), project.getId())
-                .ifPresent(application -> { throw new AlreadyApplicationException(); });
+                .ifPresent(application -> { throw new AlreadyApplicationException(project.getId());});
 
         Long applicationId = applicationRepository.save(
             request.toEntity(user, project)

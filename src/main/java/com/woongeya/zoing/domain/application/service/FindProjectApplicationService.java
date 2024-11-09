@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
 import com.woongeya.zoing.domain.application.presetation.dto.response.ApplicationResponse;
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.repository.MemberRepository;
 import com.woongeya.zoing.domain.project.exception.IsNotWriterException;
@@ -24,13 +25,14 @@ public class FindProjectApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final MemberRepository memberRepository;
+    private final AuthRepository authRepository;
     private final UserFacade userFacade;
 
     @Transactional(readOnly = true)
     public List<ApplicationResponse> execute(Long id) {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         Member member = memberRepository.findByUserIdAndProjectId(user.getId(), id)
-                .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
+                .orElseThrow(MemberNotFoundException::new);
 
         if (!member.isWriter()) {
             throw new IsNotWriterException();

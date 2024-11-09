@@ -1,11 +1,12 @@
 package com.woongeya.zoing.domain.like.exception;
 
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.exception.ZoingException;
+import org.springframework.http.HttpStatus;
 
-public class AlreadyLikeException extends ZoingException {
+import com.woongeya.zoing.global.exception.JJoingException;
 
-    public static final ZoingException EXCEPTION = new AlreadyLikeException();
+public class AlreadyLikeException extends JJoingException {
 
-    public AlreadyLikeException() { super(ErrorCode.ALREADY_LIKE); }
+    public AlreadyLikeException(Long id) {
+        super(HttpStatus.BAD_REQUEST, String.format("%s의 아이디를 가진 좋아요가 이미 존재합니다.", id));
+    }
 }

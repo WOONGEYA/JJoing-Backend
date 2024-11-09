@@ -3,6 +3,7 @@ package com.woongeya.zoing.domain.application.service;
 import com.woongeya.zoing.domain.application.ApplicationFacade;
 import com.woongeya.zoing.domain.application.domain.Application;
 import com.woongeya.zoing.domain.application.domain.repository.ApplicationRepository;
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.notice.domain.Notification;
 import com.woongeya.zoing.domain.notice.domain.repository.NotificationRepository;
 import com.woongeya.zoing.domain.notice.domain.type.NotificationState;
@@ -23,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AcceptApplicationService {
 
     private final ApplicationFacade applicationFacade;
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final ProjectFacade projectFacade;
     private final MemberRepository memberRepository;
     private final NotificationRepository notificationRepository;
@@ -31,11 +32,11 @@ public class AcceptApplicationService {
 
     @Transactional
     public void execute(Long id) {
-        User writer = userFacade.getCurrentUser();
+        User writer = authRepository.getCurrentUser();
         Application application = applicationFacade.getApplication(id);
         Project project = projectFacade.getProject(application.getProjectId());
         Member member = memberRepository.findByUserIdAndProjectId(writer.getId(), project.getId())
-                .orElseThrow(() -> MemberNotFoundException.EXCEPTION);
+                .orElseThrow(MemberNotFoundException::new);
 
         member.acceptApplication(application);
         memberRepository.save(

@@ -1,12 +1,12 @@
 package com.woongeya.zoing.domain.follow.exception;
 
-import com.woongeya.zoing.domain.like.exception.AlreadyLikeException;
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.exception.ZoingException;
+import org.springframework.http.HttpStatus;
 
-public class AlreadyFollowException extends ZoingException {
+import com.woongeya.zoing.global.exception.JJoingException;
 
-    public static final ZoingException EXCEPTION = new AlreadyFollowException();
+public class AlreadyFollowException extends JJoingException {
 
-    public AlreadyFollowException() { super(ErrorCode.ALREADY_LIKE); }
+    public AlreadyFollowException(Long id) {
+        super(HttpStatus.BAD_REQUEST, String.format("%s는 이미 팔로우된 상태입니다.", id));
+    }
 }

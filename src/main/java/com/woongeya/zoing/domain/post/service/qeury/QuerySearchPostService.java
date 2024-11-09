@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.post.domain.Post;
 import com.woongeya.zoing.domain.post.domain.repository.PostRepository;
 import com.woongeya.zoing.domain.post.presetation.dto.response.PostResponse;

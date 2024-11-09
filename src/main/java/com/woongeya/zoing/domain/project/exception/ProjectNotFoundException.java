@@ -1,13 +1,12 @@
 package com.woongeya.zoing.domain.project.exception;
 
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.exception.ZoingException;
+import org.springframework.http.HttpStatus;
 
-public class ProjectNotFoundException extends ZoingException{
+import com.woongeya.zoing.global.exception.JJoingException;
 
-    public static final ZoingException EXCEPTION = new ProjectNotFoundException();
+public class ProjectNotFoundException extends JJoingException {
 
-    public ProjectNotFoundException() {
-        super(ErrorCode.PROJECT_NOT_FOUND);
+    public ProjectNotFoundException(Long id) {
+        super(HttpStatus.NOT_FOUND, String.format("%s의 아이디를 가진 프로젝트를 찾을 수 없습니다.", id));
     }
 }

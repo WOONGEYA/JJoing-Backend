@@ -1,14 +1,12 @@
 package com.woongeya.zoing.infrastructure.s3.exception;
 
-import com.woongeya.zoing.domain.user.exception.AuthenticationException;
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.exception.ZoingException;
+import org.springframework.http.HttpStatus;
 
-public class ImageFailedSaveException extends ZoingException {
+import com.woongeya.zoing.global.exception.JJoingException;
 
-    public static final ZoingException EXCEPTION = new ImageFailedSaveException();
+public class ImageFailedSaveException extends JJoingException {
 
     public ImageFailedSaveException() {
-        super(ErrorCode.IMAGE_FAILED_SAVE);
+        super(HttpStatus.FAILED_DEPENDENCY, "이미지를 저장하지 못했습니다.");
     }
 }

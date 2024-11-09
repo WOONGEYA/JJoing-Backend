@@ -2,6 +2,7 @@ package com.woongeya.zoing.domain.chat.service.command;
 
 import org.springframework.stereotype.Service;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.chat.domain.ChatRoom;
 import com.woongeya.zoing.domain.chat.domain.repository.ChatRepository;
 import com.woongeya.zoing.domain.chat.domain.repository.ChatRoomRepository;
@@ -16,12 +17,12 @@ public class CommandChatService {
 
 	private final ChatRepository chatRepository;
 	private final ChatRoomRepository chatRoomRepository;
-	private final UserFacade userFacade;
+	private final AuthRepository authRepository;
 
 	public void create(Long roomId, ChatRequest request) {
 		ChatRoom chatRoom = chatRoomRepository.getById(roomId);
 		chatRepository.save(
-			request.toEntity(userFacade.getCurrentUser(), chatRoom)
+			request.toEntity(authRepository.getCurrentUser(), chatRoom)
 		);
 	}
 }

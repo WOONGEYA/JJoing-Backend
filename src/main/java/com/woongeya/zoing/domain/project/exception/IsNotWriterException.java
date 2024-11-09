@@ -1,13 +1,12 @@
 package com.woongeya.zoing.domain.project.exception;
 
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.exception.ZoingException;
+import org.springframework.http.HttpStatus;
 
-public class IsNotWriterException extends ZoingException {
+import com.woongeya.zoing.global.exception.JJoingException;
 
-    private static final ZoingException EXCEPTION = new IsNotWriterException();
+public class IsNotWriterException extends JJoingException {
 
     public IsNotWriterException() {
-        super(ErrorCode.IS_NOT_WRITER);
+        super(HttpStatus.FORBIDDEN, "작성자가 아닙니다.");
     }
 }

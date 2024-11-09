@@ -1,13 +1,12 @@
 package com.woongeya.zoing.domain.post.exception;
 
-import com.woongeya.zoing.global.error.exception.ErrorCode;
-import com.woongeya.zoing.global.error.exception.ZoingException;
+import org.springframework.http.HttpStatus;
 
-public class PostNotFoundException extends ZoingException {
+import com.woongeya.zoing.global.exception.JJoingException;
 
-    public static final ZoingException EXCEPTION = new PostNotFoundException();
+public class PostNotFoundException extends JJoingException {
 
-    public PostNotFoundException() {
-        super(ErrorCode.POST_NOT_FOUND);
+    public PostNotFoundException(Long id) {
+        super(HttpStatus.NOT_FOUND, String.format("%s의 아이디를 가진 게시글을 찾을 수 없습니다.", id));
     }
 }

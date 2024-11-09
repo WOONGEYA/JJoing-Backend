@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.project.service;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.like.domain.repository.LikeRepository;
 import com.woongeya.zoing.domain.project.domain.Project;
 import com.woongeya.zoing.domain.project.domain.repository.ProjectRepository;
@@ -16,12 +17,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FindMyEndProjectService {
 
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
     private final ProjectRepository projectRepository;
     private final LikeRepository likeRepository;
 
     public List<ProjectResponse> execute() {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         List<Project> projects = projectRepository.findMyEndProject(user.getId());
 
         return projects.stream()

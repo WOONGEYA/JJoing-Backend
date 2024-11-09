@@ -1,28 +1,28 @@
 package com.woongeya.zoing.domain.auth.service;
 
-import com.woongeya.zoing.domain.user.UserFacade;
-import com.woongeya.zoing.domain.user.domain.User;
-import com.woongeya.zoing.global.jwt.config.JwtConstants;
-import com.woongeya.zoing.global.jwt.dto.TokenResponse;
-import com.woongeya.zoing.global.jwt.util.JwtProvider;
-import com.woongeya.zoing.global.jwt.util.JwtUtil;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import com.woongeya.zoing.domain.auth.domain.Token;
+import com.woongeya.zoing.domain.auth.service.implementation.TokenProvider;
+import com.woongeya.zoing.domain.auth.util.BearerTokenExtractor;
+import com.woongeya.zoing.domain.auth.util.JwtParser;
+import com.woongeya.zoing.domain.user.UserFacade;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class RefreshTokenService {
 
-    private final JwtUtil jwtUtil;
-    private final JwtProvider jwtProvider;
+    private final JwtParser jwtParser;
+    private final TokenProvider tokenProvider;
     private final UserFacade userFacade;
 
-    public TokenResponse execute(String token) {
-        String email = jwtUtil.getJws(jwtUtil.parseToken(token)).getBody().get(JwtConstants.AUTH_ID.message).toString();
-        User user = userFacade.getUserByEmail(email);
+    public Token execute(String bearer) {
+        String refreshToken = BearerTokenExtractor.extract(bearer);
+        Long userId = jwtParser.getIdFromJwt(refreshToken);
+        String accessToken = tokenProvider.createAccessToken(userFacade.getUserById(userId));
 
-        return TokenResponse.builder()
-                .accessToken(jwtProvider.generateAccessToken(user.getEmail(), user.getAuthority().toString()))
-                .build();
+        return new Token(accessToken, refreshToken);
     }
 }

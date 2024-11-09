@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.project.domain.Coop;
 import com.woongeya.zoing.domain.project.domain.Member;
 import com.woongeya.zoing.domain.project.domain.Mood;
@@ -35,11 +36,11 @@ public class CreateProjectService {
     private final MoodRepository moodRepository;
     private final CoopRepository coopRepository;
     private final SkillRepository skillRepository;
-    private final UserFacade userFacade;
+    private final AuthRepository authRepository;
 
     @Transactional
     public void execute(CreateProjectRequest request) {
-        User user = userFacade.getCurrentUser();
+        User user = authRepository.getCurrentUser();
         Project project = projectRepository.save(request.toEntity());
 
         saveMoods(project, request.moods());
