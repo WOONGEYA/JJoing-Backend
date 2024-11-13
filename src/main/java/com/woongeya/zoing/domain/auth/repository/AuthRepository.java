@@ -9,7 +9,7 @@ import com.woongeya.zoing.domain.user.domain.User;
 @Repository
 @RequestScope
 public class AuthRepository {
-	private User currentUser;
+	private User currentUser = null;
 
 	public User getCurrentUser() {
 		if (currentUser == null) {

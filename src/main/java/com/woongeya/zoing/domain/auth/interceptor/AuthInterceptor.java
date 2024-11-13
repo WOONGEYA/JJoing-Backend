@@ -1,4 +1,4 @@
-package com.woongeya.zoing.domain.auth.intercepter;
+package com.woongeya.zoing.domain.auth.interceptor;
 
 import static org.springframework.http.HttpHeaders.*;
 
@@ -11,7 +11,6 @@ import com.woongeya.zoing.domain.auth.annotation.LoginOrNot;
 import com.woongeya.zoing.domain.auth.annotation.LoginRequired;
 import com.woongeya.zoing.domain.auth.exception.TokenNotExistException;
 import com.woongeya.zoing.domain.auth.exception.UserIsNotAdminException;
-import com.woongeya.zoing.domain.auth.repository.AuthRepository;
 import com.woongeya.zoing.domain.auth.service.implementation.AuthReader;
 import com.woongeya.zoing.domain.auth.service.implementation.AuthUpdater;
 import com.woongeya.zoing.domain.auth.util.BearerTokenExtractor;
@@ -19,6 +18,7 @@ import com.woongeya.zoing.domain.auth.util.JwtParser;
 import com.woongeya.zoing.domain.user.UserFacade;
 import com.woongeya.zoing.domain.user.domain.User;
 import com.woongeya.zoing.domain.user.domain.autority.Authority;
+import com.woongeya.zoing.domain.user.service.implementation.UserReader;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,7 +31,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 	private final JwtParser jwtParser;
 	private final AuthUpdater authUpdater;
 	private final AuthReader authReader;
-	private final UserFacade userFacade;
+	private final UserReader userReader;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -39,12 +39,10 @@ public class AuthInterceptor implements HandlerInterceptor {
 			if (hm.hasMethodAnnotation(LoginOrNot.class)) {
 				String bearer = request.getHeader(AUTHORIZATION);
 
-				if (bearer == null) {
-					authUpdater.updateCurrentUser(null);
-				} else {
+				if (!(bearer == null)) {
 					String jwt = BearerTokenExtractor.extract(bearer);
 					Long userId = jwtParser.getIdFromJwt(jwt);
-					User user = userFacade.getUserById(userId);
+					User user = userReader.readUser(userId);
 					authUpdater.updateCurrentUser(user);
 				}
 			}

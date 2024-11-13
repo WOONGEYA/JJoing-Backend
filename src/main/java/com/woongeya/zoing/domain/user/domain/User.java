@@ -39,7 +39,7 @@ public class User {
     private String imgUrl;
 
     @Column(length = 8)
-    private int age;
+    private Integer age;
 
     @Column(length = 64)
     private String major;
@@ -49,7 +49,7 @@ public class User {
     private Authority authority;
 
     @Builder
-    public User(String name, String nickName, String email, String githubUrl, String statusMessage, String imgUrl, int age, String major, Authority authority) {
+    public User(String name, String nickName, String email, String githubUrl, String statusMessage, String imgUrl, Integer age, String major, Authority authority) {
         this.name = name;
         this.nickName = nickName;
         this.email = email;

@@ -7,11 +7,12 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.woongeya.zoing.domain.auth.intercepter.AuthInterceptor;
+import com.woongeya.zoing.domain.auth.interceptor.AuthInterceptor;
 import com.woongeya.zoing.domain.auth.service.implementation.AuthReader;
 import com.woongeya.zoing.domain.auth.service.implementation.AuthUpdater;
 import com.woongeya.zoing.domain.auth.util.JwtParser;
 import com.woongeya.zoing.domain.user.UserFacade;
+import com.woongeya.zoing.domain.user.service.implementation.UserReader;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
 	private final JwtParser jwtParser;
 	private final AuthReader authReader;
 	private final AuthUpdater authUpdater;
-	private final UserFacade userFacade;
+	private final UserReader userReader;
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
@@ -44,6 +45,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthInterceptor(jwtParser, authUpdater, authReader, userFacade));
+		registry.addInterceptor(new AuthInterceptor(jwtParser, authUpdater, authReader, userReader));
 	}
 }

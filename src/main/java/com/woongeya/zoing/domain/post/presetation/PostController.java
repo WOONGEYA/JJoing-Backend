@@ -1,5 +1,6 @@
 package com.woongeya.zoing.domain.post.presetation;
 
+import com.woongeya.zoing.domain.auth.service.implementation.AuthReader;
 import com.woongeya.zoing.domain.post.presetation.dto.request.CreatePostRequest;
 import com.woongeya.zoing.domain.post.presetation.dto.response.PostResponse;
 import com.woongeya.zoing.domain.post.presetation.dto.response.PostResponseList;
@@ -9,6 +10,8 @@ import com.woongeya.zoing.domain.post.service.command.UpdatePostService;
 import com.woongeya.zoing.domain.post.service.qeury.QueryPostOneService;
 import com.woongeya.zoing.domain.post.service.qeury.QueryPostService;
 import com.woongeya.zoing.domain.post.service.qeury.QuerySearchPostService;
+import com.woongeya.zoing.domain.user.domain.User;
+
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
