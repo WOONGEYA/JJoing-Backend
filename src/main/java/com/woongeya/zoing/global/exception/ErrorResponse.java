@@ -1,19 +1,15 @@
 package com.woongeya.zoing.global.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
-@Getter
-@AllArgsConstructor
-public class ErrorResponse {
-
-    private int status;
-    private String message;
-
+public record ErrorResponse (
+    HttpStatus status,
+    String message
+) {
     @Override
     public String toString() {
         return "{\n" +
-                "\t\"status\": " + status +
+                "\nt\"status\": " + status +
                 ",\n\t\"message\": \"" + message + '\"' +
                 "\n}";
     }
