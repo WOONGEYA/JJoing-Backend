@@ -1,13 +1,24 @@
 package com.woongeya.zoing.domain.follow.presetation;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.woongeya.zoing.domain.follow.presetation.dto.reponse.FollowResponse;
-import com.woongeya.zoing.domain.follow.service.*;
+import com.woongeya.zoing.domain.follow.service.CountFollowerService;
+import com.woongeya.zoing.domain.follow.service.CountFollowingService;
+import com.woongeya.zoing.domain.follow.service.CreateFollowService;
+import com.woongeya.zoing.domain.follow.service.DeleteFollowService;
+import com.woongeya.zoing.domain.follow.service.FindFollowerService;
+import com.woongeya.zoing.domain.follow.service.FindFollowingService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,8 +40,8 @@ public class FollowController {
 
     @GetMapping("/{id}/following")
     @Operation(summary = "유저의 모든 팔로잉 조회")
-    public ResponseEntity<List<FollowResponse>> findFollwing(@PathVariable Long id) {
-        return ResponseEntity.ok(findFollowingService.execute(id));
+    public List<FollowResponse> findFollwing(@PathVariable Long id) {
+        return findFollowingService.execute(id);
     }
 
     @GetMapping("/{id}/following/count")
@@ -41,8 +52,8 @@ public class FollowController {
 
     @GetMapping("/{id}/follower")
     @Operation(summary = "유저의 모든 팔로워 조회")
-    public ResponseEntity<List<FollowResponse>> findFollower(@PathVariable Long id) {
-        return ResponseEntity.ok(findFollowerService.execute(id));
+    public List<FollowResponse> findFollower(@PathVariable Long id) {
+        return findFollowerService.execute(id);
     }
 
     @GetMapping("/{id}/follower/count")

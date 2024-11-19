@@ -26,7 +26,6 @@ public class ChatRoomController {
 	private final QueryChatRoomService queryChatRoomService;
 
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
 	public void create(@RequestBody ChatRoomRequest request) {
 		commandChatRoomService.create(request);
 	}
