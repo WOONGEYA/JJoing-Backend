@@ -1,17 +1,30 @@
 package com.woongeya.zoing.domain.user.presetation;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.woongeya.zoing.domain.project.presetation.dto.response.ImageResponse;
 import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequest;
 import com.woongeya.zoing.domain.user.presetation.dto.response.SearchUserResponse;
 import com.woongeya.zoing.domain.user.presetation.dto.response.UserResponse;
-import com.woongeya.zoing.domain.user.service.*;
+import com.woongeya.zoing.domain.user.service.FindCurrentUserService;
+import com.woongeya.zoing.domain.user.service.FindOtherUserService;
+import com.woongeya.zoing.domain.user.service.SearchUserService;
+import com.woongeya.zoing.domain.user.service.UploadProfileImageService;
+import com.woongeya.zoing.domain.user.service.UserUpdateService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -38,19 +51,19 @@ public class UserController {
 
     @GetMapping
     @Operation(summary = "현재 로그인된 유저 정보 조회")
-    public ResponseEntity<UserResponse> getUserInfo() {
-        return ResponseEntity.ok(findCurrentUserService.execute());
+    public UserResponse getUserInfo() {
+        return findCurrentUserService.execute();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "다른 유저 정보 조회")
-    public ResponseEntity<UserResponse> getOtherUserInfo(@PathVariable Long id) {
-        return ResponseEntity.ok(findOtherUserService.execute(id));
+    public UserResponse getOtherUserInfo(@PathVariable Long id) {
+        return findOtherUserService.execute(id);
     }
 
     @GetMapping("/search")
     @Operation(summary = "유저 검색")
-    public ResponseEntity<List<SearchUserResponse>> search(@RequestParam(name = "q") String q) {
-        return ResponseEntity.ok(searchUserService.execute(q));
+    public List<SearchUserResponse> search(@RequestParam(name = "q") String q) {
+        return searchUserService.execute(q);
     }
 }

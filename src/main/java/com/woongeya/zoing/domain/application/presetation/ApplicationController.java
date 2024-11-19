@@ -2,7 +2,6 @@ package com.woongeya.zoing.domain.application.presetation;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,13 +61,13 @@ public class ApplicationController {
 
     @GetMapping("/project/{id}")
     @Operation(summary = "프로젝트에 신청한 모든 유저 조회")
-    public ResponseEntity<List<ApplicationResponse>> findProjectApplication(@PathVariable Long id) {
-        return ResponseEntity.ok(findProjectApplicationService.execute(id));
+    public List<ApplicationResponse> findProjectApplication(@PathVariable Long id) {
+        return findProjectApplicationService.execute(id);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "신청 하나 조회")
-    public ResponseEntity<ApplicationResponse> findOneApplication(@PathVariable Long id) {
-        return ResponseEntity.ok(findApplicationService.execute(id));
+    public ApplicationResponse findOneApplication(@PathVariable Long id) {
+        return findApplicationService.execute(id);
     }
 }

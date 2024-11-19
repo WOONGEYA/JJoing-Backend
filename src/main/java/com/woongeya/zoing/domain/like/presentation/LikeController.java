@@ -1,15 +1,25 @@
 package com.woongeya.zoing.domain.like.presentation;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.woongeya.zoing.domain.like.presentation.dto.response.LikerResponse;
-import com.woongeya.zoing.domain.like.service.*;
+import com.woongeya.zoing.domain.like.service.CheckLikeService;
+import com.woongeya.zoing.domain.like.service.CountLikerService;
+import com.woongeya.zoing.domain.like.service.CreateLikeService;
+import com.woongeya.zoing.domain.like.service.DeleteLikeService;
+import com.woongeya.zoing.domain.like.service.FindLikedService;
+import com.woongeya.zoing.domain.like.service.FindLikerService;
 import com.woongeya.zoing.domain.project.presetation.dto.response.ProjectResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,14 +47,14 @@ public class LikeController {
 
     @GetMapping("/{id}/liker")
     @Operation(summary = "좋아요 누른 사람 조회")
-    public ResponseEntity<List<LikerResponse>> findLiker(@PathVariable Long id) {
-        return ResponseEntity.ok(findLikerService.execute(id));
+    public List<LikerResponse> findLiker(@PathVariable Long id) {
+        return findLikerService.execute(id);
     }
 
     @GetMapping("/my")
     @Operation(summary = "내가 좋아요 누른 프로젝트 조회")
-    public ResponseEntity<List<ProjectResponse>> findLikedProject() {
-        return ResponseEntity.ok(findLikedService.execute());
+    public List<ProjectResponse> findLikedProject() {
+        return findLikedService.execute();
     }
 
     @GetMapping("/{id}/liker/count")

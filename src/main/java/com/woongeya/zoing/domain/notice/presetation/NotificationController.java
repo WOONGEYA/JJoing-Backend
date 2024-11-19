@@ -1,16 +1,21 @@
 package com.woongeya.zoing.domain.notice.presetation;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.woongeya.zoing.domain.notice.presetation.dto.response.NotificationResponse;
 import com.woongeya.zoing.domain.notice.service.CountNotificationService;
 import com.woongeya.zoing.domain.notice.service.DeleteAllNotificationService;
 import com.woongeya.zoing.domain.notice.service.DeleteNotificationService;
 import com.woongeya.zoing.domain.notice.service.FindNotificationService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,8 +29,8 @@ public class NotificationController {
 
     @GetMapping()
     @Operation(summary = "현재 로그인 된 유저 알림 전체 조회")
-    public ResponseEntity<List<NotificationResponse>> findNotification() {
-        return ResponseEntity.ok(findNotificationService.execute());
+    public List<NotificationResponse> findNotification() {
+        return findNotificationService.execute();
     }
 
     @GetMapping("/count")

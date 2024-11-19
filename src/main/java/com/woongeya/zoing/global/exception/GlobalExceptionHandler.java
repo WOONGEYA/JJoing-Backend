@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleDefineException(JJoingException e) {
         log.warn(e.getMessage() + "\n \t {}", e);
         return ResponseEntity.status(e.getStatus())
-            .body(new ErrorResponse(e.getStatus().value(), e.getMessage()));
+            .body(new ErrorResponse(e.getStatus(), e.getMessage()));
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
@@ -34,13 +34,13 @@ public class GlobalExceptionHandler {
             message = e.getFieldError().getDefaultMessage();
         }
 
-        return new ErrorResponse(400, message);
+        return new ErrorResponse(BAD_REQUEST, message);
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ErrorResponse handleDefineException(Exception e) {
         log.error(e.getMessage() + "\n \t {}", e);
-        return new ErrorResponse(500, "서버에서 알 수 없는 에러가 발생했습니다.");
+        return new ErrorResponse(INTERNAL_SERVER_ERROR, "서버에서 알 수 없는 에러가 발생했습니다.");
     }
 }

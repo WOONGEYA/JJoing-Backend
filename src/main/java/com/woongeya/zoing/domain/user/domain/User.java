@@ -2,7 +2,7 @@ package com.woongeya.zoing.domain.user.domain;
 
 import com.woongeya.zoing.domain.user.domain.autority.Authority;
 import com.woongeya.zoing.domain.user.presetation.dto.request.UpdateUserRequest;
-import com.woongeya.zoing.global.feign.dto.response.GoogleInfoResponse;
+import com.woongeya.zoing.domain.auth.infra.feign.dto.response.GoogleInfoResponse;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,7 +39,7 @@ public class User {
     private String imgUrl;
 
     @Column(length = 8)
-    private int age;
+    private Integer age;
 
     @Column(length = 64)
     private String major;
@@ -49,7 +49,7 @@ public class User {
     private Authority authority;
 
     @Builder
-    public User(String name, String nickName, String email, String githubUrl, String statusMessage, String imgUrl, int age, String major, Authority authority) {
+    public User(String name, String nickName, String email, String githubUrl, String statusMessage, String imgUrl, Integer age, String major, Authority authority) {
         this.name = name;
         this.nickName = nickName;
         this.email = email;
@@ -61,9 +61,9 @@ public class User {
         this.authority = authority;
     }
 
-    public User update(GoogleInfoResponse response) {
-        this.email = response.getEmail();
-        this.name = response.getName();
+    public User update(User user) {
+        this.email = user.getEmail();
+        this.name = user.getName();
         return this;
     }
 

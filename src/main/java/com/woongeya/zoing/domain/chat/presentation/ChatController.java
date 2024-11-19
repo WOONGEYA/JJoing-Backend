@@ -20,7 +20,6 @@ public class ChatController {
 
 	@MessageMapping("/{roomId}")
 	@SendTo("/room/{roomId}")
-	@ResponseStatus(HttpStatus.CREATED)
 	public void send(@DestinationVariable Long roomId, ChatRequest request) {
 		commandChatService.create(roomId, request);
 	}
